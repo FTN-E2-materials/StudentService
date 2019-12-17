@@ -164,5 +164,11 @@ public class Student {
 	public void setPredmeti(ArrayList<Predmet> predmeti) {
 		this.predmeti = predmeti;
 	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+	
+		return ime + " " + prezime + " " + bri;
+	}
 	
 }

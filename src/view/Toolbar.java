@@ -31,6 +31,7 @@ public class Toolbar extends JToolBar {
 	private static final long serialVersionUID = 228453752740994815L;
 	static JButton btnDodajProf;
 	static JButton btnDodajStudenta;
+	public static JTextField pretraga;
 	
 	public Toolbar() {
 		super(SwingConstants.HORIZONTAL);
@@ -159,7 +160,7 @@ public class Toolbar extends JToolBar {
 		btnDodajProf.setMaximumSize(new Dimension(30, 30));
 		
 		
-		JTextField pretraga = new JTextField(40);
+		pretraga = new JTextField(40);
 		pretraga.setPreferredSize(new Dimension(80, 25));
 		pretraga.setMaximumSize(new Dimension(80, 30));
 		pretraga.setMinimumSize(new Dimension(80, 30));

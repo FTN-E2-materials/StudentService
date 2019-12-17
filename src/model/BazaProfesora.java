@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,10 +45,10 @@ public class BazaProfesora {
 			String kancelarija, String brlk, String zvanje, String titula) {
 		 */
 		
-		Profesor p1 = new Profesor("Nikola", "Nikolic", new Date(1960, 29, 12), "Braca Tatica", "1543153135", "nikolicn@gmail.com", "104", "5484354", "Redovni profesor", "Doktor nauka");
+		Profesor p1 = new Profesor("Nikola", "Nikolic", parseDate("29-12-1960"), "Braca Tatica", "1543153135", "nikolicn@gmail.com", "104", "5484354", "Redovni profesor", "Doktor nauka");
 		profesori.add(p1);
-		Profesor p2 = new Profesor("Marko", "Markovic", new Date(1960, 29, 12), "Braca Tatica", "1543153135", "nikolicn@gmail.com", "104", "6544354", "Docent", "Doktor nauka");
-		Profesor p3 = new Profesor("Jovan", "Jovanovic", new Date(1960, 29, 12), "Braca Tatica", "1543153135", "nikolicn@gmail.com", "104", "513151", "Vanredni profesor", "Doktor nauka");
+		Profesor p2 = new Profesor("Marko", "Markovic", parseDate("29-12-1960"), "Braca Tatica", "1543153135", "nikolicn@gmail.com", "104", "6544354", "Docent", "Doktor nauka");
+		Profesor p3 = new Profesor("Jovan", "Jovanovic", parseDate("29-12-1960"), "Braca Tatica", "1543153135", "nikolicn@gmail.com", "104", "513151", "Vanredni profesor", "Doktor nauka");
 		
 		profesori.add(p2);
 		profesori.add(p3);
@@ -121,4 +122,15 @@ public class BazaProfesora {
 		
 		// SAMO GRUB MODEL ZA TESTIRANJE TABELE
 	}
+	
+
+	 public static Date parseDate(String date) {
+	     try {
+	         return new SimpleDateFormat("dd-MM-yyyy").parse(date);
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         return null;
+	     }
+	     
+	  }
 }

@@ -10,6 +10,7 @@ import model.Student;
 import model.Student.Status;
 import view.MainFrame;
 import view.StudentJTable;
+import view.Toolbar;
 import view.dijalozi.DijalogStudent;
 
 public class StudentController {
@@ -17,7 +18,7 @@ public class StudentController {
 // za dodavanje, brisanje i izmenu studenta
 	
 	public static StudentController instance = null;
-	
+	public static  int flag;
 	public static StudentController getInstance() {
 		if(instance == null) {
 			instance = new StudentController();
@@ -74,13 +75,17 @@ public class StudentController {
 			return false;
 		
 		if(!DijalogStudent.datRodj.getText().isEmpty()) {
-			st.setDatumr(parseDate(DijalogStudent.datRodj.getText()));
+			Date datum = new Date();
+			datum = parseDate(DijalogStudent.datRodj.getText());
+			st.setDatumr(datum);
 		}
 		else 
 			return false;
 		
 		if(!DijalogStudent.datumU.getText().isEmpty()) {
-//			st.setDatum_upisa(parseDate(DijalogStudent.datumU.getText()));
+			Date datum = new Date();
+			datum = parseDate(DijalogStudent.datumU.getText());
+			st.setDatum_upisa(datum);
 			
 		}
 		else 
@@ -149,10 +154,22 @@ public class StudentController {
 		return true;
 		
 	}
+	public void pretraziStudenta() {
+		if(Toolbar.pretraga.getText().isEmpty()) {
+		//	JOptionPane.showMessageDialog(null, "Morate uneti tekst za pretragu!", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			flag = 0;
+			BazaStudenata.getInstance().pretraziStudenta("");
+		}
+		else { 
+			flag = 1;
+			BazaStudenata.getInstance().pretraziStudenta(Toolbar.pretraga.getText());
+		}
+		StudentJTable.refresh();
+	}
 	
 	 public static Date parseDate(String date) {
 	     try {
-	         return new SimpleDateFormat("dd.MM.yyyy").parse(date);
+	         return new SimpleDateFormat("dd-MM-yyyy").parse(date);
 	     } catch (Exception e) {
 	         e.printStackTrace();
 	         return null;

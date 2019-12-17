@@ -2,8 +2,11 @@ package controller;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
+import model.BazaStudenata;
 import view.Tabele;
+import view.Toolbar;
 import view.dijalozi.DijalogDodajProfesora;
 import view.dijalozi.DijalogIzmeniProfesora;
 import view.dijalozi.DijalogIzmeniS;
@@ -62,7 +65,8 @@ public class ControllerEntiteta {
 	
 	public void pretragaEntitet(int tab) {
 		// TODO!
+		if(Tabele.tab_curr == 0) {
+			StudentController.getInstance().pretraziStudenta();
+		}
 	}
-	
-		
 }

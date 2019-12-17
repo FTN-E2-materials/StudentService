@@ -31,15 +31,9 @@ public class StudentJTable extends JTable {
 		this.getTableHeader().setReorderingAllowed(false);
 
 		table_model = this.getModel();
-		
-		// soritranje
-		
-		TableRowSorter<TableModel> sort = new TableRowSorter<>(table_model);
-		this.setRowSorter(sort);
-		
-
 		tabela = this;
 		
+		sort();
 		// trenutni selektovani red (polje je public static
 		// moze mu se pristupiti u bilo kom trenutku
 		
@@ -73,6 +67,11 @@ public class StudentJTable extends JTable {
 			((AbstractTableModel) table_model).fireTableDataChanged();
 		}
 
+		public void sort() {
+			TableRowSorter<TableModel> sort = new TableRowSorter<>(table_model);
+			this.setRowSorter(sort);
+			
+		}
 
 
 

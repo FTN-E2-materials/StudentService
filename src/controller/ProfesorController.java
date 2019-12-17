@@ -1,6 +1,7 @@
 package controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -8,6 +9,8 @@ import model.BazaProfesora;
 import model.Profesor;
 import view.ProfesoriJTable;
 import view.dijalozi.DijalogDodajProfesora;
+import view.dijalozi.DijalogIzmeniProfesora;
+import view.dijalozi.DijalogStudent;
 
 public class ProfesorController {
 	public static ProfesorController instance = null;
@@ -70,9 +73,9 @@ public class ProfesorController {
 		}
 		else {
 			try {
-				SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-				prof.setDatumr(format.parse(DijalogDodajProfesora.datRP.getText()));
-				
+				Date datum = new Date();
+				datum = parseDate(DijalogIzmeniProfesora.datRP.getText());
+				prof.setDatumr(datum);
 			} catch (Exception e) {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, "GRESKA PRILIKOM UNOSA DATUMA!", "GRESKA", JOptionPane.ERROR_MESSAGE);
@@ -132,4 +135,15 @@ public class ProfesorController {
 			return;
 		}
 	}
+	
+	
+	 public static Date parseDate(String date) {
+	     try {
+	         return new SimpleDateFormat("dd-MM-yyyy").parse(date);
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         return null;
+	     }
+	     
+	  }
 }

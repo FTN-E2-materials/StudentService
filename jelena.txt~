@@ -1,0 +1,7 @@
+1. git add --all
+2. git commit -m "<poruka>"
+
+3. git pull
+AKO VIM/VI :q AKO NANO CTRL-X
+MOZE DOCI DO MERGE CONFLICT -> OBRISATI ONO STO NE VALJA I SKOCITI NA KORAK 1
+4. git push

@@ -214,11 +214,17 @@ public class DijalogIzmeniS extends JDialog {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
-					if(StudentController.getInstance().izmeniStudenta());
-					dispose();
+						if(StudentJTable.curr_row > 0) {
+							System.out.println(StudentJTable.curr_row);
+							if(StudentController.getInstance().izmeniStudenta()); {
+								dispose();
+					
+							}
+						}
+
 				}
-				
 			});
+	
 			notokBtn.addActionListener(new ActionListener() {
 
 				@Override
