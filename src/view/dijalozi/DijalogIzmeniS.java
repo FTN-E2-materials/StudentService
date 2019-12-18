@@ -48,7 +48,7 @@ public class DijalogIzmeniS extends JDialog {
 	public static JComboBox godStud;
 	public static JRadioButton budzet;
 	public static JRadioButton samofin;
-	
+
 	public DijalogIzmeniS() {
 		this.setTitle("Izmena Studenta");
 		
@@ -215,8 +215,7 @@ public class DijalogIzmeniS extends JDialog {
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
 						if(StudentJTable.curr_row > 0) {
-							System.out.println(StudentJTable.curr_row);
-							if(StudentController.getInstance().izmeniStudenta()); {
+							if(StudentController.getInstance().izmeniStudenta()) {
 								dispose();
 					
 							}

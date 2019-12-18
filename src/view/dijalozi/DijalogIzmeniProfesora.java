@@ -48,7 +48,7 @@ public class DijalogIzmeniProfesora extends JDialog {
 		
 		if(BazaProfesora.getInstance().getProfesori().size() == 0) {
 			JOptionPane.showMessageDialog(null, "Ne postoji nijedan profesor", "Greska", JOptionPane.ERROR_MESSAGE);
-			
+	
 		}
 		else {
 		
@@ -151,8 +151,8 @@ public class DijalogIzmeniProfesora extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				//if(ProfesorController.getInstance().izmeniProfesora())
-				dispose();
+				if(ProfesorController.getInstance().izmeniProfesora())
+					dispose();
 			}
 			
 		});
@@ -161,8 +161,6 @@ public class DijalogIzmeniProfesora extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				//if(ProfesorController.getInstance().izmeniProfesora())
 				dispose();
 			}
 			

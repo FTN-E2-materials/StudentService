@@ -3,9 +3,9 @@ package model;
 import java.util.Date;
 import java.util.ArrayList;
 
-
 public class Student {
 	public enum Status { B, S };
+	
 	private String ime;
 	private String prezime;
 	private Date datumr;
@@ -35,7 +35,7 @@ public class Student {
 			this.status = status;
 			this.prosek = prosek;
 	}
-	
+
 	public Student(String ime, String prezime, Date datumr, String adresa, String br_tel, String email,
 			String bri, Date datum_upisa, int godina_stud, Status status, double prosek) {
 		super();

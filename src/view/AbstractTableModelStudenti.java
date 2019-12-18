@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class AbstractTableModelStudenti extends AbstractTableModel {
 
-
 	private static final long serialVersionUID = 7523214924550006969L;
 	
 	private ArrayList<Boolean> koJeOtkacen;

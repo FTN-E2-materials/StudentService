@@ -27,7 +27,7 @@ public class BazaStudenata {
 	
 	private BazaStudenata() {
 		generator = 0;
-		
+
 		initStudente();
 		
 		this.kolone = new ArrayList<String>();
@@ -45,13 +45,13 @@ public class BazaStudenata {
 		this.studenti = new ArrayList<Student>();
 		this.tekuca_lista = new ArrayList<Student>();
 	
-		Student s1 = new Student("Jelena", "Vlajkov", parseDate("29-09-1998"), "Novosadskog sajma 33", "0612190090", "vlajkovj31@gmail.com",
-				"RA-32-2017",  parseDate("07-07-2017"), 3, Status.B, 9.94);
+		Student s1 = new Student("Jelena", "Vlajkov", parseDate("29.09.1998"), "Novosadskog sajma 33", "0612190090", "vlajkovj31@gmail.com",
+				"RA-32-2017",  parseDate("07.07.2017"), 3, Status.B, 9.94);
 		
 		studenti.add(s1);
 		
-		Student s2 = new Student("Aleksandra", "Stamenkovic", parseDate("06-12-1998"), "Danila Kisa", "0614684654", "alekstam@gmail.com",
-				"RA-123-2017", parseDate("07-07-2017"), 3, Status.B, 9.5);
+		Student s2 = new Student("Aleksandra", "Stamenkovic", parseDate("06.12.1998"), "Danila Kisa", "0614684654", "alekstam@gmail.com",
+				"RA-123-2017", parseDate("07.07.2017"), 3, Status.B, 9.5);
 		
 		studenti.add(s2);
 		this.tekuca_lista = this.studenti;
@@ -81,6 +81,7 @@ public class BazaStudenata {
 	
 	public String getValueAt(int row, int column) {
 		Student student = this.studenti.get(row);
+	
 		switch(column) {
 		case 0:
 			return student.getBri();
@@ -124,13 +125,7 @@ public class BazaStudenata {
 	
 	public void izmeniStudenta(String bri, String ime, String prezime, Date datumr, String adresa, String brt, Date upis, 
 			int godina_stud, String email, 
-			Status status, double prosek, String br_tel) {
-		/*
-		 * 	public Student(String ime, String prezime, Date datumr, String adresa, String br_tel, String email,
-			String bri, Date datum_upisa, int godina_stud, Status status, double prosek,
-			ArrayList<Predmet> predmeti) {
-		
-		 */
+			Status status, double prosek) {
 		
 		for(Student s : studenti) {
 			if(s.getBri().contentEquals(bri)) {
@@ -138,7 +133,7 @@ public class BazaStudenata {
 				s.setPrezime(prezime);
 				s.setGodina_stud(godina_stud);
 				s.setEmail(email);
-				s.setBr_tel(br_tel);
+				s.setBr_tel(brt);
 				s.setStatus(status);
 				s.setProsek(prosek);
 				s.setAdresa(adresa);
@@ -181,11 +176,10 @@ public class BazaStudenata {
 	
 	 public static Date parseDate(String date) {
 	     try {
-	         return new SimpleDateFormat("dd-MM-yyyy").parse(date);
+	         return new SimpleDateFormat("dd.MM.yyyy").parse(date);
 	     } catch (Exception e) {
 	         e.printStackTrace();
 	         return null;
-	     }
-	     
+	     }	     
 	  }
 }

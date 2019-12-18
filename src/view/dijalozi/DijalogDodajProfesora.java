@@ -43,7 +43,7 @@ public class DijalogDodajProfesora extends JDialog {
 		
 		this.setTitle("Dodavanje Profesora");
 		this.setSize(new Dimension(500, 500));
-		
+	
 			
 		// grid bag layout mi je bio najpogodniji za koordinate dodavanja
 		// ako ti je tesko da skontas kako radi, mozes i jednostavnije sa 
@@ -129,7 +129,7 @@ public class DijalogDodajProfesora extends JDialog {
 					dispose();
 				
 			}
-			
+		
 		});
 		btnNotOk.addActionListener(new ActionListener() {
 

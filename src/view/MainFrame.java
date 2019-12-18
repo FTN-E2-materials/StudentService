@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
 	private JTable tabelaPredmeta;
 	
 	public MainFrame() {
-		
+	
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = kit.getScreenSize();
 		int screenH = screenSize.height;

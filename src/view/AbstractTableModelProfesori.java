@@ -22,7 +22,7 @@ import java.util.ArrayList;
 		public boolean isCellEditable(int rowIndex, int columnIndex) {
 			return columnIndex >= 5;
 		}
-		
+	
 		@Override
 		public int getColumnCount() {
 			// TODO Auto-generated method stub

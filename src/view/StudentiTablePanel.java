@@ -29,7 +29,7 @@ public class StudentiTablePanel extends JPanel {
 		
 		add(c, BorderLayout.CENTER);
 	}
-	
+
 	@Override
 	public void setBackground(Color bg) {
 		// TODO Auto-generated method stub

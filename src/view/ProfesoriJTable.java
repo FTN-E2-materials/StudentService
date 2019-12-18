@@ -48,7 +48,7 @@ public class ProfesoriJTable extends JTable {
 	        public void mouseReleased(MouseEvent e) {
 	        	JTable tabela = (JTable)e.getComponent();
 	        	if(tabela.getSelectedRow() != -1)
-	        		curr_row = tabela.convertRowIndexToModel(tabela.getSelectedRow());
+	        		curr_row = tabela.getSelectedRow();
 	        }
 	    });
 	

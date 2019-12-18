@@ -31,7 +31,6 @@ public class MyWindowListener implements WindowListener {
 		} else {
 			frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		}
-
 	}
 
 	@Override

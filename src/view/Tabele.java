@@ -22,32 +22,30 @@ public class Tabele extends JTabbedPane {
 		
 		StudentJTable tabelaStudenata = new StudentJTable();
 		ProfesoriJTable tabelaProfesora = new ProfesoriJTable();
-		
-		// TODO!
-		
-		// Ovo ti implementiraj
-		
-		// PredmetiJTable tabelaPredmeta = new PredmetiJTable();
+		PredmetiJTable tabelaPredmeta = new PredmetiJTable();
 		
 		tabelaStudenata.setPreferredSize(new Dimension(500, 500));
 		JScrollPane scrollPane = new JScrollPane(tabelaStudenata);
-		scrollPane.setBorder(new EmptyBorder(30,20,10,20));
+		scrollPane.setBorder(new EmptyBorder(60,30,10,30));
 		
 		
 		tabelaProfesora.setPreferredSize(new Dimension(500, 500));
 		JScrollPane scrollPaneProf = new JScrollPane(tabelaProfesora);
-		scrollPaneProf.setBorder(new EmptyBorder(30,20,10,20));
+		scrollPaneProf.setBorder(new EmptyBorder(60,30,10,30));
+		
+		tabelaPredmeta.setPreferredScrollableViewportSize(new Dimension(500, 500));
+		JScrollPane scrollPanePred = new JScrollPane(tabelaPredmeta);
+		scrollPanePred.setBorder(new EmptyBorder(60, 30, 10, 30));
 		
 		this.addTab("Student", null, scrollPane, "Student");
 		this.addTab("Profesor", null, scrollPaneProf, "Profesor");
-		this.addTab("Predmeti", null);
+		this.addTab("Predmeti", null, scrollPanePred, "Predmet");
 		
 		
 		// ovo je osluskivac koji prati promene na tabovima
 		// dodaje ikonicu za dodavanje studenta i profesora na predemet 
 		
 		this.addChangeListener(new ChangeListener() {
-
 
 			@Override
 			public void stateChanged(ChangeEvent event) {

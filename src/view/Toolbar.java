@@ -63,7 +63,7 @@ public class Toolbar extends JToolBar {
 		
 			}
 		});
-		
+	
 
 		ImageIcon icon2 = new ImageIcon("images/edit.png");
 		Image img2 = icon2.getImage() ;  

@@ -17,7 +17,7 @@ public class Profesor {
 	private String titula;
 	ArrayList<Predmet> predmeti;
 	
-	
+
 	public Profesor() {}
 	
 	public Profesor(String ime, String prezime, String zvanje, String titula, String kancelarija) {

@@ -19,13 +19,16 @@ public class ControllerEntiteta {
 	private static ControllerEntiteta instance = null;
 	private JDialog dijalog;
 	
+	// TODO: Treba implementirati sve ove funkcije za dodavanje predmeta 
+	// i dodavanje studenta i profesora na predmet
+	
 	public static ControllerEntiteta getInstance() {
 		if(instance == null) {
 			instance = new ControllerEntiteta();
 		}
 		return instance;
 	}
-	
+
 	private ControllerEntiteta() {}
 	
 	public void dodajEntitet() {
@@ -52,7 +55,7 @@ public class ControllerEntiteta {
 			dijalog = new DijalogIzmeniProfesora();
 		}
 	}
-	
+
 	public void obrisiEntitet() {
 		// TODO!!
 		if(Tabele.tab_curr == 0) {
@@ -67,6 +70,9 @@ public class ControllerEntiteta {
 		// TODO!
 		if(Tabele.tab_curr == 0) {
 			StudentController.getInstance().pretraziStudenta();
+		}
+		else if(Tabele.tab_curr == 1) {
+			ProfesorController.getInstance().pretragaProfesora();
 		}
 	}
 }

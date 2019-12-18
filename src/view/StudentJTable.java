@@ -21,9 +21,9 @@ public class StudentJTable extends JTable {
 	public static JTable tabela = null;
 	
 	public StudentJTable() {
-		
+	
 		// pravljenje tabele
-		
+	
 		this.setRowSelectionAllowed(true);
 		this.setColumnSelectionAllowed(true);
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -32,7 +32,7 @@ public class StudentJTable extends JTable {
 
 		table_model = this.getModel();
 		tabela = this;
-		
+	
 		sort();
 		// trenutni selektovani red (polje je public static
 		// moze mu se pristupiti u bilo kom trenutku
@@ -72,7 +72,6 @@ public class StudentJTable extends JTable {
 			this.setRowSorter(sort);
 			
 		}
-
 
 
 }

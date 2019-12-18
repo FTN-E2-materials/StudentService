@@ -3,22 +3,30 @@ package model;
 import java.util.ArrayList;
 
 public class Predmet {
-	private int sifra;
+	private String sifra;
 	private String ime;
 	private int semestar;
 	private int godina;
 	private Profesor pred_prof;
 	private ArrayList<Student> studenti;
 
+	public Predmet() {}
 	
-	
-	public Predmet(int sifra, String ime, int semestar, int godina, Profesor pred_prof, ArrayList<Student> studenti) {
+	public Predmet(String sifra, String ime, int semestar, int godina) {
 		super();
 		this.sifra = sifra;
 		this.ime = ime;
 		this.semestar = semestar;
 		this.godina = godina;
-		this.pred_prof = pred_prof;
+		this.pred_prof = new Profesor();
+		this.studenti = new ArrayList<Student>();
+	}
+	
+	public ArrayList<Student> getStudenti() {
+		return studenti;
+	}
+
+	public void setStudenti(ArrayList<Student> studenti) {
 		this.studenti = studenti;
 	}
 
@@ -32,11 +40,11 @@ public class Predmet {
 		studenti = p.studenti;
 	}
 
-	public int getSifra() {
+	public String getSifra() {
 		return sifra;
 	}
 
-	public void setSifra(int sifra) {
+	public void setSifra(String sifra) {
 		this.sifra = sifra;
 	}
 
