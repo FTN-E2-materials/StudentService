@@ -1,12 +1,17 @@
 package model;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import controller.StudentController;
 import model.Student.Status;
+import view.Tabele;
+import view.Toolbar;
 
 public class BazaStudenata {
 	private static BazaStudenata instance = null;
@@ -20,9 +25,9 @@ public class BazaStudenata {
 	
 	private long generator;
 	
-	public ArrayList<Student> studenti;
+	public List<Student> studenti;
 	private List<String> kolone;
-	public ArrayList<Student> filter_Student;
+	public List<Student> filter_Student;
 	public List<Student> tekuca_lista;
 	
 	private BazaStudenata() {
@@ -37,14 +42,19 @@ public class BazaStudenata {
 		this.kolone.add("Godina studija");
 		this.kolone.add("Status");
 		this.kolone.add("Prosek");
+		this.kolone.add("Datum rodjenja");
+		this.kolone.add("Email");
+		this.kolone.add("Broj telefona");
+		this.kolone.add("Datum upisa");
+		this.kolone.add("Lista predmeta");
 	
 	}
 	
-	@SuppressWarnings("deprecation")
 	private void initStudente() {
 		this.studenti = new ArrayList<Student>();
 		this.tekuca_lista = new ArrayList<Student>();
-	
+		this.filter_Student = new ArrayList<Student>();
+		
 		Student s1 = new Student("Jelena", "Vlajkov", parseDate("29.09.1998"), "Novosadskog sajma 33", "0612190090", "vlajkovj31@gmail.com",
 				"RA-32-2017",  parseDate("07.07.2017"), 3, Status.B, 9.94);
 		
@@ -59,15 +69,16 @@ public class BazaStudenata {
 
 
 	public List<Student> getStudenti() {
-		return tekuca_lista;
+		return this.studenti;
 	}
 
 	public void setStudenti(List<Student> studenti) {
-		this.tekuca_lista = studenti;
+		this.studenti = studenti;
+		this.tekuca_lista = this.studenti; 
 	}
 
 	public int getColumnCount() {
-		return 6;
+		return 11;
 	}
 
 	
@@ -76,12 +87,18 @@ public class BazaStudenata {
 	}
 	
 	public Student getRow(int rowIndex) {
-		return this.studenti.get(rowIndex);
+		return this.tekuca_lista.get(rowIndex);
 	}
 	
 	public String getValueAt(int row, int column) {
-		Student student = this.studenti.get(row);
-	
+		Student student = new Student();
+		if (StudentController.flag == 0) {
+			student = this.studenti.get(row);
+		} else {
+			student = this.filter_Student.get(row);
+		}
+		
+		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
 		switch(column) {
 		case 0:
 			return student.getBri();
@@ -98,7 +115,14 @@ public class BazaStudenata {
 				return "S";
 		case 5:
 			return Double.toString(student.getProsek());
-	
+		case 6:
+			return datum.format(student.getDatumr());
+		case 7:
+			return student.getEmail();
+		case 8:
+			return student.getBr_tel();
+		case 9:
+			return datum.format(student.getDatum_upisa());
 		default:
 			return null;
 	
@@ -109,7 +133,10 @@ public class BazaStudenata {
 			String email, Date upis, int godina_stud, Status status, double prosek) {
 
 		this.studenti.add(new Student(ime, prezime, datRodj, adresa, brt, email, bri, upis, godina_stud, status, prosek));
-		this.tekuca_lista = this.studenti;
+		if (StudentController.flag == 0)
+			this.tekuca_lista = this.studenti;
+		else 
+			this.tekuca_lista = this.filter_Student;
 		
 	}
 	
@@ -120,7 +147,18 @@ public class BazaStudenata {
 				break;
 			}
 		}
-		this.tekuca_lista = this.studenti;
+		for(Student s : filter_Student) {
+			if(s.getBri().equals(bri)) {
+				filter_Student.remove(s);
+				break;
+			}
+		}	
+		if(StudentController.flag == 0) {
+			this.tekuca_lista = this.studenti;
+		}
+		else {
+			this.tekuca_lista = this.filter_Student;
+		}
 	}
 	
 	public void izmeniStudenta(String bri, String ime, String prezime, Date datumr, String adresa, String brt, Date upis, 
@@ -142,39 +180,119 @@ public class BazaStudenata {
 				
 			}
 		}
-		this.tekuca_lista = this.studenti;
+
+		for(Student s : filter_Student) {
+			if(s.getBri().contentEquals(bri)) {
+				s.setIme(ime);
+				s.setPrezime(prezime);
+				s.setGodina_stud(godina_stud);
+				s.setEmail(email);
+				s.setBr_tel(brt);
+				s.setStatus(status);
+				s.setProsek(prosek);
+				s.setAdresa(adresa);
+				s.setDatum_upisa(upis);
+				s.setDatumr(datumr);
+				
+			}
+		}
+		
+		if(StudentController.flag == 0) {
+			this.tekuca_lista = this.studenti;
+		}
+		else {
+			this.tekuca_lista = this.filter_Student;
+		}
 	}
 	
-	public void pretraziStudenta(String s) {
+	public void pretraziStudenta(String text) {
 		if(StudentController.flag == 0) {
 			this.tekuca_lista = this.studenti;
 			return;
 		}
-		String[] kriterijumi = s.split(";");
-		String ime;
-		String prezime;
-		String bri;
 		
-		String[] pom = kriterijumi[0].split(":");
-		ime = pom[1];
-
-		String[] pom2 = kriterijumi[1].split(":");
-
-		prezime = pom2[1];
-
-		String[] pom3 = kriterijumi[2].split(":");
-		bri = pom3[1];
-		filter_Student = new ArrayList<Student>();
-		System.out.println(bri);
-		for (Student student : studenti ) {
-			if (student.getBri().equals(bri) && student.getIme().equals(ime) && student.getPrezime().equals(prezime))
-				filter_Student.add(student);
-			System.out.println(student);
+		ArrayList<Student> studentiNadjeni = new ArrayList<>();
+	
+		int i = 0;
+		String[] deli = text.split(";");
+		String[] kriterijumi = new String[3];
+		String[] podaci = new String[3];
+		
+		for (String s : deli) {
+			String[] pom = s.split(":");
+			kriterijumi[i] = pom[0];
+			podaci[i] = pom[1];
+			i++;
 		}
-		this.tekuca_lista = filter_Student;
+		if(!kriterijumi[0].equals("ime") && !kriterijumi[0].equals("prezime") && !kriterijumi[0].equals("indeks")) {
+			JOptionPane.showMessageDialog(null, "Kriterijum pretrage je: \n[ime:'Ime'];[prezime'Prezime'];[indeks:'Indeks']", "GRESKA", JOptionPane.ERROR_MESSAGE);
+		
+		} else {
+			boolean isStudent = false;
+			
+			for (Student s : BazaStudenata.getInstance().getStudenti()) {
+				
+				for (int j = 0; j < i; j++) {
+					if(kriterijumi[j].equals("ime")) {
+						if (s.getIme().equals(podaci[j])) {
+							isStudent = true;
+						}
+						else {
+							isStudent = false;
+							break;
+						}
+					
+					} else if (kriterijumi[j].equals("prezime")) {
+						if (s.getPrezime().equals(podaci[j])) {
+							isStudent = true;
+						} 
+						else {
+							isStudent = false;
+							break;
+						}
+					} else if (kriterijumi[j].equals("indeks")) {
+						if (s.getBri().equals(podaci[j])) {
+							isStudent = true;
+						} 
+						else {
+							isStudent = false;
+							break;
+						}
+					}
+					
+				}
+				if (isStudent) 
+					studentiNadjeni.add(s);		 
+			}
+		}
+		
+		if (studentiNadjeni.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Nije pronadjen nijedan student datim kriterijumom.", "Neuspesno trazenje", JOptionPane.ERROR_MESSAGE);
+			this.setTekuca_lista(this.studenti);
+		} else {
+			this.setFilter_Student(studentiNadjeni);
+			this.setTekuca_lista(this.filter_Student);
+		}
+
 	}
 	
-	 public static Date parseDate(String date) {
+	 public List<Student> getTekuca_lista() {
+		return tekuca_lista;
+	}
+
+	public void setTekuca_lista(List<Student> tekuca_lista) {
+		this.tekuca_lista = tekuca_lista;
+	}
+
+	public List<Student> getFilter_Student() {
+		return filter_Student;
+	}
+
+	public void setFilter_Student(List<Student> filter_Student) {
+		this.filter_Student = filter_Student;
+	}
+
+	public static Date parseDate(String date) {
 	     try {
 	         return new SimpleDateFormat("dd.MM.yyyy").parse(date);
 	     } catch (Exception e) {
@@ -182,4 +300,9 @@ public class BazaStudenata {
 	         return null;
 	     }	     
 	  }
+	 
+	 public void obrisiPredmet(Predmet p, Student s) {
+		 s.getPredmeti().remove(p);
+		 p.getStudenti().remove(s);
+	 }
 }

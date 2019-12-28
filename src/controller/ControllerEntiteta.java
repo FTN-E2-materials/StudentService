@@ -4,23 +4,25 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import model.BazaPredmeta;
 import model.BazaStudenata;
+import model.Predmet;
+import model.Student;
 import view.Tabele;
 import view.Toolbar;
+import view.dijalozi.DijalogDodajPredmet;
 import view.dijalozi.DijalogDodajProfesora;
 import view.dijalozi.DijalogIzmeniProfesora;
 import view.dijalozi.DijalogIzmeniS;
 import view.dijalozi.DijalogObrisiProfesora;
 import view.dijalozi.DijalogObrisiS;
 import view.dijalozi.DijalogStudent;
+import view.dijalozi.DodajStudentaNaPredmet;
 
 public class ControllerEntiteta {
 	
 	private static ControllerEntiteta instance = null;
 	private JDialog dijalog;
-	
-	// TODO: Treba implementirati sve ove funkcije za dodavanje predmeta 
-	// i dodavanje studenta i profesora na predmet
 	
 	public static ControllerEntiteta getInstance() {
 		if(instance == null) {
@@ -32,7 +34,6 @@ public class ControllerEntiteta {
 	private ControllerEntiteta() {}
 	
 	public void dodajEntitet() {
-		// TODO!! 
 		if(Tabele.tab_curr == 0) {
 			dijalog = new DijalogStudent(new JFrame());
 		}
@@ -40,14 +41,11 @@ public class ControllerEntiteta {
 			dijalog = new DijalogDodajProfesora();
 		}
 		else if (Tabele.tab_curr == 2) {
-			//dijalog = new DijalogPredmet(new JFrame());
-		}		
-		
-		
+			dijalog = new DijalogDodajPredmet(new JFrame());
+		}			
 	}
 	
-	public void izmeniEntitet() {
-		// TODO!!
+	public void izmeniEntitet() {	
 		if(Tabele.tab_curr == 0) {
 			dijalog = new DijalogIzmeniS();
 		}
@@ -57,7 +55,6 @@ public class ControllerEntiteta {
 	}
 
 	public void obrisiEntitet() {
-		// TODO!!
 		if(Tabele.tab_curr == 0) {
 			dijalog = new DijalogObrisiS();
 		}
@@ -67,7 +64,6 @@ public class ControllerEntiteta {
 	}
 	
 	public void pretragaEntitet(int tab) {
-		// TODO!
 		if(Tabele.tab_curr == 0) {
 			StudentController.getInstance().pretraziStudenta();
 		}
@@ -75,4 +71,17 @@ public class ControllerEntiteta {
 			ProfesorController.getInstance().pretragaProfesora();
 		}
 	}
+	
+	public void brisanjeStudentaSaPredmeta(Predmet p, String bri) {
+		PredmetController.getInstance().brisanjeSaPredmeta(p, bri);
+	}
+	
+	public void dodajEntitetNaPredmet() {
+		dijalog = new DodajStudentaNaPredmet(new JFrame());
+	}
+
+	public void brisanjesaPredmetaStudent(Student s, String sifra) {
+		StudentController.getInstance().obrisiPredmet(s, sifra);
+	}
+	
 }

@@ -11,6 +11,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import controller.StudentController;
+import model.BazaStudenata;
+
 public class Tabele extends JTabbedPane {
 
 
@@ -33,7 +36,7 @@ public class Tabele extends JTabbedPane {
 		JScrollPane scrollPaneProf = new JScrollPane(tabelaProfesora);
 		scrollPaneProf.setBorder(new EmptyBorder(60,30,10,30));
 		
-		tabelaPredmeta.setPreferredScrollableViewportSize(new Dimension(500, 500));
+		tabelaPredmeta.setPreferredSize(new Dimension(500, 500));
 		JScrollPane scrollPanePred = new JScrollPane(tabelaPredmeta);
 		scrollPanePred.setBorder(new EmptyBorder(60, 30, 10, 30));
 		
@@ -63,5 +66,7 @@ public class Tabele extends JTabbedPane {
 		    });
 		
 	}
+	
+	
 	
 }

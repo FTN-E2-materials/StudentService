@@ -14,10 +14,9 @@ public class BazaPredmeta {
 		return instance;
 	}
 
-	private List<Predmet> tekuci_predmeti;
+	private List<Predmet> predmeti;
 	private List<String> kolone;
 	private ArrayList<Predmet> filter_Predmet = new ArrayList<Predmet>();
-	private ArrayList<Predmet> predmeti;
 	
 	
 	private BazaPredmeta() {
@@ -34,35 +33,11 @@ public class BazaPredmeta {
 	}
 
 	private void initPredmete() {
-		// TODO Auto-generated method stub
+
 		this.predmeti = new ArrayList<Predmet>();
 		predmeti.add(new Predmet("E2G53", "Osnovi informacionih sistema i softverskog inzenjerstva", 5, 3));
 		predmeti.add(new Predmet("E2312", "Matematicka analiza 1", 1, 1));
 		predmeti.add(new Predmet("E2134", "Logicko projektovanje racunarskih sistema", 3, 2));
-/*
- * 
-	public Predmet(int sifra, String ime, int semestar, 
-	int godina, Profesor pred_prof, ArrayList<Student> studenti) {
-				
- */		
-		//Predmet p1 = new Predmet("E242", "OISISI", 5, 3, )
-		
-	}
-
-	public List<Predmet> getTekuci_predmeti() {
-		return tekuci_predmeti;
-	}
-
-	public void setTekuci_predmeti(List<Predmet> tekuci_predmeti) {
-		this.tekuci_predmeti = tekuci_predmeti;
-	}
-
-	public List<String> getKolone() {
-		return kolone;
-	}
-
-	public void setKolone(List<String> kolone) {
-		this.kolone = kolone;
 	}
 
 	public ArrayList<Predmet> getFilter_Predmet() {
@@ -73,11 +48,11 @@ public class BazaPredmeta {
 		this.filter_Predmet = filter_Predmet;
 	}
 
-	public ArrayList<Predmet> getPredmeti() {
+	public List<Predmet> getPredmeti() {
 		return predmeti;
 	}
 
-	public void setPredmeti(ArrayList<Predmet> predmeti) {
+	public void setPredmeti(List<Predmet> predmeti) {
 		this.predmeti = predmeti;
 	}
 	
@@ -107,11 +82,12 @@ public class BazaPredmeta {
 		case 3:
 			return Integer.toString(predmet.getGodina());
 		case 4:
-			if(predmet.getPred_prof() == null) {
+			if(predmet.getPred_prof().getIme() == null && predmet.getPred_prof().getPrezime() == null) {
 				return "";
 			}
 			else 
 				return predmet.getPred_prof().getIme() + " " + predmet.getPred_prof().getPrezime();
+		
 		default: 
 			return null;
 		}
@@ -140,14 +116,32 @@ public class BazaPredmeta {
 			}
 		}
 	}
-	
+	public boolean dodajProfesora(String brlk, String sifraP) {
+		for (Profesor p : BazaProfesora.getInstance().getProfesori()) {
+			if (p.getBrlk().equals(brlk)) {
+				for (Predmet pred : predmeti) {
+					if(pred.getSifra().equals(sifraP)) {
+						pred.setPred_prof(p);
+						return true;
+					}
+				}
+			} 
+		}
+		return false;
+	}
 	public void dodajStudenta(String sifra, Student s) {
 		for (Predmet p : predmeti) {
 			if(p.getSifra().equals(sifra)) {
 				p.getStudenti().add(s);
+				s.getPredmeti().add(p);
 			}
 		}
+		
 	}
 
+	public void obrisiStudenta(Predmet p, Student s) {
+		p.getStudenti().remove(s);
+		s.getPredmeti().remove(p);
+	}
 	
 }

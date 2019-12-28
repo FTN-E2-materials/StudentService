@@ -12,6 +12,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+
 public class PredmetiJTable extends JTable {
 
 	private static final long serialVersionUID = -1404313258591137307L;
@@ -20,13 +21,16 @@ public class PredmetiJTable extends JTable {
 	public static JTable tabela = null;
 	
 	public PredmetiJTable() {
-		tabela = this;
-		table_model = tabela.getModel();
+
 		this.setRowSelectionAllowed(true);
 		this.setColumnSelectionAllowed(true);
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.setModel(new AbstractTableModelPredmeti());
-
+		new StudentiNaPredmetu(this, 5);
+		
+		tabela = this;
+		table_model = tabela.getModel();
+		
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -36,7 +40,10 @@ public class PredmetiJTable extends JTable {
 			}
 		});
 		
-		sort();	
+		TableRowSorter<TableModel> sort = new TableRowSorter<>(this.getModel());
+		this.setRowSorter(sort);
+		sort.setSortable(5, false);
+		//sort();	
 		
 	}
 	
@@ -44,6 +51,7 @@ public class PredmetiJTable extends JTable {
 		// TODO Auto-generated method stub
 		TableRowSorter<TableModel> sort = new TableRowSorter<>();
 		tabela.setRowSorter(sort);
+		//
 	}
 
 	@Override

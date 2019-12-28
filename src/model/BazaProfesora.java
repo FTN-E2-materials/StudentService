@@ -1,5 +1,6 @@
 package model;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +36,9 @@ public class BazaProfesora {
 		this.kolone.add("Zvanje");
 		this.kolone.add("Titula");
 		this.kolone.add("Kancelarija");
-		
+		this.kolone.add("Adresa stanovanja");
+		this.kolone.add("Datum rodjenja");
+		this.kolone.add("Email");
 	}
 	
 	private void initProfesore() {
@@ -70,7 +73,7 @@ public class BazaProfesora {
 	}
 	
 	public int getColumnCount() {
-		return 5;
+		return 8;
 	}
 
 
@@ -84,6 +87,7 @@ public class BazaProfesora {
 	
 	public String getValueAt(int row, int column) {
 		Profesor profesor = this.profesori.get(row);
+		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
 		
 		switch(column) {
 		case 0:
@@ -96,6 +100,12 @@ public class BazaProfesora {
 			return profesor.getTitula();
 		case 4:
 			return profesor.getKancelarija();
+		case 5:
+			return profesor.getAdresa();
+		case 6:
+			return datum.format(profesor.getDatumr());
+		case 7:
+			return profesor.getEmail();
 		default:
 			return null;
 		}

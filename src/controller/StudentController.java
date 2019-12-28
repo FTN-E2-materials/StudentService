@@ -1,11 +1,14 @@
 package controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
 
+import model.BazaPredmeta;
 import model.BazaStudenata;
+import model.Predmet;
 import model.Student;
 import model.Student.Status;
 import view.MainFrame;
@@ -38,68 +41,40 @@ public class StudentController {
 		// Da li ovo treba u Bazi Studenata da se nalazi ? 
 		
 		Student st = new Student();
-		
-		if(!DijalogStudent.imeS.getText().isEmpty()) {
-			String ime = DijalogStudent.imeS.getText();
-			st.setIme(ime);
-		}
-		else
+				
+		if (DijalogStudent.imeS.getText().isEmpty() || DijalogStudent.przS.getText().isEmpty() || DijalogStudent.adresa.getText().isEmpty() || DijalogStudent.briS.getText().isEmpty() ||
+				DijalogStudent.brtel.getText().isEmpty() || DijalogStudent.email.getText().isEmpty() || DijalogStudent.datRodj.getText().isEmpty() || DijalogStudent.datumU.getText().isEmpty()) {
+				
+			JOptionPane.showMessageDialog(null, "Niste popunili sva obazvezna polja."
+					+ "\nPolja sa * su obavezna.", "GRESKA", JOptionPane.ERROR_MESSAGE);
 			return false;
-		
-		if(!DijalogStudent.przS.getText().isEmpty()) {
-			String prz = DijalogStudent.przS.getText();
-			st.setPrezime(prz);
 		}
-		else 
-			return false;
 		
-		if(!DijalogStudent.adresa.getText().isEmpty()) {
-			String adresa = DijalogStudent.adresa.getText();
-			st.setAdresa(adresa);
-		}
-		else 
-			return false;
-		
-		if(!DijalogStudent.briS.getText().isEmpty()) {
-			String bri = DijalogStudent.briS.getText();
-			st.setBri(bri);
-		}
-		else 
-			return false;
-		
-		if(!DijalogStudent.brtel.getText().isEmpty()) {
-			String br = DijalogStudent.brtel.getText();
-			st.setBr_tel(br);
-		}
-		else 
-			return false;
-		
-		if(!DijalogStudent.email.getText().isEmpty()) {
-			String em = DijalogStudent.email.getText();
-			st.setEmail(em);
-		}
-		else 
-			return false;
-		
-		if(!DijalogStudent.datRodj.getText().isEmpty()) {
-			Date datum = new Date();
-			datum = parseDate(DijalogStudent.datRodj.getText());
-			st.setDatumr(datum);
-		}
-		else 
-			return false;
-		
-		if(!DijalogStudent.datumU.getText().isEmpty()) {
-			Date datum = new Date();
-			datum = parseDate(DijalogStudent.datumU.getText());
-			st.setDatum_upisa(datum);
 			
+		for (Student s : BazaStudenata.getInstance().getStudenti()) {
+			if (s.getBri().equals(DijalogStudent.briS.getText())) {
+				JOptionPane.showMessageDialog(null, "Student sa datim brojem indeksa vec postoji.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
 		}
-		else 
-			return false;
-		
+					
+		st.setIme(DijalogStudent.imeS.getText());
+		st.setPrezime(DijalogStudent.przS.getText());			
+		st.setAdresa(DijalogStudent.adresa.getText());
+		st.setBri(DijalogStudent.briS.getText());
+		st.setBr_tel(DijalogStudent.brtel.getText());
+		st.setEmail(DijalogStudent.email.getText());
+			
+		Date datumR = new Date();
+		datumR = parseDate(DijalogStudent.datRodj.getText());
+		st.setDatumr(datumR);
+			
+		Date datumU = new Date();
+		datumU = parseDate(DijalogStudent.datumU.getText());
+		st.setDatum_upisa(datumU);
 		
 		String godStud = DijalogStudent.godStud.getSelectedItem().toString();
+		
 		if(godStud.equals("I (prva)")) {
 			st.setGodina_stud(1);
 		}
@@ -112,6 +87,7 @@ public class StudentController {
 		else 
 			st.setGodina_stud(4);
 		
+		
 		if(DijalogStudent.budzet.isSelected()) {
 			st.setStatus(Status.B);
 		}
@@ -120,21 +96,16 @@ public class StudentController {
 		}
 		
 		try {
-			if(!DijalogStudent.prosOc.getText().isEmpty()) {
 				double pros = Double.parseDouble(DijalogStudent.prosOc.getText());
 				st.setProsek(pros);
-			}
-			else 
-				return false;
-		} 
+		}
 		catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "GRESKA PRILIKOM PARSIRANJA PROSEKA!", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Greska prilikom parsiranja proseka.\nProverite ponovo Vas unos.", "GRESKA", JOptionPane.ERROR_MESSAGE);
 			
 		}
 		
 		BazaStudenata.getInstance().dodajStudenta(st.getBri(), st.getIme(), st.getPrezime(), st.getDatumr(), st.getAdresa(), st.getBr_tel(), st.getEmail(), st.getDatum_upisa(), st.getGodina_stud(), st.getStatus(), st.getProsek());
-		
 		StudentJTable.refresh();
 			
 		return true;
@@ -142,6 +113,7 @@ public class StudentController {
 	}
 	
 	public void izbrisiStudenta() {
+		
 		if(StudentJTable.curr_row < 0) {
 			return;
 		}
@@ -156,69 +128,33 @@ public class StudentController {
 			return false;
 		}
 		
+		if (DijalogIzmeniS.imeS.getText().isEmpty() || DijalogIzmeniS.przS.getText().isEmpty() || DijalogIzmeniS.adresa.getText().isEmpty() || DijalogIzmeniS.briS.getText().isEmpty() ||
+				DijalogIzmeniS.brtel.getText().isEmpty() || DijalogIzmeniS.email.getText().isEmpty() || DijalogIzmeniS.datRodj.getText().isEmpty() || DijalogIzmeniS.datumU.getText().isEmpty()) {
+				
+			JOptionPane.showMessageDialog(null, "Niste popunili sva obazvezna polja."
+					+ "\nPolja sa * su obavezna.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
 		Student st = BazaStudenata.getInstance().getRow(StudentJTable.curr_row);
 		
-		if(!DijalogIzmeniS.imeS.getText().isEmpty()) {
-			String ime = DijalogIzmeniS.imeS.getText();
-			st.setIme(ime);
-		}
-		else
-			return false;
-		
-		if(!DijalogIzmeniS.przS.getText().isEmpty()) {
-			String prz = DijalogIzmeniS.przS.getText();
-			st.setPrezime(prz);
-		}
-		else 
-			return false;
-		
-		if(!DijalogIzmeniS.adresa.getText().isEmpty()) {
-			String adresa = DijalogIzmeniS.adresa.getText();
-			st.setAdresa(adresa);
-		}
-		else 
-			return false;
-		
-		if(!DijalogIzmeniS.briS.getText().isEmpty()) {
-			String bri = DijalogIzmeniS.briS.getText();
-			st.setBri(bri);
-		}
-		else 
-			return false;
-		
-		if(!DijalogIzmeniS.brtel.getText().isEmpty()) {
-			String br = DijalogIzmeniS.brtel.getText();
-			st.setBr_tel(br);
-		}
-		else 
-			return false;
-		
-		if(!DijalogIzmeniS.email.getText().isEmpty()) {
-			String em = DijalogIzmeniS.email.getText();
-			st.setEmail(em);
-		}
-		else 
-			return false;
-		
-		if(!DijalogIzmeniS.datRodj.getText().isEmpty()) {
-			Date datum = new Date();
-			datum = parseDate(DijalogIzmeniS.datRodj.getText());
-			st.setDatumr(datum);
-		}
-		else 
-			return false;
-		
-		if(!DijalogIzmeniS.datumU.getText().isEmpty()) {
-			Date datum = new Date();
-			datum = parseDate(DijalogIzmeniS.datumU.getText());
-			st.setDatum_upisa(datum);
+		st.setIme(DijalogIzmeniS.imeS.getText());
+		st.setPrezime(DijalogIzmeniS.przS.getText());			
+		st.setAdresa(DijalogIzmeniS.adresa.getText());
+		st.setBri(DijalogIzmeniS.briS.getText());
+		st.setBr_tel(DijalogIzmeniS.brtel.getText());
+		st.setEmail(DijalogIzmeniS.email.getText());
 			
-		}
-		else 
-			return false;
-		
+		Date datumR = new Date();
+		datumR = parseDate(DijalogIzmeniS.datRodj.getText());
+		st.setDatumr(datumR);
+			
+		Date datumU = new Date();
+		datumU = parseDate(DijalogIzmeniS.datumU.getText());
+		st.setDatum_upisa(datumU);
 		
 		String godStud = DijalogIzmeniS.godStud.getSelectedItem().toString();
+		
 		if(godStud.equals("I (prva)")) {
 			st.setGodina_stud(1);
 		}
@@ -231,6 +167,7 @@ public class StudentController {
 		else 
 			st.setGodina_stud(4);
 		
+		
 		if(DijalogIzmeniS.budzet.isSelected()) {
 			st.setStatus(Status.B);
 		}
@@ -239,36 +176,30 @@ public class StudentController {
 		}
 		
 		try {
-			if(!DijalogIzmeniS.prosOc.getText().isEmpty()) {
-				double pros = Double.parseDouble(DijalogIzmeniS.prosOc.getText());
-				st.setProsek(pros);
-			}
-			else 
-				return false;
-		} 
+			double pros = Double.parseDouble(DijalogStudent.prosOc.getText());
+			st.setProsek(pros);
+		}
 		catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "GRESKA PRILIKOM PARSIRANJA PROSEKA!", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Greska prilikom parsiranja proseka.\nProverite ponovo Vas unos.", "GRESKA", JOptionPane.ERROR_MESSAGE);
 			
 		}
-		
-
 		BazaStudenata.getInstance().izmeniStudenta(st.getBri(), st.getIme(), st.getPrezime(), st.getDatumr(), st.getAdresa(), st.getBr_tel(), st.getDatum_upisa(), st.getGodina_stud(),  st.getEmail(), st.getStatus(), st.getProsek());
-		
 		StudentJTable.refresh();
 		return true;
 		
 	}
 	public void pretraziStudenta() {
+		
 		if(Toolbar.pretraga.getText().isEmpty()) {
-		//	JOptionPane.showMessageDialog(null, "Morate uneti tekst za pretragu!", "GRESKA", JOptionPane.ERROR_MESSAGE);
 			flag = 0;
 			BazaStudenata.getInstance().pretraziStudenta("");
 		}
-		else { 
+		else {			
 			flag = 1;
 			BazaStudenata.getInstance().pretraziStudenta(Toolbar.pretraga.getText());
 		}
+		
 		StudentJTable.refresh();
 	}
 	
@@ -281,5 +212,16 @@ public class StudentController {
 	     }
 	     
 	  }
+
+
+	public void obrisiPredmet(Student s, String sifra) {
+		Predmet p = new Predmet();
+		for (Predmet pred : BazaPredmeta.getInstance().getPredmeti()) {
+			if (pred.getSifra().equals(sifra))
+				p = pred;
+		}
+		BazaStudenata.getInstance().obrisiPredmet(p, s);
+		StudentJTable.refresh();
+	}
 	
 }

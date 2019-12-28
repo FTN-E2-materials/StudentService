@@ -128,7 +128,7 @@ public class Toolbar extends JToolBar {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				ControllerEntiteta.getInstance().dodajEntitet();
+				ControllerEntiteta.getInstance().dodajEntitetNaPredmet();
 			}
 		});
 		//btnDelete.addActionListener(new ActionListener() {

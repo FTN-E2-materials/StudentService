@@ -28,12 +28,13 @@ public class StudentJTable extends JTable {
 		this.setColumnSelectionAllowed(true);
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.setModel(new AbstractTableModelStudenti());
+		new PredmetiKodStudenta(this, 10);
 		this.getTableHeader().setReorderingAllowed(false);
 
 		table_model = this.getModel();
 		tabela = this;
 	
-		sort();
+	
 		// trenutni selektovani red (polje je public static
 		// moze mu se pristupiti u bilo kom trenutku
 		
@@ -47,6 +48,12 @@ public class StudentJTable extends JTable {
 	        		curr_row = tabela.convertRowIndexToModel(tabela.getSelectedRow());
 	        }
 	    });
+	    
+	    TableRowSorter<TableModel> sort = new TableRowSorter<>(this.getModel());
+		this.setRowSorter(sort);
+		sort.setSortable(10, false);
+		
+	    //sort();
 	
 	}
 	
@@ -66,13 +73,10 @@ public class StudentJTable extends JTable {
 			// azuriranje prikaza
 			((AbstractTableModel) table_model).fireTableDataChanged();
 		}
-
-		public void sort() {
-			TableRowSorter<TableModel> sort = new TableRowSorter<>(table_model);
-			this.setRowSorter(sort);
+		
+		public static void sort() {
 			
 		}
-
 
 }
 

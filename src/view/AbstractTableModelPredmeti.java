@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 
 import model.BazaPredmeta;
@@ -8,43 +9,58 @@ public class AbstractTableModelPredmeti extends AbstractTableModel {
 
 	private static final long serialVersionUID = 8454002200965331257L;
 
+	public static String kolonaDugme = "DUGME";
 	
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
 		return BazaPredmeta.getInstance().getColumnCount();
 	}
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
 		return BazaPredmeta.getInstance().getPredmeti().size();
 	}
 
 	@Override
 	public Object getValueAt(int row, int column) {
-		// TODO Auto-generated method stub
-		if (column < 6) {
+		if (column < 5) {
 			return BazaPredmeta.getInstance().getValueAt(row, column);
+		} 
+		else if (column == 5)
+		{
+			JButton button = new JButton("" + row);
+			return button;
 		}
 		return null;
 	}
 	
+	@Override
+	public boolean isCellEditable(int rowIndex, int column) {
+		return column == 5;
+	}
+	
+	@Override
+	public String getColumnName(int column) {
+		return BazaPredmeta.getInstance().getColumnName(column);
+	}
 
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
-		// TODO Auto-generated method stub
-		return super.getColumnClass(columnIndex);
-	}
-	@Override
-	public String getColumnName(int column) {
-		// TODO Auto-generated method stub
-		return BazaPredmeta.getInstance().getColumnName(column);
+		switch (columnIndex) {
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+			return JButton.class;
+		default:
+			return null;
+		}
 	}
 	
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
 		super.setValueAt(aValue, rowIndex, columnIndex);
 	}
 
