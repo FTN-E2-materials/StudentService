@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
@@ -36,7 +37,8 @@ public class PredmetiKodStudenta extends AbstractCellEditor implements TableCell
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				fireEditingStopped();
-				ListaPredmetaKodStudenta ls = new ListaPredmetaKodStudenta();
+				int ind = tabela.convertRowIndexToModel(tabela.getSelectedRow());
+				ListaPredmetaKodStudenta ls = new ListaPredmetaKodStudenta(new JFrame(), ind);
 			}
 			
 		});

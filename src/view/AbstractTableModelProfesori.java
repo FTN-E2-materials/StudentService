@@ -1,7 +1,9 @@
 package view;
 
+import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 
+import controller.ProfesorController;
 import model.BazaProfesora;
 import java.util.ArrayList;
 
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 		
 		@Override
 		public boolean isCellEditable(int rowIndex, int columnIndex) {
-			return columnIndex >= 5;
+			return columnIndex == 8;
 		}
 	
 		@Override
@@ -32,9 +34,26 @@ import java.util.ArrayList;
 		@Override
 		public int getRowCount() {
 			// TODO Auto-generated method stub
-			return BazaProfesora.getInstance().getProfesori().size();
+			return BazaProfesora.getInstance().getTekuci_profesori().size();
 		}
-
+		
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			switch (columnIndex) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+				return JButton.class;
+			default:
+				return null;
+			}
+		}
 		@Override
 		public String getColumnName(int column) {
 			return BazaProfesora.getInstance().getColumnName(column);

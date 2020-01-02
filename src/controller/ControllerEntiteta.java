@@ -7,16 +7,21 @@ import javax.swing.JOptionPane;
 import model.BazaPredmeta;
 import model.BazaStudenata;
 import model.Predmet;
+import model.Profesor;
 import model.Student;
+import view.MainFrame;
 import view.Tabele;
 import view.Toolbar;
 import view.dijalozi.DijalogDodajPredmet;
 import view.dijalozi.DijalogDodajProfesora;
+import view.dijalozi.DijalogIzmeniPredmet;
 import view.dijalozi.DijalogIzmeniProfesora;
 import view.dijalozi.DijalogIzmeniS;
+import view.dijalozi.DijalogObrisiPredmet;
 import view.dijalozi.DijalogObrisiProfesora;
 import view.dijalozi.DijalogObrisiS;
 import view.dijalozi.DijalogStudent;
+import view.dijalozi.DodajProfesoraNaPredmet;
 import view.dijalozi.DodajStudentaNaPredmet;
 
 public class ControllerEntiteta {
@@ -35,31 +40,35 @@ public class ControllerEntiteta {
 	
 	public void dodajEntitet() {
 		if(Tabele.tab_curr == 0) {
-			dijalog = new DijalogStudent(new JFrame());
+			dijalog = new DijalogStudent(MainFrame.frame);
 		}
 		else if (Tabele.tab_curr == 1) {
-			dijalog = new DijalogDodajProfesora();
+			dijalog = new DijalogDodajProfesora(MainFrame.frame);
 		}
 		else if (Tabele.tab_curr == 2) {
-			dijalog = new DijalogDodajPredmet(new JFrame());
+			dijalog = new DijalogDodajPredmet(MainFrame.frame);
 		}			
 	}
 	
 	public void izmeniEntitet() {	
 		if(Tabele.tab_curr == 0) {
-			dijalog = new DijalogIzmeniS();
+			dijalog = new DijalogIzmeniS(MainFrame.frame);
 		}
 		else if (Tabele.tab_curr == 1) {
-			dijalog = new DijalogIzmeniProfesora();
+			dijalog = new DijalogIzmeniProfesora(MainFrame.frame);
+		} else if (Tabele.tab_curr == 2) {
+			dijalog = new DijalogIzmeniPredmet(MainFrame.frame);
 		}
 	}
 
 	public void obrisiEntitet() {
 		if(Tabele.tab_curr == 0) {
-			dijalog = new DijalogObrisiS();
+			dijalog = new DijalogObrisiS(MainFrame.frame);
 		}
-		if(Tabele.tab_curr == 1) {
-			dijalog = new DijalogObrisiProfesora();
+		else if(Tabele.tab_curr == 1) {
+			dijalog = new DijalogObrisiProfesora(MainFrame.frame);
+		} else if (Tabele.tab_curr == 2) {
+			dijalog = new DijalogObrisiPredmet(MainFrame.frame);
 		}
 	}
 	
@@ -69,6 +78,8 @@ public class ControllerEntiteta {
 		}
 		else if(Tabele.tab_curr == 1) {
 			ProfesorController.getInstance().pretragaProfesora();
+		} else {
+			PredmetController.getInstance().pretraziPredmet();
 		}
 	}
 	
@@ -82,6 +93,17 @@ public class ControllerEntiteta {
 
 	public void brisanjesaPredmetaStudent(Student s, String sifra) {
 		StudentController.getInstance().obrisiPredmet(s, sifra);
+	}
+
+
+	public void brisanProfesoraSaPredmeta(Profesor p, String sifra) {
+		ProfesorController.getInstance().obrisiPredmet(p, sifra);
+		
+	}
+
+	public void dodajProfesoraNaPredmetu() {
+		dijalog = new DodajProfesoraNaPredmet(new JFrame());
+		
 	}
 	
 }

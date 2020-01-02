@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -22,7 +23,8 @@ public class DijalogObrisiProfesora extends JDialog {
 
 	private static final long serialVersionUID = 6377270772551165630L;
 
-	public DijalogObrisiProfesora() {
+	public DijalogObrisiProfesora(JFrame parent) {
+		super(parent, "Brisanje profesora", true);
 		this.setTitle("Brisanje profesora");
 		if(BazaProfesora.getInstance().getProfesori().size() == 0) {
 			JOptionPane.showMessageDialog(null, "Ne postoji nijedan profesor za brisanje", "GRESKA", JOptionPane.ERROR_MESSAGE);

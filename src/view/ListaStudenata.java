@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,11 +30,10 @@ public class ListaStudenata extends JDialog {
 	private static final long serialVersionUID = -6256559413662556456L;
 	public static String row = "";
 	
-	public ListaStudenata() {
-		super();
-		this.setSize(500, 500);
+	public ListaStudenata(JFrame parent, int ind) {
+		super(parent, "Lista Studenata", null);
+		this.setSize(250, 250);
 		this.setLayout(new BorderLayout());
-		this.setTitle("ListaStudenata");
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
@@ -41,7 +41,7 @@ public class ListaStudenata extends JDialog {
 		JPanel panelDugmici = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		
 		DefaultListModel<String> listaS = new DefaultListModel<>();
-		Predmet p = BazaPredmeta.getInstance().getRow(PredmetiJTable.tabela.getSelectedRow());
+		Predmet p = BazaPredmeta.getInstance().getRow(ind);
 		
 		for (Student s : p.getStudenti()) {
 			listaS.addElement(s.getBri());
@@ -58,7 +58,6 @@ public class ListaStudenata extends JDialog {
 		JButton odustaniB = new JButton("Odustani");
 		
 		lista.addListSelectionListener(new ListSelectionListener() {
-
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if(!e.getValueIsAdjusting()) {

@@ -9,8 +9,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import javax.swing.WindowConstants;
-
 import controller.ControllerEntiteta;
 
 public class MenuBar extends JMenuBar {
@@ -18,7 +16,7 @@ public class MenuBar extends JMenuBar {
 private static final long serialVersionUID = -4199568253533821789L;
 
 public MenuBar() {
-	JMenu newMenu = new JMenu("New");
+	JMenu newMenu = new JMenu("File");
 	JMenu edit = new JMenu("Edit");
 	JMenu help = new JMenu("Help");
 

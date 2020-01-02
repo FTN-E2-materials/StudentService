@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,6 +22,8 @@ import javax.swing.JTextField;
 import controller.ProfesorController;
 import model.BazaProfesora;
 import model.Profesor;
+import model.Profesor.Titula;
+import model.Profesor.Zvanje;
 import view.ProfesoriJTable;
 
 public class DijalogIzmeniProfesora extends JDialog {
@@ -35,17 +38,17 @@ public class DijalogIzmeniProfesora extends JDialog {
 	public static JTextField email;
 	public static JTextField kancelarija;
 	public static JTextField brlk;
-	public static JTextField titula;
-	public static JTextField zvanje;
+	public static JComboBox titula;
+	public static JComboBox zvanje;
 	
 	
-	public DijalogIzmeniProfesora() {
+	public DijalogIzmeniProfesora(JFrame parent) {
 	// poziva roditeljsku metodu, da podesi u odnosu na sta se pravi
 	// dijalog
 		
 	// ekvivalentno ti pravis klase dodaj predmet, obrisi predmet, izmeni predmet
 	// uz dodatne klase za dodavanje studenta i profesora na dati predemet
-		
+		super(parent, "Izmena profesora", true);
 		if(BazaProfesora.getInstance().getProfesori().size() == 0) {
 			JOptionPane.showMessageDialog(null, "Ne postoji nijedan profesor", "Greska", JOptionPane.ERROR_MESSAGE);
 	
@@ -90,7 +93,7 @@ public class DijalogIzmeniProfesora extends JDialog {
 		
 		JLabel labAdresa = new JLabel("*Adresa stanovanja: ");
 		adresaP = new JTextField();
-		adresaP.setText(prof.getPrezime());
+		adresaP.setText(prof.getAdresa());
 		
 		gornjiPanel.add(labAdresa, constraintLbl(0, 3));
 		gornjiPanel.add(adresaP, constraintTF(1, 3));
@@ -125,19 +128,38 @@ public class DijalogIzmeniProfesora extends JDialog {
 		gornjiPanel.add(labKanc, constraintLbl(0, 7));
 		gornjiPanel.add(kancelarija, constraintTF(1, 7));
 		
-		JLabel labTitula = new JLabel("*Titula: ");
-		titula = new JTextField();
-		titula.setText(prof.getTitula());
-		
-		gornjiPanel.add(labTitula, constraintLbl(0, 8));
-		gornjiPanel.add(titula, constraintTF(1, 8));
-		
+		String[] zvanja = { "Asistent", "Saradnik u nastavi", "Redovni profesor", "Vanredni profesor", "Docent" };
 		JLabel labZvanje = new JLabel("*Zvanje: ");
-		zvanje = new JTextField();
-		zvanje.setText(prof.getZvanje());
+		zvanje = new JComboBox(zvanja);
 		
-		gornjiPanel.add(labZvanje, constraintLbl(0, 9));
-		gornjiPanel.add(zvanje, constraintTF(1, 9));
+		if (prof.getZvanje() == Zvanje.Asistent) {
+			zvanje.setSelectedIndex(0);
+		} else if (prof.getZvanje() == Zvanje.Saradnik) {
+			zvanje.setSelectedIndex(1);
+		} else if (prof.getZvanje() == Zvanje.RProfesor) {
+			zvanje.setSelectedIndex(2);
+		} else if (prof.getZvanje() == Zvanje.VProfesor) {
+			zvanje.setSelectedIndex(3);
+		} else {
+			zvanje.setSelectedIndex(4);
+		}
+		
+		gornjiPanel.add(labZvanje, constraintLbl(0, 8));
+		gornjiPanel.add(zvanje, constraintTF(1, 8));
+		
+		String[] titule = { "Doktor", "Master" };
+		JLabel labTitula = new JLabel("*Titula: ");
+		titula = new JComboBox(titule);
+		
+		if (prof.getTitula() == Titula.Dr) {
+			titula.setSelectedIndex(0);
+		} else {
+			titula.setSelectedIndex(1);
+		}
+		
+		
+		gornjiPanel.add(labTitula, constraintLbl(0, 9));
+		gornjiPanel.add(titula, constraintTF(1, 9));
 		
 		
 		

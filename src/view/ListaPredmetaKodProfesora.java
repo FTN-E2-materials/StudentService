@@ -18,21 +18,20 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import controller.ControllerEntiteta;
-import model.BazaPredmeta;
+import model.BazaProfesora;
 import model.BazaStudenata;
 import model.Predmet;
-import model.Student;
+import model.Profesor;
 
-public class ListaPredmetaKodStudenta extends JDialog {
+public class ListaPredmetaKodProfesora extends JDialog {
 
-	private static final long serialVersionUID = 2107788705884014377L;
+	private static final long serialVersionUID = -1730105969728269226L;
 	public static String row = "";
-	
-	public ListaPredmetaKodStudenta(JFrame parent, int ind) {
+
+	public ListaPredmetaKodProfesora(JFrame parent, int ind) {
 		super(parent, "Lista predmeta", null);
 		this.setSize(250, 250);
 		this.setLayout(new BorderLayout());
-		this.setTitle("Lista predmeta");
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
@@ -40,10 +39,9 @@ public class ListaPredmetaKodStudenta extends JDialog {
 		JPanel panelDugmici = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		
 		DefaultListModel<String> listaS = new DefaultListModel<>();
+		Profesor prof = BazaProfesora.getInstance().getRow(ind);
 		
-		Student s = BazaStudenata.getInstance().getRow(ind);
-		
-		for (Predmet p : s.getPredmeti()) {
+		for (Predmet p : prof.getPredmeti()) {
 			listaS.addElement(p.getSifra() + " " + p.getIme());
 		}
 		
@@ -78,13 +76,13 @@ public class ListaPredmetaKodStudenta extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(listaS.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Ne postotji student na datom predmetu!");
+					JOptionPane.showMessageDialog(null, "Ne postotji profesor na datom predmetu!");
 				} else {
-					int ind = StudentJTable.tabela.convertRowIndexToModel(StudentJTable.tabela.getSelectedRow());
-					ControllerEntiteta.getInstance().brisanjesaPredmetaStudent(BazaStudenata.getInstance().getRow(StudentJTable.curr_row), row);
+					int ind = ProfesoriJTable.tabela.convertRowIndexToModel(ProfesoriJTable.tabela.getSelectedRow());
+					ControllerEntiteta.getInstance().brisanProfesoraSaPredmeta(BazaProfesora.getInstance().getRow(ind), row);
 					listaS.removeElement(row);
 					lista.updateUI();
-					StudentJTable.refresh();
+					PredmetiJTable.refresh();
 				}
 			}
 		});
@@ -97,7 +95,6 @@ public class ListaPredmetaKodStudenta extends JDialog {
 		this.add(panelDugmici, BorderLayout.SOUTH);
 
 		this.setVisible(true);
-		
 		
 		
 	}

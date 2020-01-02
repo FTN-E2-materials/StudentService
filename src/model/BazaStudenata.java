@@ -1,5 +1,11 @@
 package model;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,7 +39,7 @@ public class BazaStudenata {
 	private BazaStudenata() {
 		generator = 0;
 
-		initStudente();
+		//initStudente();
 		
 		this.kolone = new ArrayList<String>();
 		this.kolone.add("Indeks");
@@ -47,9 +53,42 @@ public class BazaStudenata {
 		this.kolone.add("Broj telefona");
 		this.kolone.add("Datum upisa");
 		this.kolone.add("Lista predmeta");
-	
+		
+		this.studenti = new ArrayList<Student>();
+		this.tekuca_lista = new ArrayList<Student>();
+		this.filter_Student = new ArrayList<Student>();
+		
+		this.deserialize();
+		
+		setTekuca_lista(this.studenti);
+		for (Student s : getStudenti()) {
+			System.out.println(s);
+		}
+ 		
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void deserialize() {
+
+		try {
+			FileInputStream fis = new FileInputStream("data/dataStudents");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			this.studenti = (ArrayList<Student>) ois.readObject();
+			
+			ois.close();
+			fis.close();
+		}         catch (IOException ioe) 
+        {
+            System.out.println(ioe.getMessage());
+        } 
+        catch (ClassNotFoundException c) 
+        {
+            System.out.println("Class not found");
+            System.out.println(c.getMessage());
+            return;
+        }
+	}
+/*
 	private void initStudente() {
 		this.studenti = new ArrayList<Student>();
 		this.tekuca_lista = new ArrayList<Student>();
@@ -66,8 +105,8 @@ public class BazaStudenata {
 		studenti.add(s2);
 		this.tekuca_lista = this.studenti;
 	}
-
-
+*/
+	
 	public List<Student> getStudenti() {
 		return this.studenti;
 	}
@@ -91,12 +130,7 @@ public class BazaStudenata {
 	}
 	
 	public String getValueAt(int row, int column) {
-		Student student = new Student();
-		if (StudentController.flag == 0) {
-			student = this.studenti.get(row);
-		} else {
-			student = this.filter_Student.get(row);
-		}
+		Student student = this.tekuca_lista.get(row);
 		
 		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
 		switch(column) {
@@ -110,9 +144,9 @@ public class BazaStudenata {
 			return Integer.toString(student.getGodina_stud());
 		case 4:
 			if(student.getStatus() == Status.B)
-				return "B";
+				return "Budzet";
 			else 
-				return "S";
+				return "Samofinansiranje";
 		case 5:
 			return Double.toString(student.getProsek());
 		case 6:
@@ -133,12 +167,12 @@ public class BazaStudenata {
 			String email, Date upis, int godina_stud, Status status, double prosek) {
 
 		this.studenti.add(new Student(ime, prezime, datRodj, adresa, brt, email, bri, upis, godina_stud, status, prosek));
-		if (StudentController.flag == 0)
-			this.tekuca_lista = this.studenti;
-		else 
-			this.tekuca_lista = this.filter_Student;
+		
+		this.setTrenutnoStanje();
+		this.serialize();
 		
 	}
+
 	
 	public void izbrisiStudenta(String bri) {
 		for(Student s : studenti) {
@@ -153,14 +187,13 @@ public class BazaStudenata {
 				break;
 			}
 		}	
-		if(StudentController.flag == 0) {
-			this.tekuca_lista = this.studenti;
-		}
-		else {
-			this.tekuca_lista = this.filter_Student;
-		}
+		this.setTrenutnoStanje();
+		this.serialize();
+		
 	}
 	
+
+
 	public void izmeniStudenta(String bri, String ime, String prezime, Date datumr, String adresa, String brt, Date upis, 
 			int godina_stud, String email, 
 			Status status, double prosek) {
@@ -193,9 +226,12 @@ public class BazaStudenata {
 				s.setAdresa(adresa);
 				s.setDatum_upisa(upis);
 				s.setDatumr(datumr);
-				
 			}
-		}
+
+			this.serialize();
+			this.setTrenutnoStanje();
+	}
+
 		
 		if(StudentController.flag == 0) {
 			this.tekuca_lista = this.studenti;
@@ -302,7 +338,43 @@ public class BazaStudenata {
 	  }
 	 
 	 public void obrisiPredmet(Predmet p, Student s) {
-		 s.getPredmeti().remove(p);
-		 p.getStudenti().remove(s);
+		
+		p.getStudenti().remove(s);
+		s.getPredmeti().remove(p);
+		
+		BazaPredmeta.getInstance().serialize();
+		this.serialize();
+		
+	}
+
+
+	public void dodajPredmet(Student s, Predmet p) {
+		s.getPredmeti().add(p);
+		this.serialize();
+		this.setTrenutnoStanje();
+	}
+		 
+	 public void serialize() {
+		 
+			try {
+				FileOutputStream fos = new FileOutputStream("data/dataStudents");
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				oos.writeObject(this.studenti);
+				oos.close();
+				fos.close();
+			} catch (IOException ioe) {
+				System.out.println(ioe.getMessage());
+			}
 	 }
+	 
+	private void setTrenutnoStanje() {
+		if(StudentController.flag == 0) {
+			this.tekuca_lista = this.studenti;
+		}
+		else {
+			this.tekuca_lista = this.filter_Student;
+		}
+
+			
+	}
 }

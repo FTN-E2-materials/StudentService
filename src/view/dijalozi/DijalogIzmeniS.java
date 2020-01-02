@@ -17,6 +17,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -49,8 +50,8 @@ public class DijalogIzmeniS extends JDialog {
 	public static JRadioButton budzet;
 	public static JRadioButton samofin;
 
-	public DijalogIzmeniS() {
-		this.setTitle("Izmena Studenta");
+	public DijalogIzmeniS(JFrame parent) {
+		super(parent, "Izmena student", true);
 		
 		if(BazaStudenata.getInstance().getStudenti().size()==0) {
 			JOptionPane.showMessageDialog(null, "Ne postoji nijedan student", "Error", JOptionPane.ERROR_MESSAGE );
@@ -212,15 +213,11 @@ public class DijalogIzmeniS extends JDialog {
 			okBtn.addActionListener(new ActionListener() {
 
 				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
-						if(StudentJTable.curr_row > 0) {
-							if(StudentController.getInstance().izmeniStudenta()) {
-								dispose();
+				public void actionPerformed(ActionEvent arg0) {						
+					if(StudentController.getInstance().izmeniStudenta()) {
+							dispose();
 					
-							}
-						}
-
+					}
 				}
 			});
 	

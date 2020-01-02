@@ -1,10 +1,14 @@
 package model;
 
 import java.util.Date;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class Profesor {
+public class Profesor implements Serializable {
+	public enum Zvanje implements Serializable { Asistent, Saradnik, RProfesor, VProfesor, Docent };
+	public enum Titula implements Serializable { Dr, Ms };
+	
 	private String ime;
 	private String prezime;
 	private Date datumr;
@@ -13,14 +17,14 @@ public class Profesor {
 	private String email;
 	private String kancelarija;
 	private String brlk;
-	private String zvanje;
-	private String titula;
+	private Zvanje zvanje;
+	private Titula titula;
 	ArrayList<Predmet> predmeti;
 	
 
 	public Profesor() {}
 	
-	public Profesor(String ime, String prezime, String zvanje, String titula, String kancelarija) {
+	public Profesor(String ime, String prezime, Zvanje zvanje, Titula titula, String kancelarija) {
 		this.ime = ime;
 		this.prezime = prezime;
 		this.zvanje = zvanje;
@@ -29,7 +33,7 @@ public class Profesor {
 	}
 	
 	public Profesor(String ime, String prezime, Date datumr, String adresa, String br_tel, String email,
-			String kancelarija, String brlk, String zvanje, String titula) {
+			String kancelarija, String brlk, Zvanje zvanje, Titula titula) {
 		super();
 		this.ime = ime;
 		this.prezime = prezime;
@@ -107,16 +111,16 @@ public class Profesor {
 	public void setBrlk(String brlk) {
 		this.brlk = brlk;
 	}
-	public String getZvanje() {
+	public Zvanje getZvanje() {
 		return zvanje;
 	}
-	public void setZvanje(String zvanje) {
+	public void setZvanje(Zvanje zvanje) {
 		this.zvanje = zvanje;
 	}
-	public String getTitula() {
+	public Titula getTitula() {
 		return titula;
 	}
-	public void setTitula(String titula) {
+	public void setTitula(Titula titula) {
 		this.titula = titula;
 	}
 	public ArrayList<Predmet> getPredmeti() {

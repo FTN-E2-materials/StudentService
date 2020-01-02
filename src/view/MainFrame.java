@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.time.LocalDate;
 
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,7 +29,7 @@ public class MainFrame extends JFrame {
 
 
 	private static final long serialVersionUID = 7058058994426193403L;
-	
+	public static JFrame frame;
 	private static MainFrame instance = null;
 	
 	public static MainFrame getInstance() {
@@ -74,7 +76,13 @@ public class MainFrame extends JFrame {
 		this.add(tabovi, BorderLayout.CENTER);
 		
 		setVisible(true);
+
+		Image icon = Toolkit.getDefaultToolkit().getImage("images/logo.png");
+		this.setIconImage(icon);
+	    
 		
+		
+		frame = this;
 		
 		
 		

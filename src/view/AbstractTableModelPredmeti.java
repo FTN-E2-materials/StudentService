@@ -3,6 +3,7 @@ package view;
 import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 
+import controller.PredmetController;
 import model.BazaPredmeta;
 
 public class AbstractTableModelPredmeti extends AbstractTableModel {
@@ -18,7 +19,10 @@ public class AbstractTableModelPredmeti extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return BazaPredmeta.getInstance().getPredmeti().size();
+		if (PredmetController.flag == 0) 
+			return BazaPredmeta.getInstance().getPredmeti().size();
+		else 
+			return BazaPredmeta.getInstance().getFilter_Predmet().size();
 	}
 
 	@Override

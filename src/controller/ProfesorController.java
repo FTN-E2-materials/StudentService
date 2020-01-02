@@ -5,9 +5,15 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
+import model.BazaPredmeta;
 import model.BazaProfesora;
+import model.BazaStudenata;
+import model.Predmet;
 import model.Profesor;
+import model.Profesor.Titula;
+import model.Profesor.Zvanje;
 import view.ProfesoriJTable;
+import view.StudentJTable;
 import view.Toolbar;
 import view.dijalozi.DijalogDodajProfesora;
 import view.dijalozi.DijalogIzmeniProfesora;
@@ -35,91 +41,72 @@ public class ProfesorController {
 	
 		Profesor prof = new Profesor();
 		
-		if(DijalogDodajProfesora.imeP.getText().isEmpty()) {
+		if(DijalogDodajProfesora.imeP.getText().isEmpty() || DijalogDodajProfesora.przP.getText().isEmpty() || DijalogDodajProfesora.adresaP.getText().isEmpty() 
+				|| DijalogDodajProfesora.brlk.getText().isEmpty() || DijalogDodajProfesora.brTel.getText().isEmpty() || DijalogDodajProfesora.datRP.getText().isEmpty() ||
+				DijalogDodajProfesora.email.getText().isEmpty() || DijalogDodajProfesora.kancelarija.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Niste popunili sva obazvezna polja."
+					+ "\nPolja sa * su obavezna.", "GRESKA", JOptionPane.ERROR_MESSAGE);
 			return false;
-		}
-		else {
-			String ime = DijalogDodajProfesora.imeP.getText();
-			prof.setIme(ime);
 		}
 		
-		if(DijalogDodajProfesora.przP.getText().isEmpty()) {
+		String ime = DijalogDodajProfesora.imeP.getText();
+		prof.setIme(ime);
+	
+		String prz = DijalogDodajProfesora.przP.getText();
+		prof.setPrezime(prz);
+	
+		String adresa = DijalogDodajProfesora.adresaP.getText();
+		prof.setAdresa(adresa);
+		
+		String brlk = DijalogDodajProfesora.brlk.getText();
+		prof.setBrlk(brlk);
+		String brt = DijalogDodajProfesora.brTel.getText();
+		prof.setBr_tel(brt);
+			
+		try {
+			Date datum = new Date();
+			datum = parseDate(DijalogDodajProfesora.datRP.getText());
+			prof.setDatumr(datum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Greska prilikom unosa datuma.\nFormat datuma je 'dd.mm.yyyy.'", "GRESKA", JOptionPane.ERROR_MESSAGE);
 			return false;
-		}
-		else {
-			String prz = DijalogDodajProfesora.przP.getText();
-			prof.setPrezime(prz);
 		}
 		
-		if(DijalogDodajProfesora.adresaP.getText().isEmpty()) {
-			return false;
+		
+		String email = DijalogDodajProfesora.email.getText();
+		prof.setEmail(email);
+		
+		
+		String kancelarija = DijalogDodajProfesora.kancelarija.getText();
+		prof.setKancelarija(kancelarija);
+	
+		String zvanje = DijalogDodajProfesora.zvanje.getSelectedItem().toString();
+		if(zvanje.equals("Asistent")) {
+			prof.setZvanje(Zvanje.Asistent);
+		} else if (zvanje.equals("Saradnik u nastavi")) {
+			prof.setZvanje(Zvanje.Saradnik);
+		} else if (zvanje.equals("Vanredni profesor")) {
+			prof.setZvanje(Zvanje.VProfesor);
+		} else if (zvanje.equals("Redovni profesor")) {
+			prof.setZvanje(Zvanje.RProfesor);
+		} else {
+			prof.setZvanje(Zvanje.Docent);
 		}
-		else {
-			String adresa = DijalogDodajProfesora.adresaP.getText();
-			prof.setAdresa(adresa);
+			
+		String titula = DijalogDodajProfesora.titula.getSelectedItem().toString();
+			
+		if (titula.equals("Doktor")) {
+			prof.setTitula(Titula.Dr);
+		} else {
+			prof.setTitula(Titula.Ms);
 		}
 		
-		if(DijalogDodajProfesora.brlk.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			String brlk = DijalogDodajProfesora.brlk.getText();
-			prof.setBrlk(brlk);
-		}
-		
-		if(DijalogDodajProfesora.brTel.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			String brt = DijalogDodajProfesora.brTel.getText();
-			prof.setBr_tel(brt);
-		}
-		
-		if(DijalogDodajProfesora.datRP.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			try {
-				Date datum = new Date();
-				datum = parseDate(DijalogIzmeniProfesora.datRP.getText());
-				prof.setDatumr(datum);
-			} catch (Exception e) {
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "GRESKA PRILIKOM UNOSA DATUMA!", "GRESKA", JOptionPane.ERROR_MESSAGE);
+		for (Profesor p : BazaProfesora.getInstance().getProfesori())
+			if (prof.getBrlk().equals(p.getBrlk())) {
+				JOptionPane.showMessageDialog(null, "Profesor sa datim brojem licne karte vec postoji.\nProverite Vas unos", "GRESKA", JOptionPane.ERROR_MESSAGE);
+				return false;
 			}
-		}
-		
-		if(DijalogDodajProfesora.email.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			String email = DijalogDodajProfesora.email.getText();
-			prof.setEmail(email);
-		}
-		
-		if(DijalogDodajProfesora.kancelarija.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			String kancelarija = DijalogDodajProfesora.kancelarija.getText();
-			prof.setKancelarija(kancelarija);
-		}
-		
-		if(DijalogDodajProfesora.titula.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			String titula = DijalogDodajProfesora.titula.getText();
-			prof.setTitula(titula);
-		}
-		
-		if(DijalogDodajProfesora.zvanje.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			String zvanje = DijalogDodajProfesora.zvanje.getText();
-			prof.setZvanje(zvanje);
-		}
 		
 		BazaProfesora.getInstance().dodajProfesora(prof.getIme(), prof.getPrezime(), prof.getDatumr(), prof.getAdresa(), prof.getBr_tel(), prof.getEmail(), prof.getKancelarija(), prof.getBrlk(), prof.getZvanje(), prof.getTitula());
 		ProfesoriJTable.refresh();
@@ -144,90 +131,63 @@ public class ProfesorController {
 		
 		Profesor prof = BazaProfesora.getInstance().getRow(ProfesoriJTable.curr_row);
 		
-		if(DijalogIzmeniProfesora.imeP.getText().isEmpty()) {
+		if(DijalogIzmeniProfesora.imeP.getText().isEmpty() || DijalogIzmeniProfesora.przP.getText().isEmpty() || DijalogIzmeniProfesora.adresaP.getText().isEmpty() 
+				|| DijalogIzmeniProfesora.brlk.getText().isEmpty() || DijalogIzmeniProfesora.brTel.getText().isEmpty() || DijalogIzmeniProfesora.datRP.getText().isEmpty() ||
+				DijalogIzmeniProfesora.email.getText().isEmpty() || DijalogIzmeniProfesora.kancelarija.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Niste popunili sva obazvezna polja."
+					+ "\nPolja sa * su obavezna.", "GRESKA", JOptionPane.ERROR_MESSAGE);
 			return false;
-		}
-		else {
-			String ime = DijalogIzmeniProfesora.imeP.getText();
-			prof.setIme(ime);
 		}
 		
-		if(DijalogIzmeniProfesora.przP.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			String prz = DijalogIzmeniProfesora.przP.getText();
-			prof.setPrezime(prz);
+		String ime = DijalogIzmeniProfesora.imeP.getText();
+		prof.setIme(ime);
+		
+		String prz = DijalogIzmeniProfesora.przP.getText();
+		prof.setPrezime(prz);
+		
+		String adresa = DijalogIzmeniProfesora.adresaP.getText();
+		prof.setAdresa(adresa);
+		
+		String brlk = DijalogIzmeniProfesora.brlk.getText();
+		prof.setBrlk(brlk);
+		
+		String brt = DijalogIzmeniProfesora.brTel.getText();	
+		prof.setBr_tel(brt);
+		
+		try {
+			Date datum = new Date();
+			datum = parseDate(DijalogIzmeniProfesora.datRP.getText());
+			prof.setDatumr(datum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Greska prilikom unosa datuma.\\nFormat datuma je 'dd.mm.yyyy.'", "GRESKA", JOptionPane.ERROR_MESSAGE);
 		}
 		
-		if(DijalogIzmeniProfesora.adresaP.getText().isEmpty()) {
-			return false;
+		String email = DijalogIzmeniProfesora.email.getText();
+		prof.setEmail(email);
+		String kancelarija = DijalogIzmeniProfesora.kancelarija.getText();
+		prof.setKancelarija(kancelarija);
+			
+
+		String zvanje = DijalogIzmeniProfesora.zvanje.getSelectedItem().toString();
+		if(zvanje.equals("Asistent")) {
+			prof.setZvanje(Zvanje.Asistent);
+		} else if (zvanje.equals("Saradnik u nastavi")) {
+			prof.setZvanje(Zvanje.Saradnik);
+		} else if (zvanje.equals("Vanredni profesor")) {
+			prof.setZvanje(Zvanje.VProfesor);
+		} else if (zvanje.equals("Redovni profesor")) {
+			prof.setZvanje(Zvanje.RProfesor);
+		} else {
+			prof.setZvanje(Zvanje.Docent);
 		}
-		else {
-			String adresa = DijalogIzmeniProfesora.adresaP.getText();
-			prof.setAdresa(adresa);
-		}
-		
-		if(DijalogIzmeniProfesora.brlk.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			String brlk = DijalogIzmeniProfesora.brlk.getText();
-			prof.setBrlk(brlk);
-		}
-		
-		if(DijalogIzmeniProfesora.brTel.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			String brt = DijalogIzmeniProfesora.brTel.getText();
-			prof.setBr_tel(brt);
-		}
-		
-		if(DijalogIzmeniProfesora.datRP.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			try {
-				Date datum = new Date();
-				datum = parseDate(DijalogIzmeniProfesora.datRP.getText());
-				prof.setDatumr(datum);
-			} catch (Exception e) {
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "GRESKA PRILIKOM UNOSA DATUMA!", "GRESKA", JOptionPane.ERROR_MESSAGE);
-			}
-		}
-		
-		if(DijalogIzmeniProfesora.email.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			String email = DijalogIzmeniProfesora.email.getText();
-			prof.setEmail(email);
-		}
-		
-		if(DijalogIzmeniProfesora.kancelarija.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			String kancelarija = DijalogIzmeniProfesora.kancelarija.getText();
-			prof.setKancelarija(kancelarija);
-		}
-		
-		if(DijalogIzmeniProfesora.titula.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			String titula = DijalogIzmeniProfesora.titula.getText();
-			prof.setTitula(titula);
-		}
-		
-		if(DijalogIzmeniProfesora.zvanje.getText().isEmpty()) {
-			return false;
-		}
-		else {
-			String zvanje = DijalogIzmeniProfesora.zvanje.getText();
-			prof.setZvanje(zvanje);
+			
+		String titula = DijalogIzmeniProfesora.titula.getSelectedItem().toString();
+			
+		if (titula.equals("Doktor")) {
+			prof.setTitula(Titula.Dr);
+		} else {
+			prof.setTitula(Titula.Ms);
 		}
 		
 	
@@ -260,4 +220,16 @@ public class ProfesorController {
 	     }
 	     
 	  }
+
+	public void obrisiPredmet(Profesor p, String sifra) {
+		Predmet pp = new Predmet();
+		for (Predmet pred : BazaPredmeta.getInstance().getPredmeti()) {
+			if (pred.getSifra().equals(sifra))
+				pp = pred;
+		}
+		
+		BazaPredmeta.getInstance().obrisiProfesora(p, pp);
+		ProfesoriJTable.refresh();
+		
+	}
 }

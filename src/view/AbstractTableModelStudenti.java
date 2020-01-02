@@ -13,15 +13,8 @@ import java.util.ArrayList;
 public class AbstractTableModelStudenti extends AbstractTableModel {
 
 	private static final long serialVersionUID = 7523214924550006969L;
-	
-	private ArrayList<Boolean> koJeOtkacen;
-	
-	public AbstractTableModelStudenti() {
-		this.koJeOtkacen = new ArrayList<>();
-		for(int i = 0; i < BazaStudenata.getInstance().getStudenti().size(); i++) {
-			koJeOtkacen.add(false);
-		}
-	}
+		
+	public AbstractTableModelStudenti() {}
 	
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -77,14 +70,6 @@ public class AbstractTableModelStudenti extends AbstractTableModel {
 		default:
 			return null;
 		}
-	}
-	
-	public void studentDodat() {
-		this.koJeOtkacen.add(false);
-	}
-	
-	public void studentUklonjen(int rowIndex) {
-		this.koJeOtkacen.remove(rowIndex);
 	}
 	
 }

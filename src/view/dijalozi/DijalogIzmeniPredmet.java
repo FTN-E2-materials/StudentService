@@ -17,42 +17,51 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.PredmetController;
+import model.BazaPredmeta;
+import model.Predmet;
+import view.PredmetiJTable;
 
-public class DijalogDodajPredmet extends JDialog {
-	private static final long serialVersionUID = 7073855243408753112L;
+public class DijalogIzmeniPredmet extends JDialog {
 
+	private static final long serialVersionUID = -617169766866517855L;
 	public static JTextField sifraP;
 	public static JTextField imeP;
 	public static JComboBox godina;
 	public static JComboBox semestar;
 	public static JTextField profesor;
 	
-	public DijalogDodajPredmet(JFrame parent) {
-		super(parent, "Dodavanje predmeta", true);
+	public DijalogIzmeniPredmet (JFrame parent) {
+		super(parent, "Izmena predmeta", true);
 		this.setSize(500, 250);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(null);
+		
+		Predmet p = BazaPredmeta.getInstance().getRow(PredmetiJTable.curr_row);
 		
 		JPanel up = new JPanel(new GridBagLayout());
 		
 		JLabel labSifra = new JLabel("*Sifra predmeta:");
 		labSifra.setToolTipText("Unesite sifru predmeta");
 		sifraP = new JTextField();
+		sifraP.setText(p.getSifra());
 		
 		JLabel labIme = new JLabel("*Naziv predmeta:");
 		labIme.setToolTipText("Unesite naziv predmeta");
 		imeP = new JTextField();
+		imeP.setText(p.getIme());
 		
 		String[] godine = { "I (prva)", "II (druga)", "III (treca)" , "IV (cetvrta)" };
 		JLabel labGodina = new JLabel("*Godina:");
 		labGodina.setToolTipText("Unesite godina na kojoj se slusa predmet");
 		godina = new JComboBox(godine);
+		godina.setSelectedIndex(p.getGodina() - 1);
 		
 		String[] semestri = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII" };
 		
 		JLabel labSemestar = new JLabel("*Semestar:");
 		labSemestar.setToolTipText("Unesite semestar na kom se slusa predmet");
 		semestar = new JComboBox(semestri);
+		semestar.setSelectedIndex(p.getSemestar() - 1);
 		
 		JLabel labProfesor = new JLabel("Predmetni profesor");
 		labProfesor.setToolTipText("Unesite broj licne karte predmetnog profesora");
@@ -76,7 +85,7 @@ public class DijalogDodajPredmet extends JDialog {
 		ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(PredmetController.getInstance().dodajPredmet())
+				if(PredmetController.getInstance().izmeniPredmet())
 					dispose();
 			}
 		});

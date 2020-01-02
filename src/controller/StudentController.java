@@ -12,6 +12,7 @@ import model.Predmet;
 import model.Student;
 import model.Student.Status;
 import view.MainFrame;
+import view.PredmetiJTable;
 import view.StudentJTable;
 import view.Toolbar;
 import view.dijalozi.DijalogIzmeniS;
@@ -176,14 +177,15 @@ public class StudentController {
 		}
 		
 		try {
-			double pros = Double.parseDouble(DijalogStudent.prosOc.getText());
+			double pros = Double.parseDouble(DijalogIzmeniS.prosOc.getText());
 			st.setProsek(pros);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Greska prilikom parsiranja proseka.\nProverite ponovo Vas unos.", "GRESKA", JOptionPane.ERROR_MESSAGE);
-			
+			return false;
 		}
+		
 		BazaStudenata.getInstance().izmeniStudenta(st.getBri(), st.getIme(), st.getPrezime(), st.getDatumr(), st.getAdresa(), st.getBr_tel(), st.getDatum_upisa(), st.getGodina_stud(),  st.getEmail(), st.getStatus(), st.getProsek());
 		StudentJTable.refresh();
 		return true;
@@ -213,14 +215,19 @@ public class StudentController {
 	     
 	  }
 
-
-	public void obrisiPredmet(Student s, String sifra) {
+	public void obrisiPredmet(Student s, String text) {
 		Predmet p = new Predmet();
+		
+		String[] sifra = text.split(" ");
+		
 		for (Predmet pred : BazaPredmeta.getInstance().getPredmeti()) {
-			if (pred.getSifra().equals(sifra))
+			if (pred.getSifra().equals(sifra[0]))
 				p = pred;
 		}
+		
 		BazaStudenata.getInstance().obrisiPredmet(p, s);
+		
+		PredmetiJTable.refresh();
 		StudentJTable.refresh();
 	}
 	

@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,19 +30,17 @@ public class DijalogDodajProfesora extends JDialog {
 	public static JTextField email;
 	public static JTextField kancelarija;
 	public static JTextField brlk;
-	public static JTextField titula;
-	public static JTextField zvanje;
+	public static JComboBox titula;
+	public static JComboBox zvanje;
 	
 	
-	public DijalogDodajProfesora() {
+	public DijalogDodajProfesora(JFrame parent) {
 	// poziva roditeljsku metodu, da podesi u odnosu na sta se pravi
 	// dijalog
 		
 	// ekvivalentno ti pravis klase dodaj predmet, obrisi predmet, izmeni predmet
 	// uz dodatne klase za dodavanje studenta i profesora na dati predemet
-		
-		
-		this.setTitle("Dodavanje Profesora");
+		super(parent, "Dodavanje profesora", true);
 		this.setSize(new Dimension(500, 500));
 	
 			
@@ -101,14 +100,17 @@ public class DijalogDodajProfesora extends JDialog {
 		gornjiPanel.add(labKanc, constraintLbl(0, 7));
 		gornjiPanel.add(kancelarija, constraintTF(1, 7));
 		
+		
+		String[] titule = { "Doktor", "Master" };
 		JLabel labTitula = new JLabel("*Titula: ");
-		titula = new JTextField();
+		titula = new JComboBox(titule);
 		
 		gornjiPanel.add(labTitula, constraintLbl(0, 8));
 		gornjiPanel.add(titula, constraintTF(1, 8));
 		
+		String[] zvanja = { "Asistent", "Saradnik u nastavi", "Redovni profesor", "Vanredni profesor", "Docent" };
 		JLabel labZvanje = new JLabel("*Zvanje: ");
-		zvanje = new JTextField();
+		zvanje = new JComboBox(zvanja);
 		
 		gornjiPanel.add(labZvanje, constraintLbl(0, 9));
 		gornjiPanel.add(zvanje, constraintTF(1, 9));

@@ -1,10 +1,14 @@
 package model;
 
 import java.util.Date;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Student {
-	public enum Status { B, S };
+public class Student implements Serializable {
+
+	private static final long serialVersionUID = -29486919914339782L;
+	
+	public enum Status implements Serializable { B, S };
 	
 	private String ime;
 	private String prezime;
@@ -15,7 +19,7 @@ public class Student {
 	private String bri;
 	private Date datum_upisa;
 	private int godina_stud;
-	Status status;
+	private Status status;
 	private double prosek;
 	private ArrayList<Predmet> predmeti;
 	
