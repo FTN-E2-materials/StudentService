@@ -60,11 +60,9 @@ public class BazaStudenata {
 		
 		this.deserialize();
 		
+		
 		setTekuca_lista(this.studenti);
-		for (Student s : getStudenti()) {
-			System.out.println(s);
-		}
- 		
+		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -132,7 +130,7 @@ public class BazaStudenata {
 	public String getValueAt(int row, int column) {
 		Student student = this.tekuca_lista.get(row);
 		
-		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
+		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy.");
 		switch(column) {
 		case 0:
 			return student.getBri();
@@ -169,7 +167,7 @@ public class BazaStudenata {
 		this.studenti.add(new Student(ime, prezime, datRodj, adresa, brt, email, bri, upis, godina_stud, status, prosek));
 		
 		this.setTrenutnoStanje();
-		this.serialize();
+		//this.serialize();
 		
 	}
 
@@ -188,13 +186,13 @@ public class BazaStudenata {
 			}
 		}	
 		this.setTrenutnoStanje();
-		this.serialize();
+		//this.serialize();
 		
 	}
 	
 
 
-	public void izmeniStudenta(String bri, String ime, String prezime, Date datumr, String adresa, String brt, Date upis, 
+	public void izmeniStudenta(String bri, String briNew, String ime, String prezime, Date datumr, String adresa, String brt, Date upis, 
 			int godina_stud, String email, 
 			Status status, double prosek) {
 		
@@ -210,6 +208,7 @@ public class BazaStudenata {
 				s.setAdresa(adresa);
 				s.setDatum_upisa(upis);
 				s.setDatumr(datumr);
+				s.setBri(briNew);
 				
 			}
 		}
@@ -226,9 +225,10 @@ public class BazaStudenata {
 				s.setAdresa(adresa);
 				s.setDatum_upisa(upis);
 				s.setDatumr(datumr);
+				s.setBri(briNew);
 			}
 
-			this.serialize();
+			//this.serialize();
 			this.setTrenutnoStanje();
 	}
 
@@ -330,7 +330,7 @@ public class BazaStudenata {
 
 	public static Date parseDate(String date) {
 	     try {
-	         return new SimpleDateFormat("dd.MM.yyyy").parse(date);
+	         return new SimpleDateFormat("dd.MM.yyyy.").parse(date);
 	     } catch (Exception e) {
 	         e.printStackTrace();
 	         return null;
@@ -342,15 +342,13 @@ public class BazaStudenata {
 		p.getStudenti().remove(s);
 		s.getPredmeti().remove(p);
 		
-		BazaPredmeta.getInstance().serialize();
-		this.serialize();
+		//this.serialize();
 		
 	}
 
-
 	public void dodajPredmet(Student s, Predmet p) {
 		s.getPredmeti().add(p);
-		this.serialize();
+		//this.serialize();
 		this.setTrenutnoStanje();
 	}
 		 
@@ -367,7 +365,7 @@ public class BazaStudenata {
 			}
 	 }
 	 
-	private void setTrenutnoStanje() {
+	public void setTrenutnoStanje() {
 		if(StudentController.flag == 0) {
 			this.tekuca_lista = this.studenti;
 		}

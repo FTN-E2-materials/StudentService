@@ -213,7 +213,7 @@ public class ProfesorController {
 	
 	 public static Date parseDate(String date) {
 	     try {
-	         return new SimpleDateFormat("dd.MM.yyyy").parse(date);
+	         return new SimpleDateFormat("dd.MM.yyyy.").parse(date);
 	     } catch (Exception e) {
 	         e.printStackTrace();
 	         return null;
@@ -223,8 +223,10 @@ public class ProfesorController {
 
 	public void obrisiPredmet(Profesor p, String sifra) {
 		Predmet pp = new Predmet();
-		for (Predmet pred : BazaPredmeta.getInstance().getPredmeti()) {
-			if (pred.getSifra().equals(sifra))
+		String[] sif = sifra.split(" ");
+		
+		for (Predmet pred : p.getPredmeti()) {
+			if (pred.getSifra().equals(sif[0]))
 				pp = pred;
 		}
 		

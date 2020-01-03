@@ -10,6 +10,7 @@ import model.Profesor;
 import model.Profesor.Zvanje;
 import model.Student;
 import view.PredmetiJTable;
+import view.StudentJTable;
 import view.Toolbar;
 import view.dijalozi.DijalogDodajPredmet;
 import view.dijalozi.DijalogIzmeniPredmet;
@@ -116,7 +117,9 @@ public class PredmetController {
 				s = st;
 		}
 		BazaPredmeta.getInstance().obrisiStudenta(p, s);
+		BazaStudenata.getInstance().obrisiPredmet(p, s);
 		PredmetiJTable.refresh();
+		StudentJTable.refresh();
 		
 	}
 	

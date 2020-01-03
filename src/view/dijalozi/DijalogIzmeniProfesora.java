@@ -85,7 +85,7 @@ public class DijalogIzmeniProfesora extends JDialog {
 		
 		JLabel labDat = new JLabel("*Datum rodjenja:");
 		datRP = new JTextField();
-		SimpleDateFormat Dformat = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
+		SimpleDateFormat Dformat = new SimpleDateFormat("dd.MM.yyyy.", Locale.ENGLISH);
 		datRP.setText(Dformat.format(prof.getDatumr()));
 		
 		gornjiPanel.add(labDat, constraintLbl(0, 2));

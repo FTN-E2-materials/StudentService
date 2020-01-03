@@ -135,10 +135,10 @@ public class BazaPredmeta {
 		p.setPred_prof(null);
 		this.predmeti.add(p);
 		this.setTrentunoStanje();
-		this.serialize();
+		//this.serialize();
 	}
 	
-	private void setTrentunoStanje() {
+	public void setTrentunoStanje() {
 		if (PredmetController.flag == 0) {
 			this.setTekuciPredmet(this.predmeti);
 		} else {
@@ -159,7 +159,7 @@ public class BazaPredmeta {
 				break;
 			}
 		}
-		this.serialize();
+		//this.serialize();
 		this.setTrentunoStanje();
 	}
 	
@@ -181,7 +181,7 @@ public class BazaPredmeta {
 				p.setPred_prof(prof);
 			}
 		}
-		this.serialize();
+		//this.serialize();
 		this.setTrentunoStanje();
 	}
 	
@@ -215,7 +215,7 @@ public class BazaPredmeta {
 		}
 		
 		BazaProfesora.getInstance().dodajPredmet(profesor, predmet);
-		this.serialize();
+		//this.serialize();
 		this.setTrentunoStanje();
 		
 		return retVal;
@@ -228,21 +228,21 @@ public class BazaPredmeta {
 				BazaStudenata.getInstance().dodajPredmet(s, p);
 			}
 		}
-		this.serialize();
+		//this.serialize();
 		this.setTrentunoStanje();		
 	}
 
 	public void obrisiStudenta(Predmet p, Student s) {
 		p.getStudenti().remove(s);
 		s.getPredmeti().remove(p);
-		BazaStudenata.getInstance().serialize();
-		this.serialize();
+		//BazaStudenata.getInstance().serialize();
+		//this.serialize();
 	}
 
 	public void obrisiProfesora(Profesor p, Predmet pp) {
 		BazaProfesora.getInstance().obrisiPredmet(p, pp);
 		pp.setPred_prof(null);
-		this.serialize();
+		//this.serialize();
 	}
 
 	public void izmeniPredmet(Predmet predmet) {
@@ -265,7 +265,7 @@ public class BazaPredmeta {
 				p.setPred_prof(predmet.getPred_prof());
 			}
 		}
-		this.serialize();
+		//this.serialize();
 		this.setTrentunoStanje();
 	}
 
@@ -349,7 +349,7 @@ public class BazaPredmeta {
 	
 	public void obrisiProfesoraIzBazeProf(Profesor p, Predmet pp) {
 		pp.setPred_prof(null);
-		this.serialize();
+		//this.serialize();
 	}
 	
 	

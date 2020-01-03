@@ -94,6 +94,15 @@ public MenuBar() {
 	JMenuItem helpItem = new JMenuItem("Help");
 	JMenuItem aboutItem = new JMenuItem("About");
 	
+	
+	helpItem.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			ControllerEntiteta.getInstance().pokaziHelp();
+		}
+		
+	});
 	help.add(helpItem);
 	help.addSeparator();
 	help.add(aboutItem);

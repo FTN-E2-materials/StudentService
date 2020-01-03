@@ -8,8 +8,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import controller.PredmetController;
 import controller.ProfesorController;
 import controller.StudentController;
+import model.BazaPredmeta;
+import model.BazaProfesora;
+import model.BazaStudenata;
 
 public class Tabele extends JTabbedPane {
 
@@ -53,11 +57,42 @@ public class Tabele extends JTabbedPane {
 			    JTabbedPane tabbedPane = (JTabbedPane)event.getSource();
 			    tab_curr = tabbedPane.getSelectedIndex();
 			    if(tab_curr == 2) {
+			    	StudentController.flag = 0;
+			    	ProfesorController.flag = 0;
+			    	
+			    	BazaStudenata.getInstance().setTrenutnoStanje();
+			    	BazaProfesora.getInstance().setTrenutnoStanje();
+			    	
+			    	
+			    	ProfesoriJTable.refresh();
+			    	StudentJTable.refresh();
+			    	
 			    	Toolbar.setDugmici();
 			    }
 			    else
 			    {
 			    	Toolbar.unSetDugmici();
+			    
+			    	if (tab_curr == 1) {
+			    		
+				    	ProfesorController.flag = 0;
+				    	PredmetController.flag = 0;
+				    	BazaPredmeta.getInstance().setTrentunoStanje();
+				    	BazaProfesora.getInstance().setTrenutnoStanje();
+				    	
+				    	
+				    	ProfesoriJTable.refresh();
+				    	PredmetiJTable.refresh();
+			    	} else if (tab_curr == 2) {
+			    		
+			    		PredmetController.flag = 0;
+			    		StudentController.flag = 0;
+			    		BazaStudenata.getInstance().setTrenutnoStanje();
+				    	BazaPredmeta.getInstance().setTrentunoStanje();
+				    	
+				    	StudentJTable.refresh();
+				    	PredmetiJTable.refresh();
+			    	}
 			    }
 			}
 		    });

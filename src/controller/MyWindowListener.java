@@ -7,6 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
+import model.BazaPredmeta;
+import model.BazaProfesora;
+import model.BazaStudenata;
+
 public class MyWindowListener implements WindowListener {
 
 	@Override
@@ -29,6 +33,10 @@ public class MyWindowListener implements WindowListener {
 		if (code != JOptionPane.YES_OPTION) {
 			frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		} else {
+			BazaStudenata.getInstance().serialize();
+			BazaPredmeta.getInstance().serialize();
+			BazaProfesora.getInstance().serialize();
+			
 			frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		}
 	}

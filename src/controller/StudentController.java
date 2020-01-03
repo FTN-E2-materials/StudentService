@@ -48,6 +48,8 @@ public class StudentController {
 				
 			JOptionPane.showMessageDialog(null, "Niste popunili sva obazvezna polja."
 					+ "\nPolja sa * su obavezna.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			
+			
 			return false;
 		}
 		
@@ -142,9 +144,16 @@ public class StudentController {
 		st.setIme(DijalogIzmeniS.imeS.getText());
 		st.setPrezime(DijalogIzmeniS.przS.getText());			
 		st.setAdresa(DijalogIzmeniS.adresa.getText());
-		st.setBri(DijalogIzmeniS.briS.getText());
+		
 		st.setBr_tel(DijalogIzmeniS.brtel.getText());
 		st.setEmail(DijalogIzmeniS.email.getText());
+		
+		String briNew;
+		
+		if (st.getBri() != DijalogIzmeniS.briS.getText())
+			briNew = DijalogIzmeniS.briS.getText();
+		else 
+			briNew = st.getBri();
 			
 		Date datumR = new Date();
 		datumR = parseDate(DijalogIzmeniS.datRodj.getText());
@@ -186,7 +195,7 @@ public class StudentController {
 			return false;
 		}
 		
-		BazaStudenata.getInstance().izmeniStudenta(st.getBri(), st.getIme(), st.getPrezime(), st.getDatumr(), st.getAdresa(), st.getBr_tel(), st.getDatum_upisa(), st.getGodina_stud(),  st.getEmail(), st.getStatus(), st.getProsek());
+		BazaStudenata.getInstance().izmeniStudenta(st.getBri(), briNew, st.getIme(), st.getPrezime(), st.getDatumr(), st.getAdresa(), st.getBr_tel(), st.getDatum_upisa(), st.getGodina_stud(),  st.getEmail(), st.getStatus(), st.getProsek());
 		StudentJTable.refresh();
 		return true;
 		
@@ -207,7 +216,7 @@ public class StudentController {
 	
 	 public static Date parseDate(String date) {
 	     try {
-	         return new SimpleDateFormat("dd.MM.yyyy").parse(date);
+	         return new SimpleDateFormat("dd.MM.yyyy.").parse(date);
 	     } catch (Exception e) {
 	         e.printStackTrace();
 	         return null;
@@ -220,13 +229,14 @@ public class StudentController {
 		
 		String[] sifra = text.split(" ");
 		
-		for (Predmet pred : BazaPredmeta.getInstance().getPredmeti()) {
-			if (pred.getSifra().equals(sifra[0]))
+		for (Predmet pred : s.getPredmeti()) {
+			if (pred.getSifra().equals(sifra[0])) {
 				p = pred;
+			}
 		}
 		
 		BazaStudenata.getInstance().obrisiPredmet(p, s);
-		
+		BazaPredmeta.getInstance().obrisiStudenta(p, s);
 		PredmetiJTable.refresh();
 		StudentJTable.refresh();
 	}

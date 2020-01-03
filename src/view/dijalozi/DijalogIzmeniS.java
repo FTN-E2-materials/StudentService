@@ -90,7 +90,7 @@ public class DijalogIzmeniS extends JDialog {
 			        
 			datRodj = new JTextField();
 			//datRodj.setPreferredSize(new Dimension(200, 25));
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy.", Locale.ENGLISH);
 			
 			
 			datRodj.setText(dateFormat.format(st.getDatumr()));

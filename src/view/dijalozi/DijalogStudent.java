@@ -35,7 +35,8 @@ public class DijalogStudent extends JDialog {
 	public static JTextField datumU;
 	public static JTextField prosOc;
 	public static JTextField email;
-
+	JButton notokBtn;
+	JButton okBtn;
 	public static JComboBox godStud;
 	public static JRadioButton budzet;
 	public static JRadioButton samofin;
@@ -110,9 +111,9 @@ public class DijalogStudent extends JDialog {
 		btnGroup1.add(budzet);
 		btnGroup1.add(samofin);
 				
-		JButton okBtn = new JButton("Potvrda");
+		okBtn = new JButton("Potvrda");
 		okBtn.setBackground(Color.LIGHT_GRAY);
-		JButton notokBtn = new JButton("Odustanak");
+		notokBtn = new JButton("Odustanak");
 		notokBtn.setBackground(Color.LIGHT_GRAY);
 		
 		up.add(labIme, lbl(0, 0));

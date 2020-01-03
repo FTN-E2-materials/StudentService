@@ -23,6 +23,7 @@ import view.dijalozi.DijalogObrisiS;
 import view.dijalozi.DijalogStudent;
 import view.dijalozi.DodajProfesoraNaPredmet;
 import view.dijalozi.DodajStudentaNaPredmet;
+import view.dijalozi.HelpDialog;
 
 public class ControllerEntiteta {
 	
@@ -103,6 +104,11 @@ public class ControllerEntiteta {
 
 	public void dodajProfesoraNaPredmetu() {
 		dijalog = new DodajProfesoraNaPredmet(new JFrame());
+		
+	}
+
+	public void pokaziHelp() {
+		dijalog = new HelpDialog(new JFrame());
 		
 	}
 	

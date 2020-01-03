@@ -55,6 +55,10 @@ public class BazaProfesora {
 		this.kolone.add("Lista predmeta");
 		
 		this.deserialize();
+		
+		for (Profesor p : this.profesori) {
+			p.setDatumr(parseDate("19.02.1950."));
+		}
 	}
 
 	private void initProfesore() {
@@ -129,7 +133,7 @@ public class BazaProfesora {
 	
 	public String getValueAt(int row, int column) {
 		Profesor profesor = this.tekuci_profesori.get(row);
-		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
+		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy.");
 		
 		switch(column) {
 		case 0:
@@ -310,7 +314,7 @@ public class BazaProfesora {
 
 	 public static Date parseDate(String date) {
 	     try {
-	         return new SimpleDateFormat("dd.MM.yyyy").parse(date);
+	         return new SimpleDateFormat("dd.MM.yyyy.").parse(date);
 	     } catch (Exception e) {
 	         e.printStackTrace();
 	         return null;
@@ -365,6 +369,15 @@ public class BazaProfesora {
 		} catch (IOException ioe) {
 			System.out.println(ioe.getMessage());
 		}			
+	}
+
+	public void setTrenutnoStanje() {
+		if (ProfesorController.flag == 0) {
+			this.setTekuci_profesori(this.profesori);
+		} else {
+			this.setTekuci_profesori(filter_Profesor);
+		}
+		
 	}
 
 
