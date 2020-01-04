@@ -49,17 +49,17 @@ public class BazaStudenata {
 		this.kolone.add("Status");
 		this.kolone.add("Prosek");
 		this.kolone.add("Datum rodjenja");
-		this.kolone.add("Email");
-		this.kolone.add("Broj telefona");
+		//this.kolone.add("Email");
+		//this.kolone.add("Broj telefona");
 		this.kolone.add("Datum upisa");
 		this.kolone.add("Lista predmeta");
+		this.kolone.add("Detalji");
 		
 		this.studenti = new ArrayList<Student>();
 		this.tekuca_lista = new ArrayList<Student>();
 		this.filter_Student = new ArrayList<Student>();
 		
 		this.deserialize();
-		
 		
 		setTekuca_lista(this.studenti);
 		
@@ -115,7 +115,7 @@ public class BazaStudenata {
 	}
 
 	public int getColumnCount() {
-		return 11;
+		return 10;
 	}
 
 	
@@ -150,10 +150,6 @@ public class BazaStudenata {
 		case 6:
 			return datum.format(student.getDatumr());
 		case 7:
-			return student.getEmail();
-		case 8:
-			return student.getBr_tel();
-		case 9:
 			return datum.format(student.getDatum_upisa());
 		default:
 			return null;

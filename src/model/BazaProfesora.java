@@ -52,13 +52,12 @@ public class BazaProfesora {
 		this.kolone.add("Adresa stanovanja");
 		this.kolone.add("Datum rodjenja");
 		this.kolone.add("Email");
+		this.kolone.add("Kontakt telefon");
 		this.kolone.add("Lista predmeta");
 		
 		this.deserialize();
 		
-		for (Profesor p : this.profesori) {
-			p.setDatumr(parseDate("19.02.1950."));
-		}
+		this.setTrenutnoStanje();
 	}
 
 	private void initProfesore() {
@@ -100,7 +99,7 @@ public class BazaProfesora {
 	}
 	
 	public int getColumnCount() {
-		return 9;
+		return 10;
 	}
 
 	public String getColumnName(int index) {
@@ -169,6 +168,8 @@ public class BazaProfesora {
 			return datum.format(profesor.getDatumr());
 		case 7:
 			return profesor.getEmail();
+		case 8:
+			return profesor.getBr_tel();
 		default:
 			return null;
 		}
@@ -178,9 +179,7 @@ public class BazaProfesora {
 			String kancelarija, String brlk,  Zvanje zvanje, Titula titula) {
 		
 		this.profesori.add(new Profesor(ime, prezime, datumr, adresa, brtel, email, kancelarija, brlk, zvanje, titula));
-		this.tekuci_profesori = this.profesori;
-		
-		this.serialize();
+		this.setTrenutnoStanje();
 	}
 
 
@@ -233,12 +232,7 @@ public class BazaProfesora {
 			}
 		}
 		
-		if(ProfesorController.flag == 0)
-			this.tekuci_profesori = this.profesori;
-		else 
-			this.tekuci_profesori = this.filter_Profesor;
-		
-		this.serialize();
+		this.setTrenutnoStanje();
 	}
 	
 	public void pretraziProfesora(String text) {
@@ -324,14 +318,11 @@ public class BazaProfesora {
 	 
 	public void dodajPredmet(Profesor prof, Predmet pred) {
 		prof.getPredmeti().add(pred);
-		this.serialize();
-			
 	}
 
 
 	public void obrisiPredmet(Profesor p, Predmet pp) {
 		p.getPredmeti().remove(pp);
-		this.serialize();
 	}
 	
 	private void deserialize() {

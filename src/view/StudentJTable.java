@@ -28,7 +28,8 @@ public class StudentJTable extends JTable {
 		this.setColumnSelectionAllowed(true);
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.setModel(new AbstractTableModelStudenti());
-		new PredmetiKodStudenta(this, 10);
+		new PredmetiKodStudenta(this, 8);
+		new AbstractButtonDetalji(this, 9);
 		this.getTableHeader().setReorderingAllowed(false);
 
 		table_model = this.getModel();
@@ -51,7 +52,8 @@ public class StudentJTable extends JTable {
 	    
 	    TableRowSorter<TableModel> sort = new TableRowSorter<>(this.getModel());
 		this.setRowSorter(sort);
-		sort.setSortable(10, false);
+		sort.setSortable(8, false);
+		sort.setSortable(9, false);
 		
 	    //sort();
 	

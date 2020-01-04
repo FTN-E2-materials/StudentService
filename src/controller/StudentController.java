@@ -3,7 +3,10 @@ package controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import model.BazaPredmeta;
@@ -42,17 +45,22 @@ public class StudentController {
 		// Da li ovo treba u Bazi Studenata da se nalazi ? 
 		
 		Student st = new Student();
-				
+		// provera da li je uneo prazan string u neko polje	
+		
 		if (DijalogStudent.imeS.getText().isEmpty() || DijalogStudent.przS.getText().isEmpty() || DijalogStudent.adresa.getText().isEmpty() || DijalogStudent.briS.getText().isEmpty() ||
 				DijalogStudent.brtel.getText().isEmpty() || DijalogStudent.email.getText().isEmpty() || DijalogStudent.datRodj.getText().isEmpty() || DijalogStudent.datumU.getText().isEmpty()) {
 				
 			JOptionPane.showMessageDialog(null, "Niste popunili sva obazvezna polja."
-					+ "\nPolja sa * su obavezna.", "GRESKA", JOptionPane.ERROR_MESSAGE);
-			
-			
+				+ "\nPolja sa * su obavezna.", "GRESKA", JOptionPane.ERROR_MESSAGE);		
 			return false;
 		}
 		
+		// provera ispravnosti unetog stringa 
+		
+		if(!proveriImePrz(DijalogStudent.imeS.getText()) || !proveriImePrz(DijalogStudent.przS.getText())
+				|| !proveriEmail(DijalogStudent.email.getText()) || !proveriBrTel(DijalogStudent.brtel.getText()) || !proveriAdresu(DijalogStudent.adresa.getText())) {
+			return false;
+		}
 			
 		for (Student s : BazaStudenata.getInstance().getStudenti()) {
 			if (s.getBri().equals(DijalogStudent.briS.getText())) {
@@ -69,12 +77,26 @@ public class StudentController {
 		st.setEmail(DijalogStudent.email.getText());
 			
 		Date datumR = new Date();
-		datumR = parseDate(DijalogStudent.datRodj.getText());
-		st.setDatumr(datumR);
+		
+		try {
+			datumR = parseDate(DijalogStudent.datRodj.getText());
+			st.setDatumr(datumR);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Greska prilikom parsiranja datuma.\nFormat je 'dd.MM.yyyy'.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
 			
 		Date datumU = new Date();
-		datumU = parseDate(DijalogStudent.datumU.getText());
-		st.setDatum_upisa(datumU);
+		
+		try {
+			datumU = parseDate(DijalogStudent.datumU.getText());
+			st.setDatum_upisa(datumU);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Greska prilikom parsiranja datuma.\nFormat je 'dd.MM.yyyy'.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
 		
 		String godStud = DijalogStudent.godStud.getSelectedItem().toString();
 		
@@ -90,12 +112,13 @@ public class StudentController {
 		else 
 			st.setGodina_stud(4);
 		
-		
 		if(DijalogStudent.budzet.isSelected()) {
 			st.setStatus(Status.B);
 		}
-		else {
+		else if (DijalogStudent.budzet.isSelected()) {
 			st.setStatus(Status.S);
+		} else {
+			JOptionPane.showMessageDialog(null, "Morate oznaciti status studenta!", "GRESKA", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		try {
@@ -103,9 +126,9 @@ public class StudentController {
 				st.setProsek(pros);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(null, "Greska prilikom parsiranja proseka.\nProverite ponovo Vas unos.", "GRESKA", JOptionPane.ERROR_MESSAGE);
-			
+			return false;
 		}
 		
 		BazaStudenata.getInstance().dodajStudenta(st.getBri(), st.getIme(), st.getPrezime(), st.getDatumr(), st.getAdresa(), st.getBr_tel(), st.getEmail(), st.getDatum_upisa(), st.getGodina_stud(), st.getStatus(), st.getProsek());
@@ -114,7 +137,7 @@ public class StudentController {
 		return true;
 		
 	}
-	
+
 	public void izbrisiStudenta() {
 		
 		if(StudentJTable.curr_row < 0) {
@@ -139,6 +162,11 @@ public class StudentController {
 			return false;
 		}
 		
+		if(!proveriUnosIndeksa(DijalogIzmeniS.briS.getText()) || !proveriImePrz(DijalogIzmeniS.imeS.getText()) || !proveriImePrz(DijalogIzmeniS.przS.getText())
+				|| !proveriEmail(DijalogIzmeniS.email.getText()) || proveriBrTel(DijalogIzmeniS.brtel.getText()) || proveriAdresu(DijalogIzmeniS.adresa.getText())) {
+			return false;
+		}
+
 		Student st = BazaStudenata.getInstance().getRow(StudentJTable.curr_row);
 		
 		st.setIme(DijalogIzmeniS.imeS.getText());
@@ -156,12 +184,26 @@ public class StudentController {
 			briNew = st.getBri();
 			
 		Date datumR = new Date();
-		datumR = parseDate(DijalogIzmeniS.datRodj.getText());
-		st.setDatumr(datumR);
-			
+		
+		try {
+			datumR = parseDate(DijalogIzmeniS.datRodj.getText());
+			st.setDatumr(datumR);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Greska prilikom parsiranja datuma.\nFormat je 'dd.MM.yyyy'.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
 		Date datumU = new Date();
-		datumU = parseDate(DijalogIzmeniS.datumU.getText());
-		st.setDatum_upisa(datumU);
+		
+		try {
+			datumU = parseDate(DijalogIzmeniS.datumU.getText());
+			st.setDatum_upisa(datumU);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Greska prilikom parsiranja datuma.\nFormat je 'dd.MM.yyyy'.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
 		
 		String godStud = DijalogIzmeniS.godStud.getSelectedItem().toString();
 		
@@ -176,13 +218,15 @@ public class StudentController {
 		}
 		else 
 			st.setGodina_stud(4);
-		
-		
+			
 		if(DijalogIzmeniS.budzet.isSelected()) {
 			st.setStatus(Status.B);
 		}
-		else {
+		else if (DijalogStudent.samofin.isSelected()) {
 			st.setStatus(Status.S);
+		} else {
+			JOptionPane.showMessageDialog(null, "Morate oznaciti status studenta!", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
 		
 		try {
@@ -190,7 +234,7 @@ public class StudentController {
 			st.setProsek(pros);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(null, "Greska prilikom parsiranja proseka.\nProverite ponovo Vas unos.", "GRESKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
@@ -213,16 +257,6 @@ public class StudentController {
 		
 		StudentJTable.refresh();
 	}
-	
-	 public static Date parseDate(String date) {
-	     try {
-	         return new SimpleDateFormat("dd.MM.yyyy.").parse(date);
-	     } catch (Exception e) {
-	         e.printStackTrace();
-	         return null;
-	     }
-	     
-	  }
 
 	public void obrisiPredmet(Student s, String text) {
 		Predmet p = new Predmet();
@@ -239,6 +273,113 @@ public class StudentController {
 		BazaPredmeta.getInstance().obrisiStudenta(p, s);
 		PredmetiJTable.refresh();
 		StudentJTable.refresh();
+	}
+	
+	 public static Date parseDate(String date) {
+	     try {
+	         return new SimpleDateFormat("dd.MM.yyyy.").parse(date);
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         return null;
+	     }   
+	  }
+	// PROVERE
+
+	private boolean proveriUnosIndeksa(String text) {
+		if(!text.contains("%") || !text.contains("&") || !text.contains("*") || !text.contains("#")) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(null, "Greska prilikom unosa indeksa.\n","GRESKA", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+	
+	}
+	
+	private boolean proveriImePrz(String text) {
+		boolean matches = false;
+		boolean matches2 = false;
+		
+		if (text.contains(" ")) {
+			String[] delovi = text.split(" ");
+			for (String pom : delovi) {
+				matches = pom.matches("\\p{IsLatin}+"); 
+				matches2 = pom.matches("^\\p{IsCyrillic}+$");
+			}
+		} else if (text.contains("-")) {
+			String[] delovi = text.split("-");
+			for (String pom : delovi) {
+				matches = pom.matches("\\p{IsLatin}+"); 
+				matches2 = pom.matches("^\\p{IsCyrillic}+$");
+			}
+		} else {
+			matches = text.matches("\\p{IsLatin}+"); 
+			matches2 = text.matches("^\\p{IsCyrillic}+$");
+		}
+		
+		if(matches || matches2) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(null, "Greska prilikom unosa imena.\nSamo karakteri su dozvoljeni.","GRESKA", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}	
+	}
+	
+	private boolean proveriEmail(String text) {
+		String patternString = "[A-Z0-9a-z._%+-]+";
+		//[A-Za-z0-9.-]+\\\\.([A-Za-z0-9.-]+\\\\\\\\.[A-Za-z0-9.-]+\\\\\\\\.)?[A-Za-z]{2,64}";
+		
+		String[] splitMail = text.split("@");
+		String[] splitEnd = splitMail[1].split("\\.");
+		
+		String patternString2 = "[A-Z0-9a-z._%+-]+";
+		
+        Pattern pattern = Pattern.compile(patternString);
+        Pattern pattern2 = Pattern.compile(patternString2);
+
+        Matcher matcher1 = pattern.matcher(splitMail[0]);
+       
+		
+        boolean matches1 = matcher1.matches();	
+		boolean matches2 = false;
+		
+		for(String delovi : splitEnd) {
+			 Matcher matcher2 = pattern2.matcher(delovi);
+			 matches2 = matcher2.matches();
+		}
+		
+		if(matches1 && matches2) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(null, "Greška prilikom unosa elektronske pošte.\n","GREŠKA", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}	
+	}
+	
+	private boolean proveriAdresu(String text) {
+		
+		if(!text.contains("%") || !text.contains("&") || !text.contains("*") || !text.contains("#")) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(null, "Greska prilikom unosa adrese.\nNeispravna adresa.","GRESKA", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
+	}
+	
+	private boolean proveriBrTel(String text) {
+		String patternString = "[0-9]{8,30}";
+
+        Pattern pattern = Pattern.compile(patternString);
+
+        Matcher matcher = pattern.matcher(text);
+		boolean matches = matcher.matches();
+		
+		if(matches) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(null, "Greska prilikom unosa broja telefona.\nSamo brojevi su dozvoljeni.","GRESKA", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
 	}
 	
 }

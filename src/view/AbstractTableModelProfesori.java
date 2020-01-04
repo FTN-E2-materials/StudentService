@@ -22,7 +22,7 @@ import java.util.ArrayList;
 		
 		@Override
 		public boolean isCellEditable(int rowIndex, int columnIndex) {
-			return columnIndex == 8;
+			return columnIndex == 9;
 		}
 	
 		@Override
@@ -49,6 +49,7 @@ import java.util.ArrayList;
 			case 6:
 			case 7:
 			case 8:
+			case 9:
 				return JButton.class;
 			default:
 				return null;

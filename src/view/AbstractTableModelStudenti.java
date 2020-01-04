@@ -18,7 +18,7 @@ public class AbstractTableModelStudenti extends AbstractTableModel {
 	
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return columnIndex == 10;
+		return columnIndex >= 8;
 	}
 	
 	@Override
@@ -44,9 +44,9 @@ public class AbstractTableModelStudenti extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
-		if(columnIndex < 10)
+		if(columnIndex < 8)
 			return BazaStudenata.getInstance().getValueAt(rowIndex, columnIndex);
-		else if(columnIndex == 10) {
+		else if(columnIndex >= 8) {
 			JButton button = new JButton("" + rowIndex);
 			return button;
 		}
@@ -64,8 +64,8 @@ public class AbstractTableModelStudenti extends AbstractTableModel {
 		case 6:
 		case 7:
 		case 8:
+			return JButton.class;
 		case 9:
-		case 10:
 			return JButton.class;
 		default:
 			return null;

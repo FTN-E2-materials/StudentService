@@ -108,7 +108,7 @@ public class ControllerEntiteta {
 	}
 
 	public void pokaziHelp() {
-		dijalog = new HelpDialog(new JFrame());
+		dijalog = new HelpDialog(MainFrame.frame);
 		
 	}
 	

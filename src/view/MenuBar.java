@@ -60,7 +60,7 @@ public MenuBar() {
 	newMenu.add(newItem);
 	newMenu.addSeparator();
 	newMenu.add(closeItem);
-
+	
 	JMenuItem editItem = new JMenuItem("Edit");
 	JMenuItem deleteItem = new JMenuItem("Delete");
 	
@@ -93,8 +93,8 @@ public MenuBar() {
 
 	JMenuItem helpItem = new JMenuItem("Help");
 	JMenuItem aboutItem = new JMenuItem("About");
-	
-	
+	helpItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK));
+	aboutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 	helpItem.addActionListener(new ActionListener() {
 		
 		@Override

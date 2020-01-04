@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,7 +28,7 @@ public class HelpDialog extends JDialog {
 	
 	public HelpDialog(JFrame parent) {
 		super(parent, "Help", null);
-		this.setSize(400, 250);
+		this.setSize(parent.getWidth()*3/5, parent.getHeight()*3/4);
 		this.setLocationRelativeTo(null);
 		JButton zatvori = new JButton("Zatvori");
 		this.setModal(true);
@@ -44,11 +45,12 @@ public class HelpDialog extends JDialog {
 			}
 			
 		});
-		
+
 		dugmici.add(zatvori);
 		
 		this.setLayout(new BorderLayout());
-		komponente.setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		komponente.setLayout(new GridBagLayout());
 		dugmici.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
 		ImageIcon icon = new ImageIcon("images/student_add.png");
@@ -70,13 +72,13 @@ public class HelpDialog extends JDialog {
 		btnNew.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-			      poruka = "Dugme za dodavanje omogucava dodavanje studenata, profesora i predmeta.\n"
-			      		+ "Potrebno je da bi dodavanje bilo uspesno "
-			      		+ "da se popune sva polja oznacena sa zvezdicom.\nFormat za unos datuma je 'dd.MM.yyyy.' gde je dd - dan, mm - mesec i yyyy - godina.\n"
+			      poruka = "Dugme za dodavanje omogućava dodavanje studenata, profesora i predmeta.\n"
+			      		+ "Potrebno je da bi dodavanje bilo uspešno "
+			      		+ "da se popune sva polja označena sa zvezdicom.\nFormat za unos datuma je 'dd.MM.yyyy.' gde je dd - dan, mm - mesec i yyyy - godina.\n"
 			      		+ "Broj indeksa je unosi u formatu 'XX-bb-yyyy' gde je XX - smer, bb - broj indeksa i \nyyyy - godina upisa.\n"
-			      		+ "Prosecnu ocenu studenta unosite kao xx.xx gde se tackom odvajaju brojevi iza decimalnog zareza.\n"
-			      		+ "Ne mozete dodati studenta sa istim brojem indeksa,\nte pogledajte bolje svoj unos ako vam se pojavi to upozorednje.\n"
-			      		+ "U tabeli studenata se nalazi jos opcija za brisanje predmeta koje student slusa,\nte se to vrsi tako sto oznacite zeljeni predmet i pritisnite dugme Obrisi.";
+			      		+ "Prosečnu ocenu studenta unosite kao xx.xx gde se tačkom odvajaju brojevi iza decimalnog zareza.\n"
+			      		+ "Ne mozete dodati studenta sa istim brojem indeksa,\nte pogledajte bolje svoj unos ako vam se pojavi to upozorenje.\n"
+			      		+ "U tabeli studenata se nalazi još opcija za brisanje predmeta koje student sluša,\nte se to vrši tako što označite željeni predmet i pritisnite dugme Obriši.";
 			      
 			            JTextArea jta = new JTextArea(20, 50);
 			            jta.setText(poruka);
@@ -86,9 +88,177 @@ public class HelpDialog extends JDialog {
 			         }
 			      });
 		
+		JLabel lblDodaj = new JLabel();
+		lblDodaj.setText("Dugme za dodavanje entiteta. Prečica: CTRL + N. Pritisnuti dugme za više informacija");
 		
-		komponente.add(Box.createHorizontalStrut(20));
-		komponente.add(btnNew);
+		
+		komponente.add(btnNew, tf(0, 0));
+		komponente.add(lblDodaj, lbl(1, 0));
+		
+		
+		ImageIcon iconEdit = new ImageIcon("images/edit.png");
+		Image imgEdit = iconEdit.getImage() ;  
+		Image newimgEdit = imgEdit.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH ) ;  
+	    iconEdit = new ImageIcon(newimgEdit);
+	    
+		JButton btnEdit = new JButton();
+		btnEdit.setToolTipText("Izmeni...");
+		btnEdit.setIcon(iconEdit);
+	
+		btnEdit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			      poruka = "Dugme za izmenu studenta, profesora, predmeta. Prilikom klika na dugme\notvara vam se dijalog u kom se već nalaze trenutni podaci\n"
+			      		+ "entiteta kog želite da obrišete. Popunite željeno polje za izmenu\ni pritisniete Potvrdi. Nije dozvoljeno menjanje\nbroja indeksa, lične karte, kao ni šifre predmeta\n"
+			      		+ "jer se u bazi koriste kao primarni kljuČevi datog entiteta.";
+			      
+			            JTextArea jta = new JTextArea(20, 50);
+			            jta.setText(poruka);
+			            jta.setEditable(false);
+			            JScrollPane jsp = new JScrollPane(jta);
+			            JOptionPane.showMessageDialog(null, jsp);
+			         }
+			      });
+		JLabel lblIzmeni = new JLabel();
+		lblIzmeni.setText("Dugme za izmenu entiteta. Prečica: CTRL + E. Pritisnuti dugme za više informacija");
+
+		btnEdit.setOpaque(false);
+		btnEdit.setBorder(null);
+		
+
+		komponente.add(btnEdit, tf(0, 1));
+		komponente.add(lblIzmeni, lbl(1, 1));
+		
+		ImageIcon iconDelete = new ImageIcon("images/delete.png");
+		Image imgDelete = iconDelete.getImage() ;  
+		Image newimgDelete = imgDelete.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH ) ;  
+	    iconDelete = new ImageIcon(newimgDelete);
+	    
+		JButton btnDelete = new JButton();
+		btnDelete.setToolTipText("Obriši...");
+		btnDelete.setIcon(iconDelete);
+	
+		btnDelete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			      poruka = "Dugme za brisanje studenta, profesora, predmeta. Označite željeni entitet i pritisnete dugme\ni potvrdite izmenu.";
+			            JTextArea jta = new JTextArea(20, 50);
+			            jta.setText(poruka);
+			            jta.setEditable(false);
+			            JScrollPane jsp = new JScrollPane(jta);
+			            JOptionPane.showMessageDialog(null, jsp);
+			         }
+			      });
+		JLabel lblDelete = new JLabel();
+		lblDelete.setText("Dugme za brisanje entiteta. Prečica: CTRL + D. Pritisnuti dugme za više informacija");
+
+		btnDelete.setOpaque(false);
+		btnDelete.setBorder(null);
+		
+
+		komponente.add(btnDelete, tf(0, 2));
+		komponente.add(lblDelete, lbl(1, 2));
+		
+		ImageIcon iconSearch = new ImageIcon("images/search2.png");
+		Image imgSearch = iconSearch.getImage() ;  
+		Image newimgSearch = imgSearch.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH ) ;  
+	    iconSearch = new ImageIcon(newimgSearch);
+	    
+		JButton btnSearch = new JButton();
+		btnSearch.setToolTipText("Obriši...");
+		btnSearch.setIcon(iconSearch);
+	
+		btnSearch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			      poruka = "Dugme za pretragu studenta, profesora, predmeta. Kriterijumi pretrage su:\n"
+			      		+ "Za studenta: [ime:'Ime'];[prezime:'Prezime'];[bri:'Broj indeksa']"
+			      		+ "\nZa profesora: [ime:'Ime'];[prezime:'Prezime'];[brlk:'Broj licne karte']"
+			      		+ "\nZa predmete: [sifra:'Sifra'];[naziv:'Naziv'];[godina:'Godina'];[semestar:'Semestar']";
+			            JTextArea jta = new JTextArea(20, 50);
+			            jta.setText(poruka);
+			            jta.setEditable(false);
+			            JScrollPane jsp = new JScrollPane(jta);
+			            JOptionPane.showMessageDialog(null, jsp);
+			         }
+			      });
+		JLabel lblSearch = new JLabel();
+		lblSearch.setText("Dugme za brisanje entiteta. Prečica: CTRL + D. Pritisnuti dugme za više informacija");
+
+		btnSearch.setOpaque(false);
+		btnSearch.setBorder(null);
+		
+
+		komponente.add(btnSearch, tf(0, 3));
+		komponente.add(lblSearch, lbl(1, 3));
+		
+
+		ImageIcon iconDodSt = new ImageIcon("images/student.png");
+		Image imgDodSt = iconDodSt.getImage() ;  
+		Image newimgDodSt = imgDodSt.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH ) ;  
+		iconDodSt = new ImageIcon(newimgDodSt);
+	    
+		JButton btnDodaj = new JButton();
+		btnDodaj.setToolTipText("Dodaj studenta na predmet...");
+		btnDodaj.setIcon(iconDodSt);
+	
+		btnDodaj.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			      poruka = "Dugme za dodavanje studenta na željeni predmet."
+			      		+ "\nOznačite željeni predmete, pritisnite dugme i unesite željeni broj indeksa.\n"
+			      		+ "Za pregled svih studenata možete pritisnuti dugme lista studenata.";
+			            JTextArea jta = new JTextArea(20, 50);
+			            jta.setText(poruka);
+			            jta.setEditable(false);
+			            JScrollPane jsp = new JScrollPane(jta);
+			            JOptionPane.showMessageDialog(null, jsp);
+			         }
+			      });
+		JLabel lblDodajSt = new JLabel();
+		lblDodajSt.setText("Dugme za dodavanje studenta na predmet. Prečica: CTRL + D. Pritisnuti dugme za više informacija");
+
+		btnDodaj.setOpaque(false);
+		btnDodaj.setBorder(null);
+		
+
+		komponente.add(btnDodaj, tf(0, 4));
+		komponente.add(lblDodajSt, lbl(1, 4));
+		
+
+		ImageIcon icondDodProf = new ImageIcon("images/profesor.png");
+		Image imgDodProf = icondDodProf.getImage() ;  
+		Image newimgDodProf = imgDodProf.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH ) ;  
+		icondDodProf = new ImageIcon(newimgDodProf);
+	    
+		JButton btnDodProf = new JButton();
+		btnDodProf.setToolTipText("Dodaj profesora na predmet...");
+		btnDodProf.setIcon(icondDodProf);
+	
+		btnDodProf.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			      poruka = "Dugme za dodavanje profesora na željeni predmet."
+			      		+ "\nOznačite željeni predmete, pritisnite dugme i unesite željeni broj lične karte.\n"
+			      		+ "Za pregled svih studenata možete pritisnuti dugme lista studenata.";
+			            JTextArea jta = new JTextArea(20, 50);
+			            jta.setText(poruka);
+			            jta.setEditable(false);
+			            JScrollPane jsp = new JScrollPane(jta);
+			            JOptionPane.showMessageDialog(null, jsp);
+			         }
+			      });
+		JLabel lblDodajProf = new JLabel();
+		lblDodajProf.setText("Dugme za dodavanje studenta na predmet. Prečica: CTRL + D. Pritisnuti dugme za više informacija");
+
+		btnDodProf.setOpaque(false);
+		btnDodProf.setBorder(null);
+		
+
+		komponente.add(btnDodProf, tf(0, 5));
+		komponente.add(lblDodajProf, lbl(1, 5));
+		
+		
 		
 		this.add(komponente, BorderLayout.CENTER);
 		this.add(dugmici, BorderLayout.SOUTH);
@@ -109,8 +279,9 @@ public class HelpDialog extends JDialog {
 		gbc.gridx = x;
 		gbc.gridy = y;
 		gbc.gridwidth = 1;
-		gbc.anchor = GridBagConstraints.WEST;
-		gbc.insets = new Insets(10, 20, 5, 10);
+
+	//	gbc.anchor = GridBagConstraints.LINE_END;
+		gbc.insets = new Insets(20, 10, 0, 10);
 		return gbc;
 	}
 	
@@ -118,10 +289,11 @@ public class HelpDialog extends JDialog {
 		GridBagConstraints gbc= new GridBagConstraints();
 		gbc.gridx = x;
 		gbc.gridy = y;
-		gbc.gridwidth = 3;
-		gbc.weightx = 100;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.insets = new Insets(10, 20, 0, 20);
+		gbc.gridwidth = 2;
+		gbc.weightx = 10;
+
+		gbc.anchor = GridBagConstraints.WEST;
+		gbc.insets = new Insets(4, 4, 4, 4);
 		return gbc;
 	}
 }
