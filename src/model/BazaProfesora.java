@@ -255,8 +255,8 @@ public class BazaProfesora {
 			i++;
 		}
 		
-		if(!kriterijumi[0].equals("ime") && !kriterijumi[0].equals("prezime") && !kriterijumi[0].equals("brlk")) {
-			JOptionPane.showMessageDialog(null, "Kriterijum pretrage je: \n[ime:'Ime'];[prezime'Prezime'];[brlk:'Indeks']", "GRESKA", JOptionPane.ERROR_MESSAGE);
+		if(!kriterijumi[0].equals("ime") && !kriterijumi[0].equals("prezime") && !kriterijumi[0].equals("brlk") && !kriterijumi[0].equals("zvanje") && !kriterijumi[0].equals("titula")) {
+			JOptionPane.showMessageDialog(null, "Kriterijum pretrage je: \n[ime:'Ime'];[prezime'Prezime'];[brlk:'Indeks']", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 		
 		} else {
 			boolean isProfesor = false;
@@ -288,6 +288,28 @@ public class BazaProfesora {
 								break;
 							}
 						}
+						
+						if (kriterijumi[j].equals("zvanje")) {
+							String zvanje1 = p.getZvanje().toString();
+							String zvanje2 = podaci[j];
+							if (zvanje1.equals(zvanje2)) {
+								isProfesor = true;
+							} else {
+								isProfesor = false;
+								break;
+							}
+						}
+						
+						if (kriterijumi[j].equals("titula")) {
+							String titula1 = p.getZvanje().toString();
+							String titula2 = podaci[j];
+							if (titula1.equals(titula2)) {
+								isProfesor = true;
+							} else {
+								isProfesor = false;
+								break;
+							}
+						}
 				}
 				if (isProfesor) 
 					profesoriNadjeni.add(p);
@@ -295,7 +317,7 @@ public class BazaProfesora {
 		}
 
 		if (profesoriNadjeni.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Nije pronadjen nijedan profesor datim kriterijumom.", "Neuspesno trazenje", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Nije pronađen nijedan profesor datim kriterijumom.", "Neuspešno traženje", JOptionPane.ERROR_MESSAGE);
 			this.setTekuci_profesori(this.profesori);
 		} else {
 			this.setFilter_Profesor(profesoriNadjeni);

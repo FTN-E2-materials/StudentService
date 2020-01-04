@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -23,7 +25,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentListener;
 
+import controller.DocumentListenerDodajStudenta;
+import controller.DocumentListenerIzmeniStudenta;
 import controller.StudentController;
 import model.BazaStudenata;
 import model.Student;
@@ -45,11 +50,13 @@ public class DijalogIzmeniS extends JDialog {
 	public static JTextField datumU;
 	public static JTextField prosOc;
 	public static JTextField email;
-
+	public static JButton okBtn = new JButton("Potvrda");
 	public static JComboBox godStud;
 	public static JRadioButton budzet;
 	public static JRadioButton samofin;
-
+	public static int flag = 0;
+	private DocumentListener documentListener = new DocumentListenerIzmeniStudenta();
+	
 	public DijalogIzmeniS(JFrame parent) {
 		super(parent, "Izmena student", true);
 		
@@ -172,11 +179,12 @@ public class DijalogIzmeniS extends JDialog {
 			if(st.getStatus() == Status.B) {
 				budzet.setSelected(true);
 			}
-			else {
+			else if(st.getStatus() == Status.S) {
 				samofin.setSelected(true);
+			} else {
+				
 			}
 			
-			JButton okBtn = new JButton("Potvrda");
 			okBtn.setBackground(Color.LIGHT_GRAY);
 			JButton notokBtn = new JButton("Odustanak");
 			notokBtn.setBackground(Color.LIGHT_GRAY);
@@ -207,9 +215,17 @@ public class DijalogIzmeniS extends JDialog {
 			up.add(budzet, constraintLbl(0, 10));
 			up.add(samofin, constraintLbl(0, 11));
 			
+			imeS.getDocument().addDocumentListener(documentListener);
+			przS.getDocument().addDocumentListener(documentListener);
+			datRodj.getDocument().addDocumentListener(documentListener);
+			adresa.getDocument().addDocumentListener(documentListener);
+			brtel.getDocument().addDocumentListener(documentListener);
+			briS.getDocument().addDocumentListener(documentListener);
+			datumU.getDocument().addDocumentListener(documentListener);
+			prosOc.getDocument().addDocumentListener(documentListener);
+			email.getDocument().addDocumentListener(documentListener);
 		
-			
-			
+
 			okBtn.addActionListener(new ActionListener() {
 
 				@Override
@@ -220,7 +236,7 @@ public class DijalogIzmeniS extends JDialog {
 					}
 				}
 			});
-	
+			
 			notokBtn.addActionListener(new ActionListener() {
 
 				@Override
@@ -228,8 +244,7 @@ public class DijalogIzmeniS extends JDialog {
 					// TODO Auto-generated method stub
 					dispose();
 					
-				}
-				
+				}			
 			});
 			down.add(notokBtn);
 			down.add(okBtn);
@@ -237,8 +252,7 @@ public class DijalogIzmeniS extends JDialog {
 			this.add(up, BorderLayout.NORTH);
 			this.add(down, BorderLayout.SOUTH);
 			this.setVisible(true);
-			
-			
+					
 		}
 	}
 		private GridBagConstraints constraintLbl(int x,int y) {
@@ -259,6 +273,16 @@ public class DijalogIzmeniS extends JDialog {
 			gbc.fill = GridBagConstraints.HORIZONTAL;
 			gbc.insets = new Insets(10, 20, 0, 20);
 			return gbc;
+		}
+		
+		public static void proveriPopunjenost() {
+			if (imeS.getText().trim().isEmpty() || przS.getText().trim().isEmpty() || briS.getText().trim().isEmpty() ||
+					adresa.getText().trim().isEmpty() || brtel.getText().trim().isEmpty() || datumU.getText().trim().isEmpty() 
+					|| datRodj.getText().trim().isEmpty() || prosOc.getText().trim().isEmpty())
+				okBtn.setEnabled(false);
+			else {
+				okBtn.setEnabled(true);
+			}
 		}
 			
 	}

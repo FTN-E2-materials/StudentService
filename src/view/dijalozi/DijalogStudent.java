@@ -2,7 +2,6 @@ package view.dijalozi;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -19,7 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentListener;
 
+import controller.DocumentListenerDodajStudenta;
 import controller.StudentController;
 
 public class DijalogStudent extends JDialog {
@@ -35,11 +36,12 @@ public class DijalogStudent extends JDialog {
 	public static JTextField datumU;
 	public static JTextField prosOc;
 	public static JTextField email;
-	JButton notokBtn;
-	JButton okBtn;
+	public JButton notokBtn;
+	public static JButton okBtn = new JButton("Potvrda");
 	public static JComboBox godStud;
 	public static JRadioButton budzet;
 	public static JRadioButton samofin;
+	private DocumentListener documentListener = new DocumentListenerDodajStudenta();
 	
 	public DijalogStudent(JFrame parent) {
 		super(parent, "Dodavanje studenta", true);
@@ -60,11 +62,10 @@ public class DijalogStudent extends JDialog {
 		przS = new JTextField();
 		    
 		        // datum
-		JLabel labDat = new JLabel("*Datum rodjenja:");
-		labDat.setToolTipText("Unesite datum rodjenja");	        
+		JLabel labDat = new JLabel("*Datum rođenja:");
+		labDat.setToolTipText("Unesite datum rođenja");	        
 		datRodj = new JTextField();
-
-		        
+        
 		        // adresa
 		JLabel labAdresa = new JLabel("*Adresa stanovanja:");
 		labAdresa.setToolTipText("Unesite adresa stanovanja");	
@@ -77,7 +78,6 @@ public class DijalogStudent extends JDialog {
 		labBrTel.setToolTipText("Unesite broj telefona");		
 		brtel = new JTextField();
 
-		        
 		        // broj indeksa
 		        
 		JLabel labBRI = new JLabel("*Broj indeksa:");
@@ -92,11 +92,11 @@ public class DijalogStudent extends JDialog {
 		JLabel labGodinaStud = new JLabel("*Trenutna godina studija:");
 		//labGodinaStud.setPreferredSize(new Dimension(100, 50));
 		        
-		JLabel prosecnaOc = new JLabel("*Prosecna ocena:");
-		prosecnaOc.setToolTipText("Unesite prosecnu ocenu");
+		JLabel prosecnaOc = new JLabel("*Prosečna ocena:");
+		prosecnaOc.setToolTipText("Unesite prosečnu ocenu");
 		prosOc = new JTextField();
 		
-		JLabel labEmail = new JLabel("*E-posta: ");
+		JLabel labEmail = new JLabel("*E-pošta: ");
 		labEmail.setToolTipText("Unesite email adresu");
 		email = new JTextField();
 		
@@ -104,13 +104,13 @@ public class DijalogStudent extends JDialog {
 		godStud = new JComboBox(godine);
 		        
 		// nacin finansiranja
-		budzet = new JRadioButton("Budzet");
+		budzet = new JRadioButton("Budžet");
 		samofin = new JRadioButton("Samofinansiranje");
-				// grupa regulise da samo jedan RadioButton može biti čekiran
+		// grupa regulise da samo jedan RadioButton može biti čekiran
 		ButtonGroup btnGroup1 = new ButtonGroup();
 		btnGroup1.add(budzet);
 		btnGroup1.add(samofin);
-				
+						
 		okBtn = new JButton("Potvrda");
 		okBtn.setBackground(Color.LIGHT_GRAY);
 		notokBtn = new JButton("Odustanak");
@@ -139,6 +139,17 @@ public class DijalogStudent extends JDialog {
 		up.add(budzet, lbl(0, 10));
 		up.add(samofin, lbl(0, 11));
 		
+		imeS.getDocument().addDocumentListener(documentListener);
+		przS.getDocument().addDocumentListener(documentListener);
+		datRodj.getDocument().addDocumentListener(documentListener);
+		adresa.getDocument().addDocumentListener(documentListener);
+		brtel.getDocument().addDocumentListener(documentListener);
+		briS.getDocument().addDocumentListener(documentListener);
+		datumU.getDocument().addDocumentListener(documentListener);
+		prosOc.getDocument().addDocumentListener(documentListener);
+		email.getDocument().addDocumentListener(documentListener);
+		
+		okBtn.setEnabled(false);
 		
 		okBtn.addActionListener(new ActionListener() {
 
@@ -164,6 +175,16 @@ public class DijalogStudent extends JDialog {
 		this.add(down, BorderLayout.SOUTH);
 		this.setVisible(true);
 			
+	}
+
+	public static void proveriPopunjenost() {
+		if (imeS.getText().trim().isEmpty() || przS.getText().trim().isEmpty() || briS.getText().trim().isEmpty() ||
+				adresa.getText().trim().isEmpty() || brtel.getText().trim().isEmpty() || datumU.getText().trim().isEmpty() 
+				|| datRodj.getText().trim().isEmpty() || prosOc.getText().trim().isEmpty())
+			okBtn.setEnabled(false);
+		else {
+			okBtn.setEnabled(true);
+		}
 	}
 
 	private GridBagConstraints lbl(int x,int y) {

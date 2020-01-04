@@ -15,7 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentListener;
 
+import controller.DocumentListenerDodajProfesora;
+import controller.DocumentListenerIzmeniStudenta;
 import controller.ProfesorController;
 
 public class DijalogDodajProfesora extends JDialog {
@@ -32,7 +35,8 @@ public class DijalogDodajProfesora extends JDialog {
 	public static JTextField brlk;
 	public static JComboBox titula;
 	public static JComboBox zvanje;
-	
+	public static JButton btnOk = new JButton("Potvrda");
+	private DocumentListener documentListener = new DocumentListenerDodajProfesora();
 	
 	public DijalogDodajProfesora(JFrame parent) {
 	// poziva roditeljsku metodu, da podesi u odnosu na sta se pravi
@@ -119,9 +123,18 @@ public class DijalogDodajProfesora extends JDialog {
 		
 		JPanel donjiPanel = new JPanel();
 		
-		JButton btnOk = new JButton("Potvrda");
 		JButton btnNotOk = new JButton("Odustanak");
+
+		imeP.getDocument().addDocumentListener(documentListener);
+		przP.getDocument().addDocumentListener(documentListener);
+		datRP.getDocument().addDocumentListener(documentListener);
+		adresaP.getDocument().addDocumentListener(documentListener);
+		brTel.getDocument().addDocumentListener(documentListener);
+		email.getDocument().addDocumentListener(documentListener);
+		kancelarija.getDocument().addDocumentListener(documentListener);
+		brlk.getDocument().addDocumentListener(documentListener);
 		
+		btnOk.setEnabled(false);
 		btnOk.addActionListener(new ActionListener() {
 
 			@Override
@@ -186,6 +199,17 @@ public class DijalogDodajProfesora extends JDialog {
 		ogr.fill = GridBagConstraints.HORIZONTAL;
 		ogr.insets = new Insets(10, 20, 0, 20);
 		return ogr;
+	}
+	
+	public static void proveriPopunjenost() {
+		if(imeP.getText().trim().isEmpty() || przP.getText().trim().isEmpty() || datRP.getText().trim().isEmpty() ||
+				adresaP.getText().trim().isEmpty() || brTel.getText().trim().isEmpty() || email.getText().trim().isEmpty() ||
+				kancelarija.getText().trim().isEmpty() || brlk.getText().trim().isEmpty()) {
+			btnOk.setEnabled(false);
+		} else {
+			btnOk.setEnabled(true);
+		}
+		
 	}
 	
 }

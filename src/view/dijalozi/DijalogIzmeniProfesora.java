@@ -18,7 +18,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentListener;
 
+import controller.DocumentListenerDodajProfesora;
+import controller.DocumentListenerIzmeniProfesora;
 import controller.ProfesorController;
 import model.BazaProfesora;
 import model.Profesor;
@@ -40,7 +43,9 @@ public class DijalogIzmeniProfesora extends JDialog {
 	public static JTextField brlk;
 	public static JComboBox titula;
 	public static JComboBox zvanje;
-	
+
+	public static JButton btnOk = new JButton("Potvrda");
+	private DocumentListener documentListener = new DocumentListenerIzmeniProfesora();
 	
 	public DijalogIzmeniProfesora(JFrame parent) {
 	// poziva roditeljsku metodu, da podesi u odnosu na sta se pravi
@@ -61,12 +66,7 @@ public class DijalogIzmeniProfesora extends JDialog {
 		
 		Profesor prof  = new Profesor();
 		prof = BazaProfesora.getInstance().getRow(ProfesoriJTable.curr_row);
-		
-		
-		// grid bag layout mi je bio najpogodniji za koordinate dodavanja
-		// ako ti je tesko da skontas kako radi, mozes i jednostavnije sa 
-		// FlowLayout (redjace sa leva na desno i popunjavait)
-		
+
 		JPanel gornjiPanel = new JPanel(new GridBagLayout());
 		
 		JLabel labIme = new JLabel("*Ime");
@@ -161,11 +161,19 @@ public class DijalogIzmeniProfesora extends JDialog {
 		gornjiPanel.add(labTitula, constraintLbl(0, 9));
 		gornjiPanel.add(titula, constraintTF(1, 9));
 		
-		
-		
 		JPanel donjiPanel = new JPanel();
 		
-		JButton btnOk = new JButton("Potvrda");
+
+		imeP.getDocument().addDocumentListener(documentListener);
+		przP.getDocument().addDocumentListener(documentListener);
+		datRP.getDocument().addDocumentListener(documentListener);
+		adresaP.getDocument().addDocumentListener(documentListener);
+		brTel.getDocument().addDocumentListener(documentListener);
+		email.getDocument().addDocumentListener(documentListener);
+		kancelarija.getDocument().addDocumentListener(documentListener);
+		brlk.getDocument().addDocumentListener(documentListener);
+		
+		btnOk.setEnabled(true);
 		JButton btnNotOk = new JButton("Odustanak");
 		
 		btnOk.addActionListener(new ActionListener() {
@@ -216,6 +224,16 @@ public class DijalogIzmeniProfesora extends JDialog {
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(10, 20, 0, 20);
 		return gbc;
+	}
+	public static void proveriPopunjenost() {
+		if(imeP.getText().trim().isEmpty() || przP.getText().trim().isEmpty() || datRP.getText().trim().isEmpty() ||
+				adresaP.getText().trim().isEmpty() || brTel.getText().trim().isEmpty() || email.getText().trim().isEmpty() ||
+				kancelarija.getText().trim().isEmpty() || brlk.getText().trim().isEmpty()) {
+			btnOk.setEnabled(false);
+		} else {
+			btnOk.setEnabled(true);
+		}
+		
 	}
 	
 }

@@ -67,7 +67,7 @@ public class PredmetController {
 		
 		BazaPredmeta.getInstance().dodajPredmet(sifra, ime, godina, semestar);
 		
-		if(!DijalogDodajPredmet.profesor.getText().isEmpty())
+		if(!DijalogDodajPredmet.profesor.getText().isEmpty()) 
 			if(!BazaPredmeta.getInstance().dodajProfesora(DijalogDodajPredmet.profesor.getText(), sifra)) {
 				JOptionPane.showMessageDialog(null, "Profesor ne postoji u bazi.\nProverite da li ste uneli dobro broj licne karte.", "GRESKA", JOptionPane.ERROR_MESSAGE);
 				return false;
@@ -191,11 +191,12 @@ public class PredmetController {
 		Predmet predmet = new Predmet(sifra, ime, semestar, godina);
 		BazaPredmeta.getInstance().izmeniPredmet(predmet);
 		
-		if(!DijalogIzmeniPredmet.profesor.getText().isEmpty())
+		if(!DijalogIzmeniPredmet.profesor.getText().isEmpty()) 
 			if(!BazaPredmeta.getInstance().dodajProfesora(DijalogIzmeniPredmet.profesor.getText(), sifra)) {
 				JOptionPane.showMessageDialog(null, "Profesor ne postoji u bazi.\nProverite da li ste uneli dobro broj licne karte.", "GRESKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
+		
 		
 		PredmetiJTable.refresh();
 		return true;
@@ -222,7 +223,8 @@ public class PredmetController {
 	public boolean obrisiProfesora() {
 		Predmet p = BazaPredmeta.getInstance().getRow(PredmetiJTable.curr_row);
 		
-		BazaPredmeta.getInstance().obrisiProfesora(p.getPred_prof(), p);
+		if (p.getPred_prof() != null)
+			BazaPredmeta.getInstance().obrisiProfesora(p.getPred_prof(), p);
 		PredmetiJTable.refresh();
 		return true;
 	}

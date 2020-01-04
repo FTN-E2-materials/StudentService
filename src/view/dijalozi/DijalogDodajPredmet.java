@@ -15,7 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentListener;
 
+import controller.DocumentListenerDodajPredmet;
+import controller.DocumentListenerIzmeniProfesora;
 import controller.PredmetController;
 
 public class DijalogDodajPredmet extends JDialog {
@@ -26,6 +29,8 @@ public class DijalogDodajPredmet extends JDialog {
 	public static JComboBox godina;
 	public static JComboBox semestar;
 	public static JTextField profesor;
+	public static JButton ok = new JButton("Potvrda");
+	private DocumentListener documentListener = new DocumentListenerDodajPredmet();
 	
 	public DijalogDodajPredmet(JFrame parent) {
 		super(parent, "Dodavanje predmeta", true);
@@ -69,9 +74,15 @@ public class DijalogDodajPredmet extends JDialog {
 		up.add(labProfesor, lbl(0, 4));
 		up.add(profesor, tf(1, 4));
 		
+		sifraP.getDocument().addDocumentListener(documentListener);
+		imeP.getDocument().addDocumentListener(documentListener);
+		
 		JPanel dugmici = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		JButton ok = new JButton("Potvrda");
+		
 		JButton notOk = new JButton("Odustanak");
+		
+		
+		ok.setEnabled(false);
 		
 		ok.addActionListener(new ActionListener() {
 			@Override
@@ -115,5 +126,13 @@ public class DijalogDodajPredmet extends JDialog {
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(10, 20, 0, 20);
 		return gbc;
+	}
+	public static void proveriPopunjenost() {
+		if (sifraP.getText().trim().isEmpty() || imeP.getText().trim().isEmpty()) {
+			ok.setEnabled(false);
+		} else {
+			ok.setEnabled(true);
+		}
+		
 	}	
 }

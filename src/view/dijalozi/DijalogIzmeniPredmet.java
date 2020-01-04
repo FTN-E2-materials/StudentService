@@ -15,7 +15,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentListener;
 
+import controller.DocumentListenerDodajPredmet;
 import controller.PredmetController;
 import model.BazaPredmeta;
 import model.Predmet;
@@ -29,6 +31,8 @@ public class DijalogIzmeniPredmet extends JDialog {
 	public static JComboBox godina;
 	public static JComboBox semestar;
 	public static JTextField profesor;
+	public static JButton ok = new JButton("Potvrda");
+	private DocumentListener documentListener = new DocumentListenerDodajPredmet();
 	
 	public DijalogIzmeniPredmet (JFrame parent) {
 		super(parent, "Izmena predmeta", true);
@@ -40,8 +44,8 @@ public class DijalogIzmeniPredmet extends JDialog {
 		
 		JPanel up = new JPanel(new GridBagLayout());
 		
-		JLabel labSifra = new JLabel("*Sifra predmeta:");
-		labSifra.setToolTipText("Unesite sifru predmeta");
+		JLabel labSifra = new JLabel("*Šifra predmeta:");
+		labSifra.setToolTipText("Unesite šifru predmeta");
 		sifraP = new JTextField();
 		sifraP.setText(p.getSifra());
 		
@@ -52,21 +56,23 @@ public class DijalogIzmeniPredmet extends JDialog {
 		
 		String[] godine = { "I (prva)", "II (druga)", "III (treca)" , "IV (cetvrta)" };
 		JLabel labGodina = new JLabel("*Godina:");
-		labGodina.setToolTipText("Unesite godina na kojoj se slusa predmet");
+		labGodina.setToolTipText("Unesite godinu na kojoj se sluša predmet");
 		godina = new JComboBox(godine);
 		godina.setSelectedIndex(p.getGodina() - 1);
 		
 		String[] semestri = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII" };
 		
 		JLabel labSemestar = new JLabel("*Semestar:");
-		labSemestar.setToolTipText("Unesite semestar na kom se slusa predmet");
+		labSemestar.setToolTipText("Unesite semestar na kom se sluša predmet");
 		semestar = new JComboBox(semestri);
 		semestar.setSelectedIndex(p.getSemestar() - 1);
 		
-		JLabel labProfesor = new JLabel("Predmetni profesor");
-		labProfesor.setToolTipText("Unesite broj licne karte predmetnog profesora");
+		JLabel labProfesor = new JLabel("<html> Predmetni profesor: <br/> (broj lične karte) </html> ");
+		labProfesor.setToolTipText("Unesite broj lične karte predmetnog profesora");
 		profesor = new JTextField();
-		
+		if (p.getPred_prof() != null) {
+			profesor.setText(p.getPred_prof().getBrlk());
+		}
 		up.add(labSifra, lbl(0, 0));
 		up.add(sifraP, tf(1, 0));
 		up.add(labIme, lbl(0, 1));
@@ -77,9 +83,13 @@ public class DijalogIzmeniPredmet extends JDialog {
 		up.add(semestar, tf(1, 3));
 		up.add(labProfesor, lbl(0, 4));
 		up.add(profesor, tf(1, 4));
+
+		sifraP.getDocument().addDocumentListener(documentListener);
+		imeP.getDocument().addDocumentListener(documentListener);
 		
 		JPanel dugmici = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		JButton ok = new JButton("Potvrda");
+		ok.setEnabled(true);
+		
 		JButton notOk = new JButton("Odustanak");
 		
 		ok.addActionListener(new ActionListener() {
@@ -124,5 +134,13 @@ public class DijalogIzmeniPredmet extends JDialog {
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(10, 20, 0, 20);
 		return gbc;
+	}
+	
+	public static void proveriPopunjenost() {
+		if (sifraP.getText().trim().isEmpty() || imeP.getText().trim().isEmpty()) {
+			ok.setEnabled(false);
+		} else {
+			ok.setEnabled(true);
+		}
 	}	
 }

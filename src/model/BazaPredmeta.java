@@ -37,7 +37,6 @@ public class BazaPredmeta {
 		this.tekuciPredmet = new ArrayList<Predmet>();
 		this.filterPredmet = new ArrayList<Predmet>();
 		
-		//initPredmete();
 		this.kolone = new ArrayList<String>();
 		this.kolone.add("Sifra predmeta");
 		this.kolone.add("Naziv predmeta");
@@ -49,18 +48,7 @@ public class BazaPredmeta {
 		this.deserialize();
 
 	}
-
-	private void initPredmete() {
-
-
-		predmeti.add(new Predmet("E2G53", "Osnovi informacionih sistema i softverskog inzenjerstva", 5, 3));
-		predmeti.add(new Predmet("E2312", "Matematicka analiza 1", 1, 1));
-		predmeti.add(new Predmet("E2134", "Logicko projektovanje racunarskih sistema", 3, 2));
-		
-		this.serialize();
-		this.setTekuciPredmet(this.predmeti);
-	}
-
+	
 	public List<Predmet> getFilterPredmet() {
 		return filterPredmet;
 	}
@@ -120,7 +108,7 @@ public class BazaPredmeta {
 		case 3:
 			return Integer.toString(predmet.getGodina());
 		case 4:
-			if(predmet.getPred_prof() != null)
+			if(predmet.getPred_prof().getIme() != null && predmet.getPred_prof().getPrezime() != null)
 				return predmet.getPred_prof().getIme() + " " + predmet.getPred_prof().getPrezime();
 			else {
 				return "";
@@ -135,31 +123,29 @@ public class BazaPredmeta {
 		p.setPred_prof(null);
 		this.predmeti.add(p);
 		this.setTrentunoStanje();
-		//this.serialize();
 	}
 	
-	public void setTrentunoStanje() {
-		if (PredmetController.flag == 0) {
-			this.setTekuciPredmet(this.predmeti);
-		} else {
-			this.setTekuciPredmet(this.filterPredmet);
-		}
-	}
-
 	public void obrisiPredmet(String sifra) {
 		for (Predmet p : predmeti ) {
 			if(p.getSifra().equals(sifra)) {
+				for (Student s : p.getStudenti()) {
+					s.getPredmeti().remove(p);
+				}
+				p.getPred_prof().getPredmeti().remove(p);
 				predmeti.remove(p);
 				break;
 			}
 		}
 		for (Predmet p : filterPredmet ) {
 			if(p.getSifra().equals(sifra)) {
+				for (Student s : p.getStudenti()) {
+					s.getPredmeti().remove(p);
+				}
+				p.getPred_prof().getPredmeti().remove(p);
 				filterPredmet.remove(p);
 				break;
 			}
 		}
-		//this.serialize();
 		this.setTrentunoStanje();
 	}
 	
@@ -181,7 +167,6 @@ public class BazaPredmeta {
 				p.setPred_prof(prof);
 			}
 		}
-		//this.serialize();
 		this.setTrentunoStanje();
 	}
 	
@@ -215,7 +200,6 @@ public class BazaPredmeta {
 		}
 		
 		BazaProfesora.getInstance().dodajPredmet(profesor, predmet);
-		//this.serialize();
 		this.setTrentunoStanje();
 		
 		return retVal;
@@ -228,21 +212,17 @@ public class BazaPredmeta {
 				BazaStudenata.getInstance().dodajPredmet(s, p);
 			}
 		}
-		//this.serialize();
 		this.setTrentunoStanje();		
 	}
 
 	public void obrisiStudenta(Predmet p, Student s) {
 		p.getStudenti().remove(s);
 		s.getPredmeti().remove(p);
-		//BazaStudenata.getInstance().serialize();
-		//this.serialize();
 	}
 
 	public void obrisiProfesora(Profesor p, Predmet pp) {
 		BazaProfesora.getInstance().obrisiPredmet(p, pp);
 		pp.setPred_prof(null);
-		//this.serialize();
 	}
 
 	public void izmeniPredmet(Predmet predmet) {
@@ -265,7 +245,6 @@ public class BazaPredmeta {
 				p.setPred_prof(predmet.getPred_prof());
 			}
 		}
-		//this.serialize();
 		this.setTrentunoStanje();
 	}
 
@@ -349,7 +328,6 @@ public class BazaPredmeta {
 	
 	public void obrisiProfesoraIzBazeProf(Profesor p, Predmet pp) {
 		pp.setPred_prof(null);
-		//this.serialize();
 	}
 	
 	
@@ -390,6 +368,15 @@ public class BazaPredmeta {
 		}
 		
 	}
+	
+	public void setTrentunoStanje() {
+		if (PredmetController.flag == 0) {
+			this.setTekuciPredmet(this.predmeti);
+		} else {
+			this.setTekuciPredmet(this.filterPredmet);
+		}
+	}
+
 
 	
 }

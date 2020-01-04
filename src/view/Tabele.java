@@ -73,25 +73,25 @@ public class Tabele extends JTabbedPane {
 			    {
 			    	Toolbar.unSetDugmici();
 			    
-			    	if (tab_curr == 1) {
+		    	if (tab_curr == 0) {
 			    		
-				    	ProfesorController.flag = 0;
-				    	PredmetController.flag = 0;
-				    	BazaPredmeta.getInstance().setTrentunoStanje();
-				    	BazaProfesora.getInstance().setTrenutnoStanje();
+				    ProfesorController.flag = 0;
+				    PredmetController.flag = 0;
+				    BazaPredmeta.getInstance().setTrentunoStanje();
+				    BazaProfesora.getInstance().setTrenutnoStanje();
 				    	
 				    	
-				    	ProfesoriJTable.refresh();
-				    	PredmetiJTable.refresh();
-			    	} else if (tab_curr == 2) {
+				    ProfesoriJTable.refresh();
+				    PredmetiJTable.refresh();
+		    	} else if (tab_curr == 1) {
 			    		
-			    		PredmetController.flag = 0;
-			    		StudentController.flag = 0;
-			    		BazaStudenata.getInstance().setTrenutnoStanje();
-				    	BazaPredmeta.getInstance().setTrentunoStanje();
+			    	PredmetController.flag = 0;
+			    	StudentController.flag = 0;
+			    	BazaStudenata.getInstance().setTrenutnoStanje();
+			    	BazaPredmeta.getInstance().setTrentunoStanje();
 				    	
-				    	StudentJTable.refresh();
-				    	PredmetiJTable.refresh();
+			    	StudentJTable.refresh();
+			    	PredmetiJTable.refresh();
 			    	}
 			    }
 			}

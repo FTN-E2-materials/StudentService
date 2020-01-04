@@ -50,6 +50,7 @@ public class DodajProfesoraNaPredmet extends JDialog {
 			ok.setVisible(false);
 			notOk.setVisible(true);
 		} else {
+			brlk.setText("");
 			delete.setVisible(false);
 			ok.setVisible(true);
 			notOk.setVisible(true);

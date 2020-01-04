@@ -48,7 +48,7 @@ public class BazaStudenata {
 		this.kolone.add("Godina studija");
 		this.kolone.add("Status");
 		this.kolone.add("Prosek");
-		this.kolone.add("Datum rodjenja");
+		this.kolone.add("Datum rođenja");
 		//this.kolone.add("Email");
 		//this.kolone.add("Broj telefona");
 		this.kolone.add("Datum upisa");
@@ -60,9 +60,7 @@ public class BazaStudenata {
 		this.filter_Student = new ArrayList<Student>();
 		
 		this.deserialize();
-		
 		setTekuca_lista(this.studenti);
-		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -86,24 +84,6 @@ public class BazaStudenata {
             return;
         }
 	}
-/*
-	private void initStudente() {
-		this.studenti = new ArrayList<Student>();
-		this.tekuca_lista = new ArrayList<Student>();
-		this.filter_Student = new ArrayList<Student>();
-		
-		Student s1 = new Student("Jelena", "Vlajkov", parseDate("29.09.1998"), "Novosadskog sajma 33", "0612190090", "vlajkovj31@gmail.com",
-				"RA-32-2017",  parseDate("07.07.2017"), 3, Status.B, 9.94);
-		
-		studenti.add(s1);
-		
-		Student s2 = new Student("Aleksandra", "Stamenkovic", parseDate("06.12.1998"), "Danila Kisa", "0614684654", "alekstam@gmail.com",
-				"RA-123-2017", parseDate("07.07.2017"), 3, Status.B, 9.5);
-		
-		studenti.add(s2);
-		this.tekuca_lista = this.studenti;
-	}
-*/
 	
 	public List<Student> getStudenti() {
 		return this.studenti;
@@ -142,7 +122,7 @@ public class BazaStudenata {
 			return Integer.toString(student.getGodina_stud());
 		case 4:
 			if(student.getStatus() == Status.B)
-				return "Budzet";
+				return "Budžet";
 			else 
 				return "Samofinansiranje";
 		case 5:
@@ -161,12 +141,9 @@ public class BazaStudenata {
 			String email, Date upis, int godina_stud, Status status, double prosek) {
 
 		this.studenti.add(new Student(ime, prezime, datRodj, adresa, brt, email, bri, upis, godina_stud, status, prosek));
-		
 		this.setTrenutnoStanje();
-		//this.serialize();
 		
 	}
-
 	
 	public void izbrisiStudenta(String bri) {
 		for(Student s : studenti) {
@@ -182,13 +159,9 @@ public class BazaStudenata {
 			}
 		}	
 		this.setTrenutnoStanje();
-		//this.serialize();
-		
 	}
 	
-
-
-	public void izmeniStudenta(String bri, String briNew, String ime, String prezime, Date datumr, String adresa, String brt, Date upis, 
+	public void izmeniStudenta(String bri, String ime, String prezime, Date datumr, String adresa, String brt, Date upis, 
 			int godina_stud, String email, 
 			Status status, double prosek) {
 		
@@ -204,7 +177,6 @@ public class BazaStudenata {
 				s.setAdresa(adresa);
 				s.setDatum_upisa(upis);
 				s.setDatumr(datumr);
-				s.setBri(briNew);
 				
 			}
 		}
@@ -221,20 +193,10 @@ public class BazaStudenata {
 				s.setAdresa(adresa);
 				s.setDatum_upisa(upis);
 				s.setDatumr(datumr);
-				s.setBri(briNew);
 			}
-
-			//this.serialize();
-			this.setTrenutnoStanje();
-	}
-
+		}
 		
-		if(StudentController.flag == 0) {
-			this.tekuca_lista = this.studenti;
-		}
-		else {
-			this.tekuca_lista = this.filter_Student;
-		}
+		this.setTrenutnoStanje();
 	}
 	
 	public void pretraziStudenta(String text) {
@@ -299,7 +261,7 @@ public class BazaStudenata {
 		}
 		
 		if (studentiNadjeni.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Nije pronadjen nijedan student datim kriterijumom.", "Neuspesno trazenje", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Nije pronađen nijedan student datim kriterijumom.", "Neuspešno traženje", JOptionPane.ERROR_MESSAGE);
 			this.setTekuca_lista(this.studenti);
 		} else {
 			this.setFilter_Student(studentiNadjeni);
@@ -338,13 +300,10 @@ public class BazaStudenata {
 		p.getStudenti().remove(s);
 		s.getPredmeti().remove(p);
 		
-		//this.serialize();
-		
 	}
 
 	public void dodajPredmet(Student s, Predmet p) {
 		s.getPredmeti().add(p);
-		//this.serialize();
 		this.setTrenutnoStanje();
 	}
 		 

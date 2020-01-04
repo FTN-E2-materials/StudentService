@@ -30,7 +30,7 @@ public class DijalogObrisiProfesora extends JDialog {
 			JOptionPane.showMessageDialog(null, "Ne postoji nijedan profesor za brisanje", "GRESKA", JOptionPane.ERROR_MESSAGE);
 		}
 		else {
-			this.setSize(new Dimension(500, 200));
+			this.setSize(new Dimension(400, 100));
 			this.setLayout(new BorderLayout());
 			
 			JPanel panel  = new JPanel(new FlowLayout(FlowLayout.RIGHT));
