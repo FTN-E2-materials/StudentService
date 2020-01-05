@@ -31,7 +31,8 @@ public class StudentJTable extends JTable {
 		new PredmetiKodStudenta(this, 8);
 		new AbstractButtonDetalji(this, 9);
 		this.getTableHeader().setReorderingAllowed(false);
-
+		this.getColumnModel().getColumn(6).setCellRenderer(new DateCellRenderer());
+		this.getColumnModel().getColumn(7).setCellRenderer(new DateCellRenderer());
 		table_model = this.getModel();
 		tabela = this;
 	

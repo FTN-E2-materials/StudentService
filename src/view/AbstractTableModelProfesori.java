@@ -5,6 +5,8 @@ import javax.swing.table.AbstractTableModel;
 
 import controller.ProfesorController;
 import model.BazaProfesora;
+
+import java.sql.Date;
 import java.util.ArrayList;
 
 
@@ -41,14 +43,23 @@ import java.util.ArrayList;
 		public Class<?> getColumnClass(int columnIndex) {
 			switch (columnIndex) {
 			case 0:
+				return String.class;
 			case 1:
+				return String.class;
 			case 2:
+				return String.class;
 			case 3:
+				return String.class;
 			case 4:
+				return String.class;
 			case 5:
+				return String.class;
 			case 6:
+				return Date.class;
 			case 7:
+				return String.class;
 			case 8:
+				return String.class;
 			case 9:
 				return JButton.class;
 			default:

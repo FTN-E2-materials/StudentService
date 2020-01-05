@@ -30,7 +30,8 @@ public class ProfesoriJTable extends JTable {
 		this.setModel(new AbstractTableModelProfesori());
 		new PredmetiKodProfesora(this, 9);
 		this.getTableHeader().setReorderingAllowed(false);
-
+		this.getColumnModel().getColumn(6).setCellRenderer(new DateCellRenderer());
+		
 		table_model = this.getModel();
 		
 		// soritranje

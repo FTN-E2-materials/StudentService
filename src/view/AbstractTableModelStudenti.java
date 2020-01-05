@@ -7,6 +7,7 @@ import controller.StudentController;
 import model.BazaStudenata;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -56,13 +57,21 @@ public class AbstractTableModelStudenti extends AbstractTableModel {
 	public Class<?> getColumnClass(int columnIndex) {
 		switch (columnIndex) {
 		case 0:
+			return String.class;
 		case 1:
+			return String.class;
 		case 2:
+			return String.class;
 		case 3:
+			return String.class;
 		case 4:
+			return String.class;
 		case 5:
+			return String.class;
 		case 6:
-		case 7:
+			return Date.class;
+		case 7: 
+			return Date.class;
 		case 8:
 			return JButton.class;
 		case 9:

@@ -130,7 +130,7 @@ public class BazaProfesora {
 		this.profesori = profesori;
 	}
 	
-	public String getValueAt(int row, int column) {
+	public Object getValueAt(int row, int column) {
 		Profesor profesor = this.tekuci_profesori.get(row);
 		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy.");
 		
@@ -165,7 +165,7 @@ public class BazaProfesora {
 		case 5:
 			return profesor.getAdresa();
 		case 6:
-			return datum.format(profesor.getDatumr());
+			return profesor.getDatumr();
 		case 7:
 			return profesor.getEmail();
 		case 8:

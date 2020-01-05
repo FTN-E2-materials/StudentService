@@ -8,6 +8,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -61,6 +65,11 @@ public class BazaStudenata {
 		
 		this.deserialize();
 		setTekuca_lista(this.studenti);
+		
+		
+		for (Student s : studenti) {
+			System.out.println(s.getStatus());
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -107,7 +116,7 @@ public class BazaStudenata {
 		return this.tekuca_lista.get(rowIndex);
 	}
 	
-	public String getValueAt(int row, int column) {
+	public Object getValueAt(int row, int column) {
 		Student student = this.tekuca_lista.get(row);
 		
 		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy.");
@@ -128,9 +137,10 @@ public class BazaStudenata {
 		case 5:
 			return Double.toString(student.getProsek());
 		case 6:
-			return datum.format(student.getDatumr());
+			return student.getDatumr();
 		case 7:
-			return datum.format(student.getDatum_upisa());
+			return student.getDatum_upisa();
+			
 		default:
 			return null;
 	
