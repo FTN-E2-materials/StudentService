@@ -29,7 +29,7 @@ public class AbstractButtonDetalji extends AbstractCellEditor implements TableCe
 		
 	
 	
-		this.renderer = new JButton("DEtalji");
+		this.renderer = new JButton("Detalji");
 		this.editor = new JButton("Detalji");
 		
 		this.editor.addActionListener(new ActionListener() {

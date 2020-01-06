@@ -102,6 +102,7 @@ public class StudentController {
 			st.setStatus(Status.S);
 		} else {
 			JOptionPane.showMessageDialog(null, "Morate označiti status studenta!", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
 		
 		try {

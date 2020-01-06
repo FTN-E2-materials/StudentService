@@ -29,8 +29,8 @@ public class PredmetiKodStudenta extends AbstractCellEditor implements TableCell
 		
 	
 	
-		this.renderer = new JButton("Prikazi");
-		this.editor = new JButton("Prikazi");
+		this.renderer = new JButton("Prikaži");
+		this.editor = new JButton("Prikaži");
 		
 		this.editor.addActionListener(new ActionListener() {
 

@@ -90,9 +90,9 @@ public class DijalogIzmeniS extends JDialog {
 			//przS.setPreferredSize(new Dimension(300, 25));
 			przS.setText(st.getPrezime());
 			        // datum
-			JLabel labDat = new JLabel("*Datum rodjenja:");
+			JLabel labDat = new JLabel("*Datum rođenja:");
 			//labDat.setPreferredSize(new Dimension(200, 50));
-			labDat.setToolTipText("Unesite datum rodjenja");
+			labDat.setToolTipText("Unesite datum rođenja");
 			        
 			        
 			datRodj = new JTextField();
@@ -168,7 +168,7 @@ public class DijalogIzmeniS extends JDialog {
 			godStud.setSelectedIndex(st.getGodina_stud()-1);
 			
 			// nacin finansiranja
-			budzet = new JRadioButton("Budzet");
+			budzet = new JRadioButton("Budžet");
 			samofin = new JRadioButton("Samofinansiranje");
 					// grupa regulise da samo jedan RadioButton može biti čekiran
 			ButtonGroup btnGroup1 = new ButtonGroup();

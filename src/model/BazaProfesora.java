@@ -59,35 +59,6 @@ public class BazaProfesora {
 		
 		this.setTrenutnoStanje();
 	}
-
-	private void initProfesore() {
-	
-		this.profesori = new ArrayList<Profesor>();
-		
-		/*
-		 * rofesor(String ime, String prezime, Date datumr, String adresa, String br_tel, String email,
-			String kancelarija, String brlk, String zvanje, String titula) {
-		 */
-		
-		Profesor p1 = new Profesor("Nikola", "Nikolic", parseDate("29.12.1960"), "Braca Tatica", "123456", "nikolicn@gmail.com", "104", "123456", Zvanje.RProfesor, Titula.Dr);
-		profesori.add(p1);
-		Profesor p2 = new Profesor("Marko", "Markovic", parseDate("29.12.1960"), "Braca Tatica", "468798", "nikolicn@gmail.com", "104", "6544354", Zvanje.Docent, Titula.Dr);
-		Profesor p3 = new Profesor("Jovan", "Jovanovic", parseDate("29.12.1960"), "Braca Tatica", "8751354", "nikolicn@gmail.com", "104", "513151", Zvanje.Asistent, Titula.Ms);
-		
-		profesori.add(p2);
-		profesori.add(p3);
-		this.tekuci_profesori = this.profesori;
-		
-		try {
-			FileOutputStream fos = new FileOutputStream("data/dataProfessor");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(profesori);
-			oos.close();
-			fos.close();
-		} catch (IOException ioe) {
-			System.out.println(ioe.getMessage());
-		}
-	}
 	
 	
 	public List<Profesor> getProfesori() {
@@ -318,13 +289,11 @@ public class BazaProfesora {
 
 		if (profesoriNadjeni.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Nije pronađen nijedan profesor datim kriterijumom.", "Neuspešno traženje", JOptionPane.ERROR_MESSAGE);
-			this.setTekuci_profesori(this.profesori);
+			ProfesorController.flag  = 0;
 		} else {
 			this.setFilter_Profesor(profesoriNadjeni);
-			this.setTekuci_profesori(this.filter_Profesor);
-		}
-
-		
+		} 
+		this.setTrenutnoStanje();
 		
 	}
 
@@ -345,12 +314,13 @@ public class BazaProfesora {
 
 	public void obrisiPredmet(Profesor p, Predmet pp) {
 		p.getPredmeti().remove(pp);
+		pp.setPred_prof(null);
 	}
 	
 	private void deserialize() {
 
 		try {
-			FileInputStream fis = new FileInputStream("data/dataProfessor");
+			FileInputStream fis = new FileInputStream("data/dataProfessor.txt");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			this.profesori = (ArrayList<Profesor>) ois.readObject();
 				
@@ -374,7 +344,7 @@ public class BazaProfesora {
 	
 	public void serialize() {	
 		try {
-			FileOutputStream fos = new FileOutputStream("data/dataProfessor");
+			FileOutputStream fos = new FileOutputStream("data/dataProfessor.txt");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(profesori);
 			oos.close();

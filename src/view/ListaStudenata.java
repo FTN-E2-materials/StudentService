@@ -54,7 +54,7 @@ public class ListaStudenata extends JDialog {
 		lista.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 		lista.setVisibleRowCount(5);
 		
-		JButton obrisiB = new JButton("Obrisi");
+		JButton obrisiB = new JButton("Obriši");
 		JButton odustaniB = new JButton("Odustani");
 		
 		lista.addListSelectionListener(new ListSelectionListener() {

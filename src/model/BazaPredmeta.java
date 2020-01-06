@@ -108,10 +108,10 @@ public class BazaPredmeta {
 		case 3:
 			return Integer.toString(predmet.getGodina());
 		case 4:
-			if(predmet.getPred_prof().getIme() != null && predmet.getPred_prof().getPrezime() != null)
-				return predmet.getPred_prof().getIme() + " " + predmet.getPred_prof().getPrezime();
-			else {
+			if(predmet.getPred_prof() == null)
 				return "";
+			else {
+				return predmet.getPred_prof().getIme() + " " + predmet.getPred_prof().getPrezime();
 			}
 		default: 
 			return null;
@@ -131,7 +131,8 @@ public class BazaPredmeta {
 				for (Student s : p.getStudenti()) {
 					s.getPredmeti().remove(p);
 				}
-				p.getPred_prof().getPredmeti().remove(p);
+				if(p.getPred_prof() != null)
+					p.getPred_prof().getPredmeti().remove(p);
 				predmeti.remove(p);
 				break;
 			}
@@ -141,7 +142,8 @@ public class BazaPredmeta {
 				for (Student s : p.getStudenti()) {
 					s.getPredmeti().remove(p);
 				}
-				p.getPred_prof().getPredmeti().remove(p);
+				if(p.getPred_prof() != null)
+					p.getPred_prof().getPredmeti().remove(p);
 				filterPredmet.remove(p);
 				break;
 			}
@@ -221,8 +223,8 @@ public class BazaPredmeta {
 	}
 
 	public void obrisiProfesora(Profesor p, Predmet pp) {
-		BazaProfesora.getInstance().obrisiPredmet(p, pp);
 		pp.setPred_prof(null);
+		p.getPredmeti().remove(pp);
 	}
 
 	public void izmeniPredmet(Predmet predmet) {
@@ -319,11 +321,11 @@ public class BazaPredmeta {
 
 		if (predmetiNadjeni.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Nije pronadjen nijedan predmet datim kriterijumom.", "Neuspesno trazenje", JOptionPane.ERROR_MESSAGE);
+			PredmetController.flag = 0;
+		} else {
+			this.setFilter_Predmet(predmetiNadjeni);
 		}
-		
-		this.setFilter_Predmet(predmetiNadjeni);
 		this.setTrentunoStanje();
-
 	}
 	
 	public void obrisiProfesoraIzBazeProf(Profesor p, Predmet pp) {

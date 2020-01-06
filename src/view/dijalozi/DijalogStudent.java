@@ -37,7 +37,7 @@ public class DijalogStudent extends JDialog {
 	public static JTextField prosOc;
 	public static JTextField email;
 	public JButton notokBtn;
-	public static JButton okBtn = new JButton("Potvrda");
+	public static JButton okBtn;
 	public static JComboBox godStud;
 	public static JRadioButton budzet;
 	public static JRadioButton samofin;

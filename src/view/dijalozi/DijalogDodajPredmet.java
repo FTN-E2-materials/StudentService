@@ -29,7 +29,7 @@ public class DijalogDodajPredmet extends JDialog {
 	public static JComboBox godina;
 	public static JComboBox semestar;
 	public static JTextField profesor;
-	public static JButton ok = new JButton("Potvrda");
+	public static JButton ok;
 	private DocumentListener documentListener = new DocumentListenerDodajPredmet();
 	
 	public DijalogDodajPredmet(JFrame parent) {
@@ -73,6 +73,8 @@ public class DijalogDodajPredmet extends JDialog {
 		up.add(semestar, tf(1, 3));
 		up.add(labProfesor, lbl(0, 4));
 		up.add(profesor, tf(1, 4));
+		
+		ok = new JButton("Potvrda");
 		
 		sifraP.getDocument().addDocumentListener(documentListener);
 		imeP.getDocument().addDocumentListener(documentListener);

@@ -44,7 +44,7 @@ public class DijalogIzmeniProfesora extends JDialog {
 	public static JComboBox titula;
 	public static JComboBox zvanje;
 
-	public static JButton btnOk = new JButton("Potvrda");
+	public static JButton btnOk;
 	private DocumentListener documentListener = new DocumentListenerIzmeniProfesora();
 	
 	public DijalogIzmeniProfesora(JFrame parent) {
@@ -173,7 +173,10 @@ public class DijalogIzmeniProfesora extends JDialog {
 		kancelarija.getDocument().addDocumentListener(documentListener);
 		brlk.getDocument().addDocumentListener(documentListener);
 		
+		btnOk = new JButton("Potvrda");
+		
 		btnOk.setEnabled(true);
+		
 		JButton btnNotOk = new JButton("Odustanak");
 		
 		btnOk.addActionListener(new ActionListener() {

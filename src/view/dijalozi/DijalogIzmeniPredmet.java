@@ -31,7 +31,7 @@ public class DijalogIzmeniPredmet extends JDialog {
 	public static JComboBox godina;
 	public static JComboBox semestar;
 	public static JTextField profesor;
-	public static JButton ok = new JButton("Potvrda");
+	public static JButton ok;
 	private DocumentListener documentListener = new DocumentListenerDodajPredmet();
 	
 	public DijalogIzmeniPredmet (JFrame parent) {
@@ -88,6 +88,8 @@ public class DijalogIzmeniPredmet extends JDialog {
 		imeP.getDocument().addDocumentListener(documentListener);
 		
 		JPanel dugmici = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		ok = new JButton("Potvrda");
+		
 		ok.setEnabled(true);
 		
 		JButton notOk = new JButton("Odustanak");

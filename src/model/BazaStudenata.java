@@ -65,18 +65,14 @@ public class BazaStudenata {
 		
 		this.deserialize();
 		setTekuca_lista(this.studenti);
-		
-		
-		for (Student s : studenti) {
-			System.out.println(s.getStatus());
-		}
+
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void deserialize() {
 
 		try {
-			FileInputStream fis = new FileInputStream("data/dataStudents");
+			FileInputStream fis = new FileInputStream("data/dataStudents.txt");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			this.studenti = (ArrayList<Student>) ois.readObject();
 			
@@ -228,8 +224,8 @@ public class BazaStudenata {
 			podaci[i] = pom[1];
 			i++;
 		}
-		if(!kriterijumi[0].equals("ime") && !kriterijumi[0].equals("prezime") && !kriterijumi[0].equals("indeks")) {
-			JOptionPane.showMessageDialog(null, "Kriterijum pretrage je: \n[ime:'Ime'];[prezime'Prezime'];[indeks:'Indeks']", "GRESKA", JOptionPane.ERROR_MESSAGE);
+		if(!kriterijumi[0].equals("ime") && !kriterijumi[0].equals("prezime") && !kriterijumi[0].equals("indeks") && !kriterijumi[0].equals("status")) {
+			JOptionPane.showMessageDialog(null, "Kriterijum pretrage je: \n[ime:'Ime'];[prezime'Prezime'];[indeks:'Indeks'];[status:'Status'].", "GRESKA", JOptionPane.ERROR_MESSAGE);
 		
 		} else {
 			boolean isStudent = false;
@@ -262,6 +258,29 @@ public class BazaStudenata {
 							isStudent = false;
 							break;
 						}
+					} else if (kriterijumi[j].equals("status")) {
+						if (s.getStatus().toString().equals(podaci[j]) || s.getStatus().equals(podaci[j])) {
+							isStudent = true;
+						} 
+						else if (podaci[j].equals("Budžet")) {
+							if (s.getStatus().toString().equals("B")) {
+								isStudent = true;
+							} else {
+								isStudent = false;
+								break;
+							}
+						} else if (podaci[j].equals("Samofinansiranje")) {
+							if (s.getStatus().toString().equals("S")) {
+								isStudent = true;
+							} else {
+								isStudent = false;
+								break;
+							}
+						}
+						else {
+							isStudent = false;
+							break;
+						}
 					}
 					
 				}
@@ -272,11 +291,12 @@ public class BazaStudenata {
 		
 		if (studentiNadjeni.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Nije pronađen nijedan student datim kriterijumom.", "Neuspešno traženje", JOptionPane.ERROR_MESSAGE);
-			this.setTekuca_lista(this.studenti);
+			StudentController.flag = 0;
 		} else {
 			this.setFilter_Student(studentiNadjeni);
-			this.setTekuca_lista(this.filter_Student);
 		}
+		
+		this.setTrenutnoStanje();
 
 	}
 	
@@ -320,7 +340,7 @@ public class BazaStudenata {
 	 public void serialize() {
 		 
 			try {
-				FileOutputStream fos = new FileOutputStream("data/dataStudents");
+				FileOutputStream fos = new FileOutputStream("data/dataStudents.txt");
 				ObjectOutputStream oos = new ObjectOutputStream(fos);
 				oos.writeObject(this.studenti);
 				oos.close();

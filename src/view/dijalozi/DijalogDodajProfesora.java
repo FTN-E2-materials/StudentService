@@ -35,7 +35,7 @@ public class DijalogDodajProfesora extends JDialog {
 	public static JTextField brlk;
 	public static JComboBox titula;
 	public static JComboBox zvanje;
-	public static JButton btnOk = new JButton("Potvrda");
+	public static JButton btnOk;
 	private DocumentListener documentListener = new DocumentListenerDodajProfesora();
 	
 	public DijalogDodajProfesora(JFrame parent) {
@@ -133,6 +133,8 @@ public class DijalogDodajProfesora extends JDialog {
 		email.getDocument().addDocumentListener(documentListener);
 		kancelarija.getDocument().addDocumentListener(documentListener);
 		brlk.getDocument().addDocumentListener(documentListener);
+		
+		btnOk = new JButton("Potvrda");
 		
 		btnOk.setEnabled(false);
 		btnOk.addActionListener(new ActionListener() {

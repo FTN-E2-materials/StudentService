@@ -28,16 +28,15 @@ public class Tabele extends JTabbedPane {
 		ProfesoriJTable tabelaProfesora = new ProfesoriJTable();
 		PredmetiJTable tabelaPredmeta = new PredmetiJTable();
 		
-		tabelaStudenata.setPreferredSize(new Dimension(500, 500));
+		//tabelaStudenata.setPreferredSize(new Dimension(500, 500));
 		JScrollPane scrollPane = new JScrollPane(tabelaStudenata);
 		scrollPane.setBorder(new EmptyBorder(60,30,10,30));
 		
-		
-		tabelaProfesora.setPreferredSize(new Dimension(500, 500));
+		//tabelaProfesora.setPreferredSize(new Dimension(500, 500));
 		JScrollPane scrollPaneProf = new JScrollPane(tabelaProfesora);
 		scrollPaneProf.setBorder(new EmptyBorder(60,30,10,30));
 		
-		tabelaPredmeta.setPreferredSize(new Dimension(500, 500));
+		//tabelaPredmeta.setPreferredSize(new Dimension(500, 500));
 		JScrollPane scrollPanePred = new JScrollPane(tabelaPredmeta);
 		scrollPanePred.setBorder(new EmptyBorder(60, 30, 10, 30));
 		

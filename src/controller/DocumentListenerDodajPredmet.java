@@ -5,9 +5,7 @@ import javax.swing.event.DocumentListener;
 
 import view.dijalozi.DijalogDodajPredmet;
 
-
 public class DocumentListenerDodajPredmet implements DocumentListener {
- 
     public void changedUpdate(DocumentEvent e)
     {
     	DijalogDodajPredmet.proveriPopunjenost();
