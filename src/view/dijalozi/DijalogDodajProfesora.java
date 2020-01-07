@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentListener;
 
 import controller.DocumentListenerDodajProfesora;
-import controller.DocumentListenerIzmeniStudenta;
 import controller.ProfesorController;
 
 public class DijalogDodajProfesora extends JDialog {
@@ -33,25 +32,19 @@ public class DijalogDodajProfesora extends JDialog {
 	public static JTextField email;
 	public static JTextField kancelarija;
 	public static JTextField brlk;
+	@SuppressWarnings("rawtypes")
 	public static JComboBox titula;
+	@SuppressWarnings("rawtypes")
 	public static JComboBox zvanje;
 	public static JButton btnOk;
 	private DocumentListener documentListener = new DocumentListenerDodajProfesora();
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DijalogDodajProfesora(JFrame parent) {
-	// poziva roditeljsku metodu, da podesi u odnosu na sta se pravi
-	// dijalog
-		
-	// ekvivalentno ti pravis klase dodaj predmet, obrisi predmet, izmeni predmet
-	// uz dodatne klase za dodavanje studenta i profesora na dati predemet
+
 		super(parent, "Dodavanje profesora", true);
 		this.setSize(new Dimension(500, 500));
-	
 			
-		// grid bag layout mi je bio najpogodniji za koordinate dodavanja
-		// ako ti je tesko da skontas kako radi, mozes i jednostavnije sa 
-		// FlowLayout (redjace sa leva na desno i popunjavait)
-		
 		JPanel gornjiPanel = new JPanel(new GridBagLayout());
 		
 		JLabel labIme = new JLabel("*Ime");
@@ -173,11 +166,6 @@ public class DijalogDodajProfesora extends JDialog {
 		
 	}
 	private GridBagConstraints constraintLbl(int x,int y) {
-		// funkcija koja zadaje koordinate 
-		// po kojoj grid bag layout redja komponente
-		
-		// POSEBNO ZA LABELE (jer su drugacije dimenzije od unosa texta)
-		
 		GridBagConstraints ogr = new GridBagConstraints();
 		
 		
@@ -189,8 +177,6 @@ public class DijalogDodajProfesora extends JDialog {
 		return ogr;
 	}
 	private GridBagConstraints constraintTF(int x,int y) {
-		
-		// posebno za text field !!!
 		
 		GridBagConstraints ogr = new GridBagConstraints();
 		

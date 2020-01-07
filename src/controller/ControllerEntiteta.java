@@ -1,17 +1,14 @@
 package controller;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
-import model.BazaPredmeta;
-import model.BazaStudenata;
 import model.Predmet;
 import model.Profesor;
 import model.Student;
 import view.MainFrame;
 import view.Tabele;
-import view.Toolbar;
+
+import view.dijalozi.AboutDialog;
 import view.dijalozi.DijalogDodajPredmet;
 import view.dijalozi.DijalogDodajProfesora;
 import view.dijalozi.DijalogIzmeniPredmet;
@@ -28,6 +25,7 @@ import view.dijalozi.HelpDialog;
 public class ControllerEntiteta {
 	
 	private static ControllerEntiteta instance = null;
+	@SuppressWarnings("unused")
 	private JDialog dijalog;
 	
 	public static ControllerEntiteta getInstance() {
@@ -89,7 +87,7 @@ public class ControllerEntiteta {
 	}
 	
 	public void dodajEntitetNaPredmet() {
-		dijalog = new DodajStudentaNaPredmet(new JFrame());
+		dijalog = new DodajStudentaNaPredmet(MainFrame.frame);
 	}
 
 	public void brisanjesaPredmetaStudent(Student s, String sifra) {
@@ -103,12 +101,17 @@ public class ControllerEntiteta {
 	}
 
 	public void dodajProfesoraNaPredmetu() {
-		dijalog = new DodajProfesoraNaPredmet(new JFrame());
+		dijalog = new DodajProfesoraNaPredmet(MainFrame.frame);
 		
 	}
 
 	public void pokaziHelp() {
 		dijalog = new HelpDialog(MainFrame.frame);
+		
+	}
+
+	public void pokaziAbout() {
+		dijalog = new AboutDialog(MainFrame.frame);
 		
 	}
 	

@@ -3,9 +3,6 @@ package mainapp;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import model.BazaPredmeta;
-import model.BazaProfesora;
-import model.BazaStudenata;
 import view.MainFrame;
 
 public class StudentskaSluzba {

@@ -38,11 +38,13 @@ public class DijalogStudent extends JDialog {
 	public static JTextField email;
 	public JButton notokBtn;
 	public static JButton okBtn;
+	@SuppressWarnings("rawtypes")
 	public static JComboBox godStud;
 	public static JRadioButton budzet;
 	public static JRadioButton samofin;
 	private DocumentListener documentListener = new DocumentListenerDodajStudenta();
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DijalogStudent(JFrame parent) {
 		super(parent, "Dodavanje studenta", true);
 		this.setSize(500, 500);

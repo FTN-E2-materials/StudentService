@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentListener;
 
-import controller.DocumentListenerDodajProfesora;
 import controller.DocumentListenerIzmeniProfesora;
 import controller.ProfesorController;
 import model.BazaProfesora;
@@ -41,18 +40,17 @@ public class DijalogIzmeniProfesora extends JDialog {
 	public static JTextField email;
 	public static JTextField kancelarija;
 	public static JTextField brlk;
+	@SuppressWarnings("rawtypes")
 	public static JComboBox titula;
+	@SuppressWarnings("rawtypes")
 	public static JComboBox zvanje;
 
 	public static JButton btnOk;
 	private DocumentListener documentListener = new DocumentListenerIzmeniProfesora();
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DijalogIzmeniProfesora(JFrame parent) {
-	// poziva roditeljsku metodu, da podesi u odnosu na sta se pravi
-	// dijalog
-		
-	// ekvivalentno ti pravis klase dodaj predmet, obrisi predmet, izmeni predmet
-	// uz dodatne klase za dodavanje studenta i profesora na dati predemet
+
 		super(parent, "Izmena profesora", true);
 		if(BazaProfesora.getInstance().getProfesori().size() == 0) {
 			JOptionPane.showMessageDialog(null, "Ne postoji nijedan profesor", "Greska", JOptionPane.ERROR_MESSAGE);

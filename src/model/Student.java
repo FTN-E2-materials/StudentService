@@ -170,8 +170,6 @@ public class Student implements Serializable {
 	}
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-	
 		return ime + " " + prezime + " " + bri;
 	}
 	

@@ -21,6 +21,8 @@ import model.Predmet;
 import view.PredmetiJTable;
 
 public class DodajProfesoraNaPredmet extends JDialog {
+
+	private static final long serialVersionUID = 2623181216772470132L;
 	public static JTextField brlk;
 	
 	public DodajProfesoraNaPredmet(JFrame parent) {

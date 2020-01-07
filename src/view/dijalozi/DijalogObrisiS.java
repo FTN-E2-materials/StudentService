@@ -14,8 +14,6 @@ import javax.swing.JPanel;
 
 import controller.StudentController;
 import model.BazaStudenata;
-import model.Student;
-import view.StudentJTable;
 
 public class DijalogObrisiS extends JDialog {
 

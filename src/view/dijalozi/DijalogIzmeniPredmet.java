@@ -28,12 +28,15 @@ public class DijalogIzmeniPredmet extends JDialog {
 	private static final long serialVersionUID = -617169766866517855L;
 	public static JTextField sifraP;
 	public static JTextField imeP;
+	@SuppressWarnings("rawtypes")
 	public static JComboBox godina;
+	@SuppressWarnings("rawtypes")
 	public static JComboBox semestar;
 	public static JTextField profesor;
 	public static JButton ok;
 	private DocumentListener documentListener = new DocumentListenerDodajPredmet();
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DijalogIzmeniPredmet (JFrame parent) {
 		super(parent, "Izmena predmeta", true);
 		this.setSize(500, 250);

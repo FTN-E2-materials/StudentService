@@ -5,13 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,8 +14,6 @@ import javax.swing.JOptionPane;
 
 import controller.StudentController;
 import model.Student.Status;
-import view.Tabele;
-import view.Toolbar;
 
 public class BazaStudenata {
 	private static BazaStudenata instance = null;
@@ -33,18 +25,13 @@ public class BazaStudenata {
 		return instance;
 	}
 	
-	private long generator;
-	
 	public List<Student> studenti;
 	private List<String> kolone;
 	public List<Student> filter_Student;
 	public List<Student> tekuca_lista;
 	
 	private BazaStudenata() {
-		generator = 0;
 
-		//initStudente();
-		
 		this.kolone = new ArrayList<String>();
 		this.kolone.add("Indeks");
 		this.kolone.add("Ime");
@@ -53,8 +40,6 @@ public class BazaStudenata {
 		this.kolone.add("Status");
 		this.kolone.add("Prosek");
 		this.kolone.add("Datum rođenja");
-		//this.kolone.add("Email");
-		//this.kolone.add("Broj telefona");
 		this.kolone.add("Datum upisa");
 		this.kolone.add("Lista predmeta");
 		this.kolone.add("Detalji");
@@ -96,7 +81,7 @@ public class BazaStudenata {
 
 	public void setStudenti(List<Student> studenti) {
 		this.studenti = studenti;
-		this.tekuca_lista = this.studenti; 
+		this.setTrenutnoStanje();
 	}
 
 	public int getColumnCount() {
@@ -114,8 +99,7 @@ public class BazaStudenata {
 	
 	public Object getValueAt(int row, int column) {
 		Student student = this.tekuca_lista.get(row);
-		
-		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy.");
+	
 		switch(column) {
 		case 0:
 			return student.getBri();

@@ -10,7 +10,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -27,7 +26,7 @@ public class HelpDialog extends JDialog {
 	private String poruka;
 	
 	public HelpDialog(JFrame parent) {
-		super(parent, "Help", null);
+		super(parent, "Help", true);
 		this.setSize(parent.getWidth()*3/5, parent.getHeight()*3/4);
 		this.setLocationRelativeTo(null);
 		JButton zatvori = new JButton("Zatvori");
@@ -92,8 +91,8 @@ public class HelpDialog extends JDialog {
 		lblDodaj.setText("Dugme za dodavanje entiteta. Prečica: CTRL + N. Pritisnuti dugme za više informacija");
 		
 		
-		komponente.add(btnNew, tf(0, 0));
-		komponente.add(lblDodaj, lbl(1, 0));
+		komponente.add(btnNew, tf(1, 0));
+		komponente.add(lblDodaj, lbl(0, 0));
 		
 		
 		ImageIcon iconEdit = new ImageIcon("images/edit.png");
@@ -126,8 +125,8 @@ public class HelpDialog extends JDialog {
 		btnEdit.setBorder(null);
 		
 
-		komponente.add(btnEdit, tf(0, 1));
-		komponente.add(lblIzmeni, lbl(1, 1));
+		komponente.add(btnEdit, tf(1, 1));
+		komponente.add(lblIzmeni, lbl(0, 1));
 		
 		ImageIcon iconDelete = new ImageIcon("images/delete.png");
 		Image imgDelete = iconDelete.getImage() ;  
@@ -156,8 +155,8 @@ public class HelpDialog extends JDialog {
 		btnDelete.setBorder(null);
 		
 
-		komponente.add(btnDelete, tf(0, 2));
-		komponente.add(lblDelete, lbl(1, 2));
+		komponente.add(btnDelete, tf(1, 2));
+		komponente.add(lblDelete, lbl(0, 2));
 		
 		ImageIcon iconSearch = new ImageIcon("images/search2.png");
 		Image imgSearch = iconSearch.getImage() ;  
@@ -172,8 +171,10 @@ public class HelpDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 			      poruka = "Dugme za pretragu studenta, profesora, predmeta. Kriterijumi pretrage su:\n"
-			      		+ "Za studenta: [ime:'Ime'];[prezime:'Prezime'];[bri:'Broj indeksa']"
-			      		+ "\nZa profesora: [ime:'Ime'];[prezime:'Prezime'];[brlk:'Broj licne karte']"
+			      		+ "Za studenta: [ime:'Ime'];[prezime:'Prezime'];[bri:'Broj indeksa'];[status:'Status] \n(kao skraćenica B, S ili kao Budžet, Samofinansiranje)."
+			      		+ "\nZa profesora: [ime:'Ime'];[prezime:'Prezime'];[brlk:'Broj licne karte'];[zvanje:'Zvanje];[titula:'Titula']\n"
+			      		+ "Zvanja: Master, Doktor\n"
+			      		+ "Titule: Redovni profesor, Vanredni profesor, Asistent, Docent, Saradnik u nastavi"
 			      		+ "\nZa predmete: [sifra:'Sifra'];[naziv:'Naziv'];[godina:'Godina'];[semestar:'Semestar']";
 			            JTextArea jta = new JTextArea(20, 50);
 			            jta.setText(poruka);
@@ -189,8 +190,8 @@ public class HelpDialog extends JDialog {
 		btnSearch.setBorder(null);
 		
 
-		komponente.add(btnSearch, tf(0, 3));
-		komponente.add(lblSearch, lbl(1, 3));
+		komponente.add(btnSearch, tf(1, 3));
+		komponente.add(lblSearch, lbl(0, 3));
 		
 
 		ImageIcon iconDodSt = new ImageIcon("images/student.png");
@@ -222,8 +223,8 @@ public class HelpDialog extends JDialog {
 		btnDodaj.setBorder(null);
 		
 
-		komponente.add(btnDodaj, tf(0, 4));
-		komponente.add(lblDodajSt, lbl(1, 4));
+		komponente.add(btnDodaj, tf(1, 4));
+		komponente.add(lblDodajSt, lbl(0, 4));
 		
 
 		ImageIcon icondDodProf = new ImageIcon("images/profesor.png");
@@ -255,8 +256,8 @@ public class HelpDialog extends JDialog {
 		btnDodProf.setBorder(null);
 		
 
-		komponente.add(btnDodProf, tf(0, 5));
-		komponente.add(lblDodajProf, lbl(1, 5));
+		komponente.add(btnDodProf, tf(1, 5));
+		komponente.add(lblDodajProf, lbl(0, 5));
 		
 		
 		
@@ -266,13 +267,6 @@ public class HelpDialog extends JDialog {
 		this.setVisible(true);
 	}
 
-		
-		
-		
-		
-
-	
-	
 
 	private GridBagConstraints lbl(int x,int y) {
 		GridBagConstraints gbc= new GridBagConstraints();
@@ -280,7 +274,7 @@ public class HelpDialog extends JDialog {
 		gbc.gridy = y;
 		gbc.gridwidth = 1;
 
-	//	gbc.anchor = GridBagConstraints.LINE_END;
+		gbc.anchor = GridBagConstraints.LINE_START;
 		gbc.insets = new Insets(20, 10, 0, 10);
 		return gbc;
 	}
@@ -292,7 +286,6 @@ public class HelpDialog extends JDialog {
 		gbc.gridwidth = 2;
 		gbc.weightx = 10;
 
-		gbc.anchor = GridBagConstraints.WEST;
 		gbc.insets = new Insets(4, 4, 4, 4);
 		return gbc;
 	}

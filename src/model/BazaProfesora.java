@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,18 +26,14 @@ public class BazaProfesora {
 		
 		return instance;
 	}
-
-	private long generator;
 	
 	private List<Profesor> tekuci_profesori;
 	private List<String> kolone;
-	private ArrayList<Profesor> filter_Profesor = new ArrayList<Profesor>();
-	private ArrayList<Profesor> profesori;
+	private List<Profesor> filter_Profesor = new ArrayList<Profesor>();
+	private List<Profesor> profesori;
 	
 	private BazaProfesora() {
-		generator = 0;
-		
-		
+	
 		tekuci_profesori = new ArrayList<Profesor>();
 		filter_Profesor = new ArrayList<Profesor>();
 		profesori = new ArrayList<Profesor>();
@@ -62,11 +57,11 @@ public class BazaProfesora {
 	
 	
 	public List<Profesor> getProfesori() {
-		return tekuci_profesori;
+		return this.profesori;
 	}
 
 	public void setProfesori(List<Profesor> profesori) {
-		this.tekuci_profesori = profesori;
+		this.profesori = profesori;
 	}
 	
 	public int getColumnCount() {
@@ -89,7 +84,7 @@ public class BazaProfesora {
 		this.tekuci_profesori = tekuci_profesori;
 	}
 
-	public ArrayList<Profesor> getFilter_Profesor() {
+	public List<Profesor> getFilter_Profesor() {
 		return filter_Profesor;
 	}
 
@@ -103,7 +98,6 @@ public class BazaProfesora {
 	
 	public Object getValueAt(int row, int column) {
 		Profesor profesor = this.tekuci_profesori.get(row);
-		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy.");
 		
 		switch(column) {
 		case 0:
@@ -213,11 +207,13 @@ public class BazaProfesora {
 			return;
 		}
 		ArrayList<Profesor> profesoriNadjeni = new ArrayList<Profesor>();
-		
+		System.out.println(BazaProfesora.getInstance().getProfesori().size());
 		int i = 0;
+		System.out.println(text);
 		String[] deli = text.split(";"); 
 		String[] kriterijumi = new String[3];
 		String[] podaci = new String[3];
+
 		
 		for (String s : deli) {
 			String[] pom = s.split(":");
@@ -225,13 +221,14 @@ public class BazaProfesora {
 			podaci[i] = pom[1];
 			i++;
 		}
-		
 		if(!kriterijumi[0].equals("ime") && !kriterijumi[0].equals("prezime") && !kriterijumi[0].equals("brlk") && !kriterijumi[0].equals("zvanje") && !kriterijumi[0].equals("titula")) {
 			JOptionPane.showMessageDialog(null, "Kriterijum pretrage je: \n[ime:'Ime'];[prezime'Prezime'];[brlk:'Indeks']", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 		
 		} else {
 			boolean isProfesor = false;
+			
 			for (Profesor p : BazaProfesora.getInstance().getProfesori()) {
+				
 				for (int j = 0; j < i; j++) {
 					if (kriterijumi[j].equals("ime")) {
 						if(p.getIme().equals(podaci[j])) {
@@ -242,7 +239,7 @@ public class BazaProfesora {
 						}
 					}
 						
-						if (kriterijumi[j].equals("prezime")) {
+					else if (kriterijumi[j].equals("prezime")) {
 							if (p.getPrezime().equals(podaci[j])) {
 								isProfesor = true;
 							} else {
@@ -251,7 +248,7 @@ public class BazaProfesora {
 							}
 						}
 						
-						if (kriterijumi[j].equals("brlk")) {
+					else if (kriterijumi[j].equals("brlk")) {
 							if (p.getBrlk().equals(podaci[j])) {
 								isProfesor = true;
 							} else {
@@ -260,7 +257,7 @@ public class BazaProfesora {
 							}
 						}
 						
-						if (kriterijumi[j].equals("zvanje")) {
+						else if (kriterijumi[j].equals("zvanje")) {
 							String zvanje1 = p.getZvanje().toString();
 							String zvanje2 = podaci[j];
 							if (zvanje1.equals(zvanje2)) {
@@ -271,16 +268,23 @@ public class BazaProfesora {
 							}
 						}
 						
-						if (kriterijumi[j].equals("titula")) {
-							String titula1 = p.getZvanje().toString();
+						else if (kriterijumi[j].equals("titula")) {
+							String titula1 = p.getTitula().toString();
 							String titula2 = podaci[j];
+							if (titula2.equals("Doktor")) {
+								titula2 = "Dr";
+							} else if (titula2.equals("Master")) {
+								titula2 = "Ms";
+							}
+							System.out.println(titula1);
 							if (titula1.equals(titula2)) {
 								isProfesor = true;
 							} else {
 								isProfesor = false;
 								break;
 							}
-						}
+					}
+				
 				}
 				if (isProfesor) 
 					profesoriNadjeni.add(p);
@@ -317,6 +321,7 @@ public class BazaProfesora {
 		pp.setPred_prof(null);
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void deserialize() {
 
 		try {

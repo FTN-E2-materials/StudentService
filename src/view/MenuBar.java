@@ -103,6 +103,16 @@ public MenuBar() {
 		}
 		
 	});
+	
+	aboutItem.addActionListener(new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			ControllerEntiteta.getInstance().pokaziAbout();
+			
+		}
+		
+	});
 	help.add(helpItem);
 	help.addSeparator();
 	help.add(aboutItem);

@@ -14,12 +14,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.PredmetController;
-import controller.ProfesorController;
 import model.BazaPredmeta;
-import model.BazaProfesora;
-import view.ProfesoriJTable;
 
 public class DijalogObrisiPredmet extends JDialog {
+
+	private static final long serialVersionUID = -4574157994954943998L;
 
 	public DijalogObrisiPredmet(JFrame parent) {
 		super(parent, "Brisanje predmeta", true);

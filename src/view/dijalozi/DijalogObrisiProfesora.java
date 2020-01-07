@@ -14,10 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.ProfesorController;
-import controller.StudentController;
 import model.BazaProfesora;
 import view.ProfesoriJTable;
-import view.StudentJTable;
 
 public class DijalogObrisiProfesora extends JDialog {
 
