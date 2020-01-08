@@ -6,6 +6,9 @@ import model.Predmet;
 import model.Profesor;
 import model.Student;
 import view.MainFrame;
+import view.PredmetiJTable;
+import view.ProfesoriJTable;
+import view.StudentJTable;
 import view.Tabele;
 
 import view.dijalozi.AboutDialog;
@@ -51,23 +54,29 @@ public class ControllerEntiteta {
 	
 	public void izmeniEntitet() {	
 		if(Tabele.tab_curr == 0) {
-			dijalog = new DijalogIzmeniS(MainFrame.frame);
+			if (StudentJTable.curr_row != -1)
+				dijalog = new DijalogIzmeniS(MainFrame.frame);
 		}
 		else if (Tabele.tab_curr == 1) {
-			dijalog = new DijalogIzmeniProfesora(MainFrame.frame);
+			if (ProfesoriJTable.curr_row != -1)
+				dijalog = new DijalogIzmeniProfesora(MainFrame.frame);
 		} else if (Tabele.tab_curr == 2) {
-			dijalog = new DijalogIzmeniPredmet(MainFrame.frame);
+			if (PredmetiJTable.curr_row != -1)
+				dijalog = new DijalogIzmeniPredmet(MainFrame.frame);
 		}
 	}
 
 	public void obrisiEntitet() {
 		if(Tabele.tab_curr == 0) {
-			dijalog = new DijalogObrisiS(MainFrame.frame);
+			if (StudentJTable.curr_row != -1)
+				dijalog = new DijalogObrisiS(MainFrame.frame);
 		}
 		else if(Tabele.tab_curr == 1) {
-			dijalog = new DijalogObrisiProfesora(MainFrame.frame);
+			if (ProfesoriJTable.curr_row != -1)
+				dijalog = new DijalogObrisiProfesora(MainFrame.frame);
 		} else if (Tabele.tab_curr == 2) {
-			dijalog = new DijalogObrisiPredmet(MainFrame.frame);
+			if (PredmetiJTable.curr_row != -1)
+				dijalog = new DijalogObrisiPredmet(MainFrame.frame);
 		}
 	}
 	

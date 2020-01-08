@@ -17,7 +17,7 @@ public class ProfesoriJTable extends JTable {
 	private static final long serialVersionUID = 2432377729858813772L;
 	
 	
-	public static int curr_row;
+	public static int curr_row = -1;
 	public static TableModel table_model;
 	public static JTable tabela = null;
 	
@@ -49,8 +49,7 @@ public class ProfesoriJTable extends JTable {
 	        @Override
 	        public void mouseReleased(MouseEvent e) {
 	        	JTable tabela = (JTable)e.getComponent();
-	        	if(tabela.getSelectedRow() != -1)
-	        		curr_row = tabela.convertRowIndexToModel(tabela.getSelectedRow());
+        		curr_row = tabela.convertRowIndexToModel(tabela.getSelectedRow());
 	        }
 	    });
 	
@@ -69,6 +68,7 @@ public class ProfesoriJTable extends JTable {
 		
 		public static void refresh() {
 			// azuriranje prikaza
+			curr_row = -1;
 			((AbstractTableModel) table_model).fireTableDataChanged();
 		}
 

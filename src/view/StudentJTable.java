@@ -16,7 +16,7 @@ public class StudentJTable extends JTable {
 
 
 	private static final long serialVersionUID = 6561723438237241247L;
-	public static int curr_row;
+	public static int curr_row = -1;
 	public static TableModel table_model;
 	public static JTable tabela = null;
 	
@@ -46,8 +46,8 @@ public class StudentJTable extends JTable {
 	        	JTable tabela = (JTable)e.getComponent();
 
 
-	        	if(tabela.getSelectedRow() != -1)
-	        		curr_row = tabela.convertRowIndexToModel(tabela.getSelectedRow());
+	        	
+	        	curr_row = tabela.convertRowIndexToModel(tabela.getSelectedRow());
 	        }
 	    });
 	    
@@ -74,6 +74,7 @@ public class StudentJTable extends JTable {
 		
 		public static void refresh() {
 			// azuriranje prikaza
+			curr_row = -1;
 			((AbstractTableModel) table_model).fireTableDataChanged();
 		}
 		

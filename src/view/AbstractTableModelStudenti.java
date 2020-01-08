@@ -58,7 +58,7 @@ public class AbstractTableModelStudenti extends AbstractTableModel {
 		case 4:
 			return String.class;
 		case 5:
-			return String.class;
+			return Double.class;
 		case 6:
 			return Date.class;
 		case 7: 

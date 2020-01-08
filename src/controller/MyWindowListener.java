@@ -18,13 +18,11 @@ public class MyWindowListener implements WindowListener {
 		// TODO Auto-generated method stub
 
 	}
-
 	@Override
 	public void windowClosed(WindowEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		JFrame frame = (JFrame) arg0.getComponent();
@@ -36,7 +34,6 @@ public class MyWindowListener implements WindowListener {
 			BazaStudenata.getInstance().serialize();
 			BazaPredmeta.getInstance().serialize();
 			BazaProfesora.getInstance().serialize();
-			
 			frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		}
 	}

@@ -8,7 +8,7 @@ import view.MainFrame;
 public class StudentskaSluzba {
 
 	public static void main(String[] args) {
-	
+	/*
 	try {
     	UIManager.setLookAndFeel(
 		UIManager.getSystemLookAndFeelClassName());
@@ -25,7 +25,7 @@ public class StudentskaSluzba {
     catch (IllegalAccessException e) {
        System.out.println(e.getMessage());
     }
-		
+		*/
 	
 	MainFrame.getInstance();
 	

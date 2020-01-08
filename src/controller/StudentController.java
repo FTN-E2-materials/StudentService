@@ -123,20 +123,13 @@ public class StudentController {
 	}
 
 	public void izbrisiStudenta() {
-		
-		if(StudentJTable.curr_row < 0) {
-			return;
-		}
+
 		Student student = BazaStudenata.getInstance().getRow(StudentJTable.curr_row);
 		BazaStudenata.getInstance().izbrisiStudenta(student.getBri());
 		StudentJTable.refresh();
 	}
 	
 	public boolean izmeniStudenta() {
-		if(StudentJTable.curr_row < 0) {
-			return false;
-		}
-		
 		if (DijalogIzmeniS.imeS.getText().isEmpty() || DijalogIzmeniS.przS.getText().isEmpty() || DijalogIzmeniS.adresa.getText().isEmpty() || DijalogIzmeniS.briS.getText().isEmpty() ||
 				DijalogIzmeniS.brtel.getText().isEmpty() || DijalogIzmeniS.email.getText().isEmpty() || DijalogIzmeniS.datRodj.getText().isEmpty() || DijalogIzmeniS.datumU.getText().isEmpty()) {
 				

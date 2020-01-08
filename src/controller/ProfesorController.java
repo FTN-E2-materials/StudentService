@@ -37,10 +37,6 @@ public class ProfesorController {
 	
 	public boolean DodajProfesora() {
 		
-		if(ProfesoriJTable.curr_row < 0) {
-			return false;
-		}
-	
 		Profesor prof = new Profesor();
 		
 		if(DijalogDodajProfesora.imeP.getText().isEmpty() || DijalogDodajProfesora.przP.getText().isEmpty() || DijalogDodajProfesora.adresaP.getText().isEmpty() 
@@ -121,18 +117,13 @@ public class ProfesorController {
 	}
 	
 	public void izbrisiProfesora(int rowSelectedIndex) {
-		if(rowSelectedIndex < 0) {
-			return;
-		}
+
 		Profesor prof = BazaProfesora.getInstance().getRow(rowSelectedIndex);
 		BazaProfesora.getInstance().izbrisiProfesora(prof.getBrlk());
 		ProfesoriJTable.refresh();		
 	}
 	
 	public boolean izmeniProfesora() {
-		if(ProfesoriJTable.curr_row < 0) {
-			return false;
-		}
 		
 		Profesor prof = BazaProfesora.getInstance().getRow(ProfesoriJTable.curr_row);
 		

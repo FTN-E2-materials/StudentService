@@ -16,7 +16,7 @@ import javax.swing.table.TableRowSorter;
 public class PredmetiJTable extends JTable {
 
 	private static final long serialVersionUID = -1404313258591137307L;
-	public  static int curr_row;
+	public  static int curr_row = -1;
 	public static TableModel table_model;
 	public static JTable tabela = null;
 	
@@ -35,8 +35,8 @@ public class PredmetiJTable extends JTable {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				JTable table = (JTable)e.getComponent();
-				if(table.getSelectedRow() != -1) 
-					curr_row = table.convertRowIndexToModel(table.getSelectedRow());
+
+				curr_row = table.convertRowIndexToModel(table.getSelectedRow());
 			}
 		});
 		
@@ -66,6 +66,7 @@ public class PredmetiJTable extends JTable {
 	}
 	
 	public static void refresh() {
+		curr_row = -1;
 		((AbstractTableModel) table_model).fireTableDataChanged();
 	}
 }
