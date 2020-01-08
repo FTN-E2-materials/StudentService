@@ -69,6 +69,7 @@ public class ListaPredmetaKodProfesora extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();	
+				ProfesoriJTable.refresh();
 			}
 		});
 		
@@ -76,13 +77,11 @@ public class ListaPredmetaKodProfesora extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(listaS.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Ne postotji profesor na datom predmetu!");
+					JOptionPane.showMessageDialog(null, "Ne postoje predmeti kod datog profeosra!");
 				} else {
-					int ind = ProfesoriJTable.tabela.convertRowIndexToModel(ProfesoriJTable.tabela.getSelectedRow());
 					ControllerEntiteta.getInstance().brisanProfesoraSaPredmeta(BazaProfesora.getInstance().getRow(ind), row);
 					listaS.removeElement(row);
 					lista.updateUI();
-					PredmetiJTable.refresh();
 				}
 			}
 		});

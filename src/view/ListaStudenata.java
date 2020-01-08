@@ -72,6 +72,7 @@ public class ListaStudenata extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();	
+				PredmetiJTable.refresh();
 			}
 		});
 		
@@ -81,10 +82,10 @@ public class ListaStudenata extends JDialog {
 				if(listaS.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Ne postotji student na datom predmetu!");
 				} else {
+					
 					ControllerEntiteta.getInstance().brisanjeStudentaSaPredmeta(BazaPredmeta.getInstance().getRow(PredmetiJTable.curr_row), row);
 					listaS.removeElement(row);
 					lista.updateUI();
-					PredmetiJTable.refresh();
 				}
 			}
 		});

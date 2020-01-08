@@ -26,7 +26,7 @@ public class HelpDialog extends JDialog {
 	private String poruka;
 	
 	public HelpDialog(JFrame parent) {
-		super(parent, "Help", true);
+		super(parent, "Help", null);
 		this.setSize(parent.getWidth()*3/5, parent.getHeight()*3/4);
 		this.setLocationRelativeTo(null);
 		JButton zatvori = new JButton("Zatvori");
@@ -54,16 +54,16 @@ public class HelpDialog extends JDialog {
 		
 		ImageIcon icon = new ImageIcon("images/student_add.png");
 		Image img = icon.getImage() ;  
-		Image newimg = img.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH ) ;  
+		Image newimg = img.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;  
 	    icon = new ImageIcon(newimg);
 	    
 		JButton btnNew = new JButton();
 		btnNew.setToolTipText("Dodaj...");
 		btnNew.setIcon(icon);
 	
-		btnNew.setPreferredSize(new Dimension(50, 50));
-		btnNew.setMinimumSize(new Dimension(50, 50));
-		btnNew.setMaximumSize(new Dimension(50, 50));
+		btnNew.setPreferredSize(new Dimension(30, 30));
+		btnNew.setMinimumSize(new Dimension(30, 30));
+		btnNew.setMaximumSize(new Dimension(30, 30));
 		
 		btnNew.setOpaque(false);
 		btnNew.setBorder(null);
@@ -97,7 +97,7 @@ public class HelpDialog extends JDialog {
 		
 		ImageIcon iconEdit = new ImageIcon("images/edit.png");
 		Image imgEdit = iconEdit.getImage() ;  
-		Image newimgEdit = imgEdit.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH ) ;  
+		Image newimgEdit = imgEdit.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH ) ;  
 	    iconEdit = new ImageIcon(newimgEdit);
 	    
 		JButton btnEdit = new JButton();
@@ -111,7 +111,7 @@ public class HelpDialog extends JDialog {
 			      		+ "entiteta kog želite da obrišete. Popunite željeno polje za izmenu\ni pritisniete Potvrdi. Nije dozvoljeno menjanje\nbroja indeksa, lične karte, kao ni šifre predmeta\n"
 			      		+ "jer se u bazi koriste kao primarni kljuČevi datog entiteta.";
 			      
-			            JTextArea jta = new JTextArea(20, 50);
+			            JTextArea jta = new JTextArea(20, 40);
 			            jta.setText(poruka);
 			            jta.setEditable(false);
 			            JScrollPane jsp = new JScrollPane(jta);
@@ -130,7 +130,7 @@ public class HelpDialog extends JDialog {
 		
 		ImageIcon iconDelete = new ImageIcon("images/delete.png");
 		Image imgDelete = iconDelete.getImage() ;  
-		Image newimgDelete = imgDelete.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH ) ;  
+		Image newimgDelete = imgDelete.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH ) ;  
 	    iconDelete = new ImageIcon(newimgDelete);
 	    
 		JButton btnDelete = new JButton();
@@ -259,7 +259,14 @@ public class HelpDialog extends JDialog {
 		komponente.add(btnDodProf, tf(1, 5));
 		komponente.add(lblDodajProf, lbl(0, 5));
 		
+		JLabel lblAbout = new JLabel();
+		lblAbout.setText("About deo: Tekst o samoj aplikaciji i autorima aplikacije. Prečica: CTRL + O.");
+
+		JLabel lblHelp = new JLabel();
+		lblHelp.setText("Help deo: Tekst o upotrebi same aplikacije. Prečica: CTRL + H.");
 		
+		komponente.add(lblAbout, lbl(0, 6));
+		komponente.add(lblHelp, lbl(0, 7));
 		
 		this.add(komponente, BorderLayout.CENTER);
 		this.add(dugmici, BorderLayout.SOUTH);

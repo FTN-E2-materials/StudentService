@@ -49,10 +49,15 @@ public class AbstractTableModelPredmeti extends AbstractTableModel {
 	public Class<?> getColumnClass(int columnIndex) {
 		switch (columnIndex) {
 		case 0:
+			return String.class;
 		case 1:
+			return String.class;
 		case 2:
+			return String.class;
 		case 3:
+			return String.class;
 		case 4:
+			return String.class;
 		case 5:
 			return JButton.class;
 		default:

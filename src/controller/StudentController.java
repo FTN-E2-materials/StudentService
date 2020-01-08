@@ -238,10 +238,9 @@ public class StudentController {
 			}
 		}
 		
-		BazaStudenata.getInstance().obrisiPredmet(p, s);
-		BazaPredmeta.getInstance().obrisiStudenta(p, s);
+		BazaStudenata.getInstance().obrisiPredmet(p, s.getBri());
+		BazaPredmeta.getInstance().obrisiStudenta(p, s.getBri());
 		PredmetiJTable.refresh();
-		StudentJTable.refresh();
 	}
 	
 	// PROVERE

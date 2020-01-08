@@ -14,6 +14,7 @@ import model.Predmet;
 import model.Profesor;
 import model.Profesor.Titula;
 import model.Profesor.Zvanje;
+import view.PredmetiJTable;
 import view.ProfesoriJTable;
 import view.StudentJTable;
 import view.Toolbar;
@@ -223,10 +224,12 @@ public class ProfesorController {
 		for (Predmet pred : p.getPredmeti()) {
 			if (pred.getSifra().equals(sif[0]))
 				pp = pred;
+			System.out.println(sif[0]);
 		}
 		
 		BazaPredmeta.getInstance().obrisiProfesora(p, pp);
-		ProfesoriJTable.refresh();
+		BazaProfesora.getInstance().obrisiPredmet(p, pp);
+		PredmetiJTable.refresh();
 		
 	}
 	

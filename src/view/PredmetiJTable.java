@@ -7,7 +7,9 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -44,6 +46,11 @@ public class PredmetiJTable extends JTable {
 		this.setRowSorter(sort);
 		sort.setSortable(5, false);
 		//sort();	
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		this.setDefaultRenderer(String.class, centerRenderer);
+		
 		
 	}
 	

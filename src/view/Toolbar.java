@@ -18,8 +18,8 @@ import controller.ControllerEntiteta;
 public class Toolbar extends JToolBar {
 
 	private static final long serialVersionUID = 228453752740994815L;
-	static JButton btnDodajProf;
-	static JButton btnDodajStudenta;
+	public static JButton btnDodajProf;
+	public static JButton btnDodajStudenta;
 	
 	public static JTextField pretraga;
 	

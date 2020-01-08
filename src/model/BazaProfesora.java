@@ -29,7 +29,7 @@ public class BazaProfesora {
 	
 	private List<Profesor> tekuci_profesori;
 	private List<String> kolone;
-	private List<Profesor> filter_Profesor = new ArrayList<Profesor>();
+	private List<Profesor> filter_Profesor;
 	private List<Profesor> profesori;
 	
 	private BazaProfesora() {
@@ -312,13 +312,25 @@ public class BazaProfesora {
 	  }
 	 
 	public void dodajPredmet(Profesor prof, Predmet pred) {
-		prof.getPredmeti().add(pred);
+		for (Profesor profa : this.profesori) {
+			if (profa.getBrlk().equals(prof.getBrlk())) {
+				profa.getPredmeti().add(pred);
+			}
+		}
 	}
 
 
 	public void obrisiPredmet(Profesor p, Predmet pp) {
-		p.getPredmeti().remove(pp);
-		pp.setPred_prof(null);
+		for (Profesor prof : this.profesori) {
+			if (prof.getBrlk().equals(p.getBrlk())) {
+				for (Predmet pr : prof.getPredmeti()) {
+					if (pr.getSifra().equals(pp.getSifra())) {
+						prof.getPredmeti().remove(pr);
+						break;
+					}
+				}
+			}
+		}
 	}
 	
 	@SuppressWarnings("unchecked")

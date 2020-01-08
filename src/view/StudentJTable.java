@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -31,12 +34,17 @@ public class StudentJTable extends JTable {
 		new PredmetiKodStudenta(this, 8);
 		new AbstractButtonDetalji(this, 9);
 		this.getTableHeader().setReorderingAllowed(false);
-		this.getColumnModel().getColumn(6).setCellRenderer(new DateCellRenderer());
-		this.getColumnModel().getColumn(7).setCellRenderer(new DateCellRenderer());
 		table_model = this.getModel();
 		tabela = this;
-	
-	
+		this.getColumnModel().getColumn(6).setCellRenderer(new DateCellRenderer());
+		this.getColumnModel().getColumn(7).setCellRenderer(new DateCellRenderer());
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		this.setDefaultRenderer(String.class, centerRenderer);
+		this.setDefaultRenderer(Double.class, centerRenderer);
+		
 		// trenutni selektovani red (polje je public static
 		// moze mu se pristupiti u bilo kom trenutku
 		

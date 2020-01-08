@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class DateCellRenderer extends DefaultTableCellRenderer {
@@ -14,6 +15,7 @@ public class DateCellRenderer extends DefaultTableCellRenderer {
 
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+		this.setHorizontalAlignment(SwingConstants.CENTER);
 		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 		String strDate = df.format((Date) value);
 		this.setText(strDate);

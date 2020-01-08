@@ -1,9 +1,11 @@
 package view;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -26,7 +28,7 @@ public MenuBar() {
 	
 	JMenuItem newItem = new JMenuItem("New");
 	JMenuItem closeItem = new JMenuItem("Close");
-	
+	newItem.setIcon(setIkonice("images/student_add.png"));
 	newItem.addActionListener(new ActionListener() {
 
 		@Override
@@ -67,7 +69,8 @@ public MenuBar() {
 	editItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 	deleteItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
 	
-	
+	editItem.setIcon(setIkonice("images/edit.png"));
+	deleteItem.setIcon(setIkonice("images/delete.png"));
 	editItem.addActionListener(new ActionListener() {
 
 		@Override
@@ -121,6 +124,13 @@ public MenuBar() {
 	add(edit);
 	add(help);
 
+	}
 
+private ImageIcon setIkonice(String txt) {
+	ImageIcon icon = new ImageIcon(txt);
+	Image img = icon.getImage() ;  
+	Image newimg3 = img.getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH ) ;  
+    icon = new ImageIcon(newimg3);
+    return icon;
 }
 }

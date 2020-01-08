@@ -49,6 +49,13 @@ public class BazaStudenata {
 		this.filter_Student = new ArrayList<Student>();
 		
 		this.deserialize();
+		/*
+		for (Student s : this.studenti) {
+			for (Predmet p : s.getPredmeti()) {
+				System.out.println(s.getBri());
+				System.out.println(p.getSifra());
+			}
+		}*/
 		setTekuca_lista(this.studenti);
 
 	}
@@ -309,15 +316,36 @@ public class BazaStudenata {
 	     }	     
 	  }
 	 
-	 public void obrisiPredmet(Predmet p, Student s) {
-		
-		p.getStudenti().remove(s);
-		s.getPredmeti().remove(p);
-		
+	 public void obrisiPredmet(Predmet p, String bri) {
+		 for (Student st : this.studenti) {
+			 if (st.getBri().equals(bri)) {
+				 for (Predmet pr : st.getPredmeti()) {
+					if (pr.getSifra().equals(p.getSifra())) {
+						st.getPredmeti().remove(pr);
+						break;
+					}
+				 }
+			 }
+		 }
+		 
+		 for (Student st : this.filter_Student) {
+			 if (st.getBri().equals(bri)) {
+				 for (Predmet pr : st.getPredmeti()) {
+					if (pr.getSifra().equals(p.getSifra())) {
+						st.getPredmeti().remove(pr);
+						break;
+					}
+				 }
+			 }
+		 }
 	}
 
 	public void dodajPredmet(Student s, Predmet p) {
-		s.getPredmeti().add(p);
+		for (Student st : this.studenti) {
+			if (st.getBri().equals(s.getBri())) {
+				st.getPredmeti().add(p);
+			}
+		}
 		this.setTrenutnoStanje();
 	}
 		 

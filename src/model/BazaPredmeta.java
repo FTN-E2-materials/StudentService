@@ -47,6 +47,7 @@ public class BazaPredmeta {
 		
 		this.deserialize();
 
+		this.setTrentunoStanje();
 	}
 	
 	public List<Predmet> getFilterPredmet() {
@@ -208,23 +209,36 @@ public class BazaPredmeta {
 	}
 	
 	public void dodajStudenta(String sifra, Student s) {
-		for (Predmet p : predmeti) {
+		for (Predmet p : this.predmeti) {
 			if(p.getSifra().equals(sifra)) {
 				p.getStudenti().add(s);
-				BazaStudenata.getInstance().dodajPredmet(s, p);
 			}
 		}
+		
 		this.setTrentunoStanje();		
 	}
 
-	public void obrisiStudenta(Predmet p, Student s) {
-		p.getStudenti().remove(s);
-		s.getPredmeti().remove(p);
+	public void obrisiStudenta(Predmet p, String bri) {
+		for (Predmet pr : this.predmeti) {
+			if (pr.getSifra().equals(p.getSifra())) {
+				for (Student s : pr.getStudenti()) {
+					if (s.getBri().equals(bri)) {
+						pr.getStudenti().remove(s);
+						break;
+					}
+				}
+			
+			}
+		}
+		this.setTrentunoStanje();
 	}
 
 	public void obrisiProfesora(Profesor p, Predmet pp) {
-		pp.setPred_prof(null);
-		p.getPredmeti().remove(pp);
+		for (Predmet pred : this.predmeti) {
+			if (pred.getSifra().equals(pp.getSifra())) {
+				pred.setPred_prof(null);
+			}
+		}
 	}
 
 	public void izmeniPredmet(Predmet predmet) {

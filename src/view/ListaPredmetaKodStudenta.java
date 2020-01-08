@@ -45,6 +45,7 @@ public class ListaPredmetaKodStudenta extends JDialog {
 		
 		for (Predmet p : s.getPredmeti()) {
 			listaS.addElement(p.getSifra() + " " + p.getIme());
+			System.out.println(p.getSifra());
 		}
 		
 		JList<String> lista = new JList<>(listaS);
@@ -71,6 +72,7 @@ public class ListaPredmetaKodStudenta extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();	
+				StudentJTable.refresh();
 			}
 		});
 		
@@ -79,12 +81,10 @@ public class ListaPredmetaKodStudenta extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				if(listaS.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Ne postotji student na datom predmetu!");
-				} else {
-					int ind = StudentJTable.tabela.convertRowIndexToModel(StudentJTable.tabela.getSelectedRow());
+				} else {		
 					ControllerEntiteta.getInstance().brisanjesaPredmetaStudent(BazaStudenata.getInstance().getRow(StudentJTable.curr_row), row);
 					listaS.removeElement(row);
 					lista.updateUI();
-					StudentJTable.refresh();
 				}
 			}
 		});

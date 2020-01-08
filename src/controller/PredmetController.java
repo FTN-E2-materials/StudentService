@@ -102,23 +102,26 @@ public class PredmetController {
 			return false;
 		}
 		
+		for (Student st : p.getStudenti()) {
+			if (st.getBri().equals(bri)) {
+				JOptionPane.showMessageDialog(null, "Student vec pohadja dati predmet.", "Greska", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		}
 		
 		BazaPredmeta.getInstance().dodajStudenta(p.getSifra(), s);
-		
+		BazaStudenata.getInstance().dodajPredmet(s, p);
 		PredmetiJTable.refresh();
+		StudentJTable.refresh();
 		
 		return true;
 	}
 	
 	public void brisanjeSaPredmeta(Predmet p, String bri) {
-		Student s = new Student();
-		for (Student st : p.getStudenti()) {
-			if (st.getBri().equals(bri))
-				s = st;
-		}
-		BazaPredmeta.getInstance().obrisiStudenta(p, s);
-		BazaStudenata.getInstance().obrisiPredmet(p, s);
-		PredmetiJTable.refresh();
+
+		BazaPredmeta.getInstance().obrisiStudenta(p, bri);
+		BazaStudenata.getInstance().obrisiPredmet(p, bri);
+
 		StudentJTable.refresh();
 		
 	}
@@ -223,8 +226,11 @@ public class PredmetController {
 	public boolean obrisiProfesora() {
 		Predmet p = BazaPredmeta.getInstance().getRow(PredmetiJTable.curr_row);
 		
-		if (p.getPred_prof() != null)
-			BazaPredmeta.getInstance().obrisiProfesora(p.getPred_prof(), p);
+		if (p.getPred_prof() != null) {
+			Profesor profa = p.getPred_prof();
+			BazaPredmeta.getInstance().obrisiProfesora(profa, p);
+			BazaProfesora.getInstance().obrisiPredmet(profa, p);
+		}
 		PredmetiJTable.refresh();
 		return true;
 	}

@@ -96,7 +96,8 @@ public class ControllerEntiteta {
 	}
 	
 	public void dodajEntitetNaPredmet() {
-		dijalog = new DodajStudentaNaPredmet(MainFrame.frame);
+		if (PredmetiJTable.curr_row != -1)
+			dijalog = new DodajStudentaNaPredmet(MainFrame.frame);
 	}
 
 	public void brisanjesaPredmetaStudent(Student s, String sifra) {
@@ -110,7 +111,8 @@ public class ControllerEntiteta {
 	}
 
 	public void dodajProfesoraNaPredmetu() {
-		dijalog = new DodajProfesoraNaPredmet(MainFrame.frame);
+		if (PredmetiJTable.curr_row != -1)
+			dijalog = new DodajProfesoraNaPredmet(MainFrame.frame);
 		
 	}
 
