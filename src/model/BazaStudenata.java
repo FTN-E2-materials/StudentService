@@ -215,7 +215,7 @@ public class BazaStudenata {
 			podaci[i] = pom[1];
 			i++;
 		}
-		if(!kriterijumi[0].equals("ime") && !kriterijumi[0].equals("prezime") && !kriterijumi[0].equals("indeks") && !kriterijumi[0].equals("status")) {
+		if(!kriterijumi[0].equals("ime") && !kriterijumi[0].equals("prezime") && !kriterijumi[0].equals("indeks") && !kriterijumi[0].equals("status") && !kriterijumi[0].equals("godina")) {
 			JOptionPane.showMessageDialog(null, "Kriterijum pretrage je: \n[ime:'Ime'];[prezime'Prezime'];[indeks:'Indeks'];[status:'Status'].", "GRESKA", JOptionPane.ERROR_MESSAGE);
 		
 		} else {
@@ -272,7 +272,14 @@ public class BazaStudenata {
 							isStudent = false;
 							break;
 						}
+					} else if (kriterijumi[j].equals("godina")) {
+						if (s.getGodina_stud() == Integer.parseInt(podaci[j])) {
+							isStudent = true;
+						} else {
+							isStudent = false;
+						}
 					}
+					
 					
 				}
 				if (isStudent) 
