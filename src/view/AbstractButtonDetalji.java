@@ -38,6 +38,7 @@ public class AbstractButtonDetalji extends AbstractCellEditor implements TableCe
 				fireEditingStopped();
 				int ind = 0;
 				ind = tabela.convertRowIndexToModel(tabela.getSelectedRow());
+				@SuppressWarnings("unused")
 				Detalji det = new Detalji(new JFrame(), ind);
 			}
 			

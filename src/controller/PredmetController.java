@@ -32,7 +32,7 @@ public class PredmetController {
 	public boolean dodajPredmet() {
 		if(DijalogDodajPredmet.sifraP.getText().isEmpty() || DijalogDodajPredmet.imeP.getText().isEmpty()) {
 			
-			JOptionPane.showMessageDialog(null, "Niste popunili sva obavezna polja.\nPolja sa * su obavezna.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Niste popunili sva obavezna polja.\nPolja sa * su obavezna.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		
@@ -43,22 +43,22 @@ public class PredmetController {
 		
 		if (godina == 1) {
 			if (semestar != 1 && semestar != 2) {
-				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "Greska", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		} else if (godina == 2) {
 			if (semestar != 3 && semestar != 4) {
-				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "Greska", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		} else if (godina == 3) {
 			if (semestar != 5 && semestar != 6) {
-				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "Greska", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		} else {
 			if (semestar != 7 && semestar != 8) {
-				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "Greska", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		}
@@ -69,7 +69,7 @@ public class PredmetController {
 		
 		if(!DijalogDodajPredmet.profesor.getText().isEmpty()) 
 			if(!BazaPredmeta.getInstance().dodajProfesora(DijalogDodajPredmet.profesor.getText(), sifra)) {
-				JOptionPane.showMessageDialog(null, "Profesor ne postoji u bazi.\nProverite da li ste uneli dobro broj licne karte.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Profesor ne postoji u bazi.\nProverite da li ste uneli dobro broj lične karte.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		
@@ -93,18 +93,18 @@ public class PredmetController {
 		}
 		
 		if (s == null) {
-			JOptionPane.showMessageDialog(null, "Student ne postoji u bazi.\nProverite da li ste uneli dobro broj indeksa.", "Greska", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Student ne postoji u bazi.\nProverite da li ste uneli dobro broj indeksa.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		
 		if(s.getGodina_stud() != p.getGodina()) {
-			JOptionPane.showMessageDialog(null, "Student ne pohadja datu godinu studija.", "Greska", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Student ne pohađa datu godinu studija.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		
 		for (Student st : p.getStudenti()) {
 			if (st.getBri().equals(bri)) {
-				JOptionPane.showMessageDialog(null, "Student vec pohadja dati predmet.", "Greska", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Student već pohađa dati predmet.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		}
@@ -128,7 +128,7 @@ public class PredmetController {
 	
 	public boolean dodajProfesoraNaPredmet() {
 		if (DodajProfesoraNaPredmet.brlk.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Niste uneli broj licne karte.", "Greska", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Niste uneli broj lične karte.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		Predmet p = BazaPredmeta.getInstance().getRow(PredmetiJTable.curr_row);
@@ -142,12 +142,12 @@ public class PredmetController {
 		}
 				
 		if (pr == null) {
-			JOptionPane.showMessageDialog(null, "Profesor sa datim brojem licne karte ne postoji u bazi.\nProverite da li ste uneli dobro broj licne karte.", "Greska", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Profesor sa datim brojem lične karte ne postoji u bazi.\nProverite da li ste uneli dobro broj lične karte.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		
 		if (pr.getZvanje() == Zvanje.Asistent) {
-			JOptionPane.showMessageDialog(null, "Izabrali ste asistenta. Asistent ne moze biti predmetni profesor.\nProverite da li ste uneli dobro broj licne karte.", "Greska", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Izabrali ste asistenta. Asistent ne može biti predmetni profesor.\nProverite da li ste uneli dobro broj lične karte.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 				
@@ -159,7 +159,7 @@ public class PredmetController {
 	public boolean izmeniPredmet() {
 		if(DijalogIzmeniPredmet.sifraP.getText().isEmpty() || DijalogIzmeniPredmet.imeP.getText().isEmpty()) {
 			
-			JOptionPane.showMessageDialog(null, "Niste popunili sva obavezna polja.\nPolja sa * su obavezna.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Niste popunili sva obavezna polja.\nPolja sa * su obavezna.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		
@@ -170,22 +170,22 @@ public class PredmetController {
 		
 		if (godina == 1) {
 			if (semestar != 1 && semestar != 2) {
-				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "Greska", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		} else if (godina == 2) {
 			if (semestar != 3 && semestar != 4) {
-				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "Greska", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		} else if (godina == 3) {
 			if (semestar != 5 && semestar != 6) {
-				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "Greska", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		} else {
 			if (semestar != 7 && semestar != 8) {
-				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "Greska", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ne podudaraju se semestri sa godinom, proverite ponovo.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		}
@@ -196,7 +196,7 @@ public class PredmetController {
 		
 		if(!DijalogIzmeniPredmet.profesor.getText().isEmpty()) 
 			if(!BazaPredmeta.getInstance().dodajProfesora(DijalogIzmeniPredmet.profesor.getText(), sifra)) {
-				JOptionPane.showMessageDialog(null, "Profesor ne postoji u bazi.\nProverite da li ste uneli dobro broj licne karte.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Profesor ne postoji u bazi.\nProverite da li ste uneli dobro broj lične karte.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		

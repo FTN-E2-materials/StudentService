@@ -14,20 +14,26 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentListener;
 
+import controller.DocumentListenerDodajProfesoraNaPredmet;
 import controller.PredmetController;
 import model.BazaPredmeta;
 import model.Predmet;
+import view.MainFrame;
 import view.PredmetiJTable;
 
 public class DodajProfesoraNaPredmet extends JDialog {
 
 	private static final long serialVersionUID = 2623181216772470132L;
 	public static JTextField brlk;
+	public static JButton ok;
+	private DocumentListener documentListener = new DocumentListenerDodajProfesoraNaPredmet();
 	
 	public DodajProfesoraNaPredmet(JFrame parent) {
-		super(parent, "Dodaj profesora", true);
-		this.setSize(500, 150);
+		super(parent, "Dodaj profesora", null);
+		this.pack();
+		this.setSize(MainFrame.width/3, MainFrame.height/5);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(null);
 		
@@ -40,7 +46,10 @@ public class DodajProfesoraNaPredmet extends JDialog {
 		up.add(labBrlk, lbl(0, 0));
 		up.add(brlk, tf(1, 0));
 		
-		JButton ok = new JButton("Potvrda");
+		ok = new JButton("Potvrda");
+		ok.setEnabled(false);
+		
+		brlk.getDocument().addDocumentListener(documentListener);
 		JButton notOk = new JButton("Odustanak");
 		JButton delete = new JButton("Obrisi");
 		Predmet p = BazaPredmeta.getInstance().getRow(PredmetiJTable.curr_row);
@@ -115,5 +124,14 @@ public class DodajProfesoraNaPredmet extends JDialog {
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(10, 20, 0, 20);
 		return gbc;
+	}
+
+	public static void proveriPopunjenost() {
+		if (brlk.getText().trim().isEmpty()) {
+			ok.setEnabled(false);
+		} else {
+			ok.setEnabled(true);
+		}
+		
 	}	
 }

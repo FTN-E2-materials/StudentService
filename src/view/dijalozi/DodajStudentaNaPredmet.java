@@ -14,17 +14,23 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentListener;
 
+import controller.DocumentListenerDodajStudentaNaPredmet;
 import controller.PredmetController;
+import view.MainFrame;
 
 public class DodajStudentaNaPredmet extends JDialog {
 
 	private static final long serialVersionUID = 465696571858238601L;
 	public static JTextField bri;
+	public static JButton ok;
+	private DocumentListener documentListener = new DocumentListenerDodajStudentaNaPredmet();
 	
 	public DodajStudentaNaPredmet(JFrame parent) {
 		super(parent, "Dodaj studenta", true);
-		this.setSize(500, 150);
+		this.pack();
+		this.setSize(MainFrame.width/3, MainFrame.height/5);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(null);
 		
@@ -37,9 +43,11 @@ public class DodajStudentaNaPredmet extends JDialog {
 		up.add(labBri, lbl(0, 0));
 		up.add(bri, tf(1, 0));
 		
-		JButton ok = new JButton("Potvrda");
+		ok = new JButton("Potvrda");
 		JButton notOk = new JButton("Odustanak");
+		ok.setEnabled(false);
 		
+		bri.getDocument().addDocumentListener(documentListener);
 		ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -86,5 +94,14 @@ public class DodajStudentaNaPredmet extends JDialog {
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(10, 20, 0, 20);
 		return gbc;
+	}
+
+	public static void proveriPopunjenost() {
+		if (bri.getText().trim().isEmpty()) {
+			ok.setEnabled(false);
+		} else {
+			ok.setEnabled(true);
+		}
+		
 	}	
 }

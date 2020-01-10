@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -19,7 +21,6 @@ import javax.swing.event.ListSelectionListener;
 
 import controller.ControllerEntiteta;
 import model.BazaProfesora;
-import model.BazaStudenata;
 import model.Predmet;
 import model.Profesor;
 
@@ -50,7 +51,7 @@ public class ListaPredmetaKodProfesora extends JDialog {
 		lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		
-		JButton obrisiB = new JButton("Obrisi");
+		JButton obrisiB = new JButton("Obriši");
 		JButton odustaniB = new JButton("Odustani");
 		
 		lista.addListSelectionListener(new ListSelectionListener() {
@@ -64,12 +65,18 @@ public class ListaPredmetaKodProfesora extends JDialog {
 			}
 		});
 		
+		this.addWindowListener(new WindowAdapter() { 
+			  public void windowClosed(WindowEvent e)
+			  {
+				  ProfesoriJTable.refresh();
+			  }
+			});
 		
 		odustaniB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();	
-				ProfesoriJTable.refresh();
+				
 			}
 		});
 		

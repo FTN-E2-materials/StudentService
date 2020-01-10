@@ -3,35 +3,18 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.time.LocalDate;
-
-import javax.swing.Box;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-
 import controller.MyWindowListener;
-
 
 public class MainFrame extends JFrame {
 
 
 	private static final long serialVersionUID = 7058058994426193403L;
-	public static JFrame frame;
 	private static MainFrame instance = null;
-	
+	public static int width;
+	public static int height;
 	public static MainFrame getInstance() {
 		if(instance == null) {
 			instance = new MainFrame();
@@ -39,9 +22,6 @@ public class MainFrame extends JFrame {
 		return instance;
 	}
 	
-	private JTable tabelaStudenata;
-	private JTable tabelaProfesora;
-	private JTable tabelaPredmeta;
 	
 	public MainFrame() {
 	
@@ -50,7 +30,9 @@ public class MainFrame extends JFrame {
 		int screenH = screenSize.height;
 		int screenW = screenSize.width;
 		setSize(screenW*3/4, screenH*3/4);
-		setTitle("Studentska sluzba");
+		width = this.getWidth();
+		height = this.getHeight();
+		setTitle("Studentska služba");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
@@ -80,38 +62,9 @@ public class MainFrame extends JFrame {
 		Image icon = Toolkit.getDefaultToolkit().getImage("images/logo.png");
 		this.setIconImage(icon);
 	    
-		
-		
-		frame = this;
-		
-		
-		
+	
 		
 	}
 	
-	public void azurirajPrikazStudenata(String akcija, int vrednost) {
-		AbstractTableModelStudenti model = (AbstractTableModelStudenti) tabelaStudenata.getModel();
-		if(akcija != null) {
-			
-		}
-		model.fireTableDataChanged();
-		validate();
-	}
-	public void azurirajPrikazProfesora(String akcija, int vrednost) {
-		AbstractTableModelProfesori model = (AbstractTableModelProfesori) tabelaProfesora.getModel();
-		if(akcija != null) {
-			
-		}
-		model.fireTableDataChanged();
-		validate();
-	}
-	/*
-	public void prikaziTabeluStudenata() {
-		tabelaStudenata = new StudentJTable();
-		JScrollPane scrollPane = new JScrollPane(tabelaStudenata);
-		panel_add(scrollPane, BorderLayout.CENTER);
-		this.azurirajPrikaz(null, -1);
-	}
-*/
 }
 

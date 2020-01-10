@@ -3,7 +3,6 @@ package view;
 import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 
-import controller.PredmetController;
 import model.BazaPredmeta;
 
 public class AbstractTableModelPredmeti extends AbstractTableModel {

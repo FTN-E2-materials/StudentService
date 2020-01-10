@@ -3,7 +3,6 @@ package view;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -30,8 +29,8 @@ public class StudentiNaPredmetu extends AbstractCellEditor implements TableCellR
 		
 	
 	
-		this.renderer = new JButton("Prikazi");
-		this.editor = new JButton("Prikazi");
+		this.renderer = new JButton("Prikaži");
+		this.editor = new JButton("Prikaži");
 		
 		this.editor.addActionListener(new ActionListener() {
 			@Override
@@ -39,6 +38,7 @@ public class StudentiNaPredmetu extends AbstractCellEditor implements TableCellR
 				fireEditingStopped();
 				int ind = 0;
 				ind = tabela.convertRowIndexToModel(tabela.getSelectedRow());
+				@SuppressWarnings("unused")
 				ListaStudenata ls = new ListaStudenata(new JFrame(), ind);
 			}
 			

@@ -18,30 +18,34 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentListener;
 
 import controller.DocumentListenerDodajPredmet;
-import controller.DocumentListenerIzmeniProfesora;
 import controller.PredmetController;
+import view.MainFrame;
 
 public class DijalogDodajPredmet extends JDialog {
 	private static final long serialVersionUID = 7073855243408753112L;
 
 	public static JTextField sifraP;
 	public static JTextField imeP;
+	@SuppressWarnings("rawtypes")
 	public static JComboBox godina;
+	@SuppressWarnings("rawtypes")
 	public static JComboBox semestar;
 	public static JTextField profesor;
 	public static JButton ok;
 	private DocumentListener documentListener = new DocumentListenerDodajPredmet();
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public DijalogDodajPredmet(JFrame parent) {
 		super(parent, "Dodavanje predmeta", true);
-		this.setSize(500, 250);
+
+		this.setSize(MainFrame.width/3, MainFrame.height/2);
 		this.setLayout(new BorderLayout());
-		this.setLocationRelativeTo(null);
+		this.setLocationRelativeTo(parent);
 		
 		JPanel up = new JPanel(new GridBagLayout());
 		
-		JLabel labSifra = new JLabel("*Sifra predmeta:");
-		labSifra.setToolTipText("Unesite sifru predmeta");
+		JLabel labSifra = new JLabel("*Šifra predmeta:");
+		labSifra.setToolTipText("Unesite šifru predmeta");
 		sifraP = new JTextField();
 		
 		JLabel labIme = new JLabel("*Naziv predmeta:");
@@ -59,8 +63,8 @@ public class DijalogDodajPredmet extends JDialog {
 		labSemestar.setToolTipText("Unesite semestar na kom se slusa predmet");
 		semestar = new JComboBox(semestri);
 		
-		JLabel labProfesor = new JLabel("Predmetni profesor");
-		labProfesor.setToolTipText("Unesite broj licne karte predmetnog profesora");
+		JLabel labProfesor = new JLabel("<html> Predmetni profesor: <br/> (broj lične karte) </html>");
+		labProfesor.setToolTipText("Unesite broj lične karte predmetnog profesora");
 		profesor = new JTextField();
 		
 		up.add(labSifra, lbl(0, 0));

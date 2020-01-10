@@ -42,41 +42,41 @@ public class ControllerEntiteta {
 	
 	public void dodajEntitet() {
 		if(Tabele.tab_curr == 0) {
-			dijalog = new DijalogStudent(MainFrame.frame);
+			dijalog = new DijalogStudent(MainFrame.getInstance());
 		}
 		else if (Tabele.tab_curr == 1) {
-			dijalog = new DijalogDodajProfesora(MainFrame.frame);
+			dijalog = new DijalogDodajProfesora(MainFrame.getInstance());
 		}
 		else if (Tabele.tab_curr == 2) {
-			dijalog = new DijalogDodajPredmet(MainFrame.frame);
+			dijalog = new DijalogDodajPredmet(MainFrame.getInstance());
 		}			
 	}
 	
 	public void izmeniEntitet() {	
 		if(Tabele.tab_curr == 0) {
 			if (StudentJTable.curr_row != -1)
-				dijalog = new DijalogIzmeniS(MainFrame.frame);
+				dijalog = new DijalogIzmeniS(MainFrame.getInstance());
 		}
 		else if (Tabele.tab_curr == 1) {
 			if (ProfesoriJTable.curr_row != -1)
-				dijalog = new DijalogIzmeniProfesora(MainFrame.frame);
+				dijalog = new DijalogIzmeniProfesora(MainFrame.getInstance());
 		} else if (Tabele.tab_curr == 2) {
 			if (PredmetiJTable.curr_row != -1)
-				dijalog = new DijalogIzmeniPredmet(MainFrame.frame);
+				dijalog = new DijalogIzmeniPredmet(MainFrame.getInstance());
 		}
 	}
 
 	public void obrisiEntitet() {
 		if(Tabele.tab_curr == 0) {
 			if (StudentJTable.curr_row != -1)
-				dijalog = new DijalogObrisiS(MainFrame.frame);
+				dijalog = new DijalogObrisiS(MainFrame.getInstance());
 		}
 		else if(Tabele.tab_curr == 1) {
 			if (ProfesoriJTable.curr_row != -1)
-				dijalog = new DijalogObrisiProfesora(MainFrame.frame);
+				dijalog = new DijalogObrisiProfesora(MainFrame.getInstance());
 		} else if (Tabele.tab_curr == 2) {
 			if (PredmetiJTable.curr_row != -1)
-				dijalog = new DijalogObrisiPredmet(MainFrame.frame);
+				dijalog = new DijalogObrisiPredmet(MainFrame.getInstance());
 		}
 	}
 	
@@ -97,7 +97,7 @@ public class ControllerEntiteta {
 	
 	public void dodajEntitetNaPredmet() {
 		if (PredmetiJTable.curr_row != -1)
-			dijalog = new DodajStudentaNaPredmet(MainFrame.frame);
+			dijalog = new DodajStudentaNaPredmet(MainFrame.getInstance());
 	}
 
 	public void brisanjesaPredmetaStudent(Student s, String sifra) {
@@ -112,17 +112,17 @@ public class ControllerEntiteta {
 
 	public void dodajProfesoraNaPredmetu() {
 		if (PredmetiJTable.curr_row != -1)
-			dijalog = new DodajProfesoraNaPredmet(MainFrame.frame);
+			dijalog = new DodajProfesoraNaPredmet(MainFrame.getInstance());
 		
 	}
 
 	public void pokaziHelp() {
-		dijalog = new HelpDialog(MainFrame.frame);
+		dijalog = new HelpDialog(MainFrame.getInstance());
 		
 	}
 
 	public void pokaziAbout() {
-		dijalog = new AboutDialog(MainFrame.frame);
+		dijalog = new AboutDialog(MainFrame.getInstance());
 		
 	}
 	

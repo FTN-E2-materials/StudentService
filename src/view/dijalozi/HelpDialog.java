@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -19,6 +20,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
+
+import view.MainFrame;
 
 public class HelpDialog extends JDialog {
 
@@ -27,14 +32,13 @@ public class HelpDialog extends JDialog {
 	
 	public HelpDialog(JFrame parent) {
 		super(parent, "Help", null);
-		this.setSize(parent.getWidth()*3/5, parent.getHeight()*3/4);
+		this.setSize(MainFrame.width*3/5, MainFrame.height*3/5);
 		this.setLocationRelativeTo(null);
 		JButton zatvori = new JButton("Zatvori");
 		this.setModal(true);
-		
 		JPanel komponente = new JPanel();
 		JPanel dugmici = new JPanel();
-
+	
 		zatvori.addActionListener(new ActionListener() {
 
 			@Override
@@ -44,9 +48,29 @@ public class HelpDialog extends JDialog {
 			}
 			
 		});
-
-		dugmici.add(zatvori);
 		
+		JPanel help = new JPanel();
+		help.setSize(new Dimension(100, 100));
+		TitledBorder title;
+		title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "HELP", javax.swing.border.
+			      TitledBorder.CENTER, javax.swing.border.
+			      TitledBorder.CENTER, null, java.awt.Color.black);
+		help.setBorder(title);
+		help.setLayout(new GridBagLayout());
+		
+		String text = "Kratke smernice oko korišćenja aplikacije.<br/> Za više informacija o funkcionalnostima koje imaju ikonice, pritisnuti dugme.";
+		JLabel helpTxt = new JLabel();
+		helpTxt.setText("<html><div style='text-align: center;'>" + text + "</div></html>");
+		helpTxt.setHorizontalAlignment(SwingConstants.CENTER);
+		helpTxt.setVerticalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gdbc = new GridBagConstraints();
+		gdbc.gridx = 0;
+		gdbc.gridy = 1;
+		gdbc.anchor = GridBagConstraints.CENTER;
+		help.add(helpTxt, gdbc);
+		
+		
+		dugmici.add(zatvori);
 		this.setLayout(new BorderLayout());
 		
 		komponente.setLayout(new GridBagLayout());
@@ -60,11 +84,7 @@ public class HelpDialog extends JDialog {
 		JButton btnNew = new JButton();
 		btnNew.setToolTipText("Dodaj...");
 		btnNew.setIcon(icon);
-	
-		btnNew.setPreferredSize(new Dimension(30, 30));
-		btnNew.setMinimumSize(new Dimension(30, 30));
-		btnNew.setMaximumSize(new Dimension(30, 30));
-		
+
 		btnNew.setOpaque(false);
 		btnNew.setBorder(null);
 		
@@ -88,7 +108,7 @@ public class HelpDialog extends JDialog {
 			      });
 		
 		JLabel lblDodaj = new JLabel();
-		lblDodaj.setText("Dugme za dodavanje entiteta. Prečica: CTRL + N. Pritisnuti dugme za više informacija");
+		lblDodaj.setText("Dugme za dodavanje entiteta. Prečica: CTRL + N.");
 		
 		
 		komponente.add(btnNew, tf(1, 0));
@@ -97,7 +117,7 @@ public class HelpDialog extends JDialog {
 		
 		ImageIcon iconEdit = new ImageIcon("images/edit.png");
 		Image imgEdit = iconEdit.getImage() ;  
-		Image newimgEdit = imgEdit.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH ) ;  
+		Image newimgEdit = imgEdit.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;  
 	    iconEdit = new ImageIcon(newimgEdit);
 	    
 		JButton btnEdit = new JButton();
@@ -111,7 +131,7 @@ public class HelpDialog extends JDialog {
 			      		+ "entiteta kog želite da obrišete. Popunite željeno polje za izmenu\ni pritisniete Potvrdi. Nije dozvoljeno menjanje\nbroja indeksa, lične karte, kao ni šifre predmeta\n"
 			      		+ "jer se u bazi koriste kao primarni kljuČevi datog entiteta.";
 			      
-			            JTextArea jta = new JTextArea(20, 40);
+			            JTextArea jta = new JTextArea(20, 50);
 			            jta.setText(poruka);
 			            jta.setEditable(false);
 			            JScrollPane jsp = new JScrollPane(jta);
@@ -119,7 +139,7 @@ public class HelpDialog extends JDialog {
 			         }
 			      });
 		JLabel lblIzmeni = new JLabel();
-		lblIzmeni.setText("Dugme za izmenu entiteta. Prečica: CTRL + E. Pritisnuti dugme za više informacija");
+		lblIzmeni.setText("Dugme za izmenu entiteta. Prečica: CTRL + E. Pritisnuti.");
 
 		btnEdit.setOpaque(false);
 		btnEdit.setBorder(null);
@@ -130,7 +150,7 @@ public class HelpDialog extends JDialog {
 		
 		ImageIcon iconDelete = new ImageIcon("images/delete.png");
 		Image imgDelete = iconDelete.getImage() ;  
-		Image newimgDelete = imgDelete.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH ) ;  
+		Image newimgDelete = imgDelete.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;  
 	    iconDelete = new ImageIcon(newimgDelete);
 	    
 		JButton btnDelete = new JButton();
@@ -149,7 +169,7 @@ public class HelpDialog extends JDialog {
 			         }
 			      });
 		JLabel lblDelete = new JLabel();
-		lblDelete.setText("Dugme za brisanje entiteta. Prečica: CTRL + D. Pritisnuti dugme za više informacija");
+		lblDelete.setText("Dugme za brisanje entiteta. Prečica: CTRL + D.");
 
 		btnDelete.setOpaque(false);
 		btnDelete.setBorder(null);
@@ -160,7 +180,7 @@ public class HelpDialog extends JDialog {
 		
 		ImageIcon iconSearch = new ImageIcon("images/search2.png");
 		Image imgSearch = iconSearch.getImage() ;  
-		Image newimgSearch = imgSearch.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH ) ;  
+		Image newimgSearch = imgSearch.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;  
 	    iconSearch = new ImageIcon(newimgSearch);
 	    
 		JButton btnSearch = new JButton();
@@ -184,7 +204,7 @@ public class HelpDialog extends JDialog {
 			         }
 			      });
 		JLabel lblSearch = new JLabel();
-		lblSearch.setText("Dugme za brisanje entiteta. Prečica: CTRL + D. Pritisnuti dugme za više informacija");
+		lblSearch.setText("Dugme za brisanje entiteta. Prečica: CTRL + D.");
 
 		btnSearch.setOpaque(false);
 		btnSearch.setBorder(null);
@@ -196,7 +216,7 @@ public class HelpDialog extends JDialog {
 
 		ImageIcon iconDodSt = new ImageIcon("images/student.png");
 		Image imgDodSt = iconDodSt.getImage() ;  
-		Image newimgDodSt = imgDodSt.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH ) ;  
+		Image newimgDodSt = imgDodSt.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;  
 		iconDodSt = new ImageIcon(newimgDodSt);
 	    
 		JButton btnDodaj = new JButton();
@@ -217,7 +237,7 @@ public class HelpDialog extends JDialog {
 			         }
 			      });
 		JLabel lblDodajSt = new JLabel();
-		lblDodajSt.setText("Dugme za dodavanje studenta na predmet. Prečica: CTRL + D. Pritisnuti dugme za više informacija");
+		lblDodajSt.setText("Dugme za dodavanje studenta na predmet. Prečica: CTRL + D.");
 
 		btnDodaj.setOpaque(false);
 		btnDodaj.setBorder(null);
@@ -229,7 +249,7 @@ public class HelpDialog extends JDialog {
 
 		ImageIcon icondDodProf = new ImageIcon("images/profesor.png");
 		Image imgDodProf = icondDodProf.getImage() ;  
-		Image newimgDodProf = imgDodProf.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH ) ;  
+		Image newimgDodProf = imgDodProf.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;  
 		icondDodProf = new ImageIcon(newimgDodProf);
 	    
 		JButton btnDodProf = new JButton();
@@ -250,7 +270,7 @@ public class HelpDialog extends JDialog {
 			         }
 			      });
 		JLabel lblDodajProf = new JLabel();
-		lblDodajProf.setText("Dugme za dodavanje studenta na predmet. Prečica: CTRL + D. Pritisnuti dugme za više informacija");
+		lblDodajProf.setText("Dugme za dodavanje studenta na predmet. Prečica: CTRL + D.");
 
 		btnDodProf.setOpaque(false);
 		btnDodProf.setBorder(null);
@@ -268,6 +288,8 @@ public class HelpDialog extends JDialog {
 		komponente.add(lblAbout, lbl(0, 6));
 		komponente.add(lblHelp, lbl(0, 7));
 		
+
+		this.add(help, BorderLayout.NORTH);
 		this.add(komponente, BorderLayout.CENTER);
 		this.add(dugmici, BorderLayout.SOUTH);
 		
@@ -281,7 +303,7 @@ public class HelpDialog extends JDialog {
 		gbc.gridy = y;
 		gbc.gridwidth = 1;
 
-		gbc.anchor = GridBagConstraints.LINE_START;
+		gbc.anchor = GridBagConstraints.WEST;
 		gbc.insets = new Insets(20, 10, 0, 10);
 		return gbc;
 	}

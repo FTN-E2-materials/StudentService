@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import controller.StudentController;
 import model.BazaStudenata;
+import view.MainFrame;
 
 public class DijalogObrisiS extends JDialog {
 
@@ -23,18 +24,17 @@ public class DijalogObrisiS extends JDialog {
 		super(parent, "Brisanje studenta", true);
 		this.setTitle("Brisanje studenta");
 		if(BazaStudenata.getInstance().getStudenti().size() == 0) {
-			JOptionPane.showMessageDialog(null, "Ne postoji student","GRESKA", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Ne postoji student","GREŠKA", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		else {
-			
-			this.setSize(400, 100);
+			this.setSize(MainFrame.width/3, MainFrame.height/6);
 			this.setLayout(new BorderLayout());
 			
 			JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 			JPanel text = new JPanel(new FlowLayout(FlowLayout.CENTER));
 			
-			JLabel labela = new JLabel("Da li ste sigurni da zelite da obrisete datog studenta?");
+			JLabel labela = new JLabel("Da li ste sigurni da želite da obrišete datog studenta?");
 			
 			text.add(labela);
 			
@@ -56,7 +56,6 @@ public class DijalogObrisiS extends JDialog {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
 					dispose();
 				}
 				

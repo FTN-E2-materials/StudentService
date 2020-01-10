@@ -21,6 +21,7 @@ import controller.DocumentListenerDodajPredmet;
 import controller.PredmetController;
 import model.BazaPredmeta;
 import model.Predmet;
+import view.MainFrame;
 import view.PredmetiJTable;
 
 public class DijalogIzmeniPredmet extends JDialog {
@@ -39,9 +40,11 @@ public class DijalogIzmeniPredmet extends JDialog {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DijalogIzmeniPredmet (JFrame parent) {
 		super(parent, "Izmena predmeta", true);
-		this.setSize(500, 250);
+
+		this.pack();
+		this.setSize(MainFrame.width/3, MainFrame.height/2);
 		this.setLayout(new BorderLayout());
-		this.setLocationRelativeTo(null);
+		this.setLocationRelativeTo(parent);
 		
 		Predmet p = BazaPredmeta.getInstance().getRow(PredmetiJTable.curr_row);
 		

@@ -22,6 +22,7 @@ import javax.swing.event.DocumentListener;
 
 import controller.DocumentListenerDodajStudenta;
 import controller.StudentController;
+import view.MainFrame;
 
 public class DijalogStudent extends JDialog {
 	
@@ -47,7 +48,8 @@ public class DijalogStudent extends JDialog {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DijalogStudent(JFrame parent) {
 		super(parent, "Dodavanje studenta", true);
-		this.setSize(500, 500);
+		this.pack();
+		this.setSize(MainFrame.width/3, MainFrame.height*3/4);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(parent);
 		
@@ -85,7 +87,7 @@ public class DijalogStudent extends JDialog {
 		JLabel labBRI = new JLabel("*Broj indeksa:");
 		labBRI.setToolTipText("Unesite broj indeksa");	        
 		briS = new JTextField();
-		
+	
 		JLabel labGodU = new JLabel("*Datum upisa:");
 		labGodU.setToolTipText("Unesite datum upisa");
 		datumU = new JTextField();
@@ -102,12 +104,28 @@ public class DijalogStudent extends JDialog {
 		labEmail.setToolTipText("Unesite email adresu");
 		email = new JTextField();
 		
-		String[] godine = { "I (prva)", "II (druga)", "III (treca)", "IV (cetvrta)" };
+		String[] godine = { "I (prva)", "II (druga)", "III (treća)", "IV (četvrta)" };
 		godStud = new JComboBox(godine);
 		        
 		// nacin finansiranja
 		budzet = new JRadioButton("Budžet");
 		samofin = new JRadioButton("Samofinansiranje");
+		
+		budzet.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				proveriPopunjenost();	
+			}
+		});
+
+		samofin.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				proveriPopunjenost();	
+			}
+		});
+		
+		
 		// grupa regulise da samo jedan RadioButton može biti čekiran
 		ButtonGroup btnGroup1 = new ButtonGroup();
 		btnGroup1.add(budzet);
@@ -182,7 +200,7 @@ public class DijalogStudent extends JDialog {
 	public static void proveriPopunjenost() {
 		if (imeS.getText().trim().isEmpty() || przS.getText().trim().isEmpty() || briS.getText().trim().isEmpty() ||
 				adresa.getText().trim().isEmpty() || brtel.getText().trim().isEmpty() || datumU.getText().trim().isEmpty() 
-				|| datRodj.getText().trim().isEmpty() || prosOc.getText().trim().isEmpty())
+				|| datRodj.getText().trim().isEmpty() || prosOc.getText().trim().isEmpty() || (!budzet.isSelected() && !samofin.isSelected()))
 			okBtn.setEnabled(false);
 		else {
 			okBtn.setEnabled(true);

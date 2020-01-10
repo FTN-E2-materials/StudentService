@@ -9,18 +9,15 @@ import javax.swing.JOptionPane;
 
 import model.BazaPredmeta;
 import model.BazaProfesora;
-import model.BazaStudenata;
 import model.Predmet;
 import model.Profesor;
 import model.Profesor.Titula;
 import model.Profesor.Zvanje;
 import view.PredmetiJTable;
 import view.ProfesoriJTable;
-import view.StudentJTable;
 import view.Toolbar;
 import view.dijalozi.DijalogDodajProfesora;
 import view.dijalozi.DijalogIzmeniProfesora;
-import view.dijalozi.DijalogStudent;
 
 public class ProfesorController {
 	public static ProfesorController instance = null;
@@ -108,7 +105,7 @@ public class ProfesorController {
 		
 		for (Profesor p : BazaProfesora.getInstance().getProfesori())
 			if (prof.getBrlk().equals(p.getBrlk())) {
-				JOptionPane.showMessageDialog(null, "Profesor sa datim brojem licne karte vec postoji.\nProverite Vas unos", "GRESKA", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Profesor sa datim brojem lične karte vec postoji.\nProverite Vas unos", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		
@@ -142,7 +139,7 @@ public class ProfesorController {
 		}
 		
 		if (!prof.getBrlk().equals(DijalogIzmeniProfesora.brlk.getText())) {
-			JOptionPane.showMessageDialog(null, "Ne možete menjati broj lične karte profesora.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Ne možete menjati broj lične karte profesora.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		

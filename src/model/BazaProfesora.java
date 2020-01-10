@@ -37,7 +37,6 @@ public class BazaProfesora {
 		tekuci_profesori = new ArrayList<Profesor>();
 		filter_Profesor = new ArrayList<Profesor>();
 		profesori = new ArrayList<Profesor>();
-		//initProfesore();
 		this.kolone = new ArrayList<String>();
 		this.kolone.add("Ime");
 		this.kolone.add("Prezime");
@@ -45,7 +44,7 @@ public class BazaProfesora {
 		this.kolone.add("Titula");
 		this.kolone.add("Kancelarija");
 		this.kolone.add("Adresa stanovanja");
-		this.kolone.add("Datum rodjenja");
+		this.kolone.add("Datum rođenja");
 		this.kolone.add("Email");
 		this.kolone.add("Kontakt telefon");
 		this.kolone.add("Lista predmeta");
@@ -222,7 +221,7 @@ public class BazaProfesora {
 			i++;
 		}
 		if(!kriterijumi[0].equals("ime") && !kriterijumi[0].equals("prezime") && !kriterijumi[0].equals("brlk") && !kriterijumi[0].equals("zvanje") && !kriterijumi[0].equals("titula")) {
-			JOptionPane.showMessageDialog(null, "Kriterijum pretrage je: \n[ime:'Ime'];[prezime'Prezime'];[brlk:'Indeks']", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Kriterijum pretrage je: \n[ime:'Ime'];[prezime'Prezime'];[brlk:'Indeks'];]zvanje:'Zvanje'];[titula:'Titula']", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 		
 		} else {
 			boolean isProfesor = false;

@@ -2,10 +2,7 @@ package view.dijalozi;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -20,19 +17,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import view.MainFrame;
+
 public class AboutDialog extends JDialog {
 
 	private static final long serialVersionUID = -7094331571093004098L;
 
 	public AboutDialog(JFrame parent) {
 		super(parent, "About", null);
-		this.setSize(parent.getWidth()*3/4, parent.getHeight()*3/4);
+		this.setSize(MainFrame.width*3/4, MainFrame.height*3/4);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(null);
 		this.setModal(true);
 		JPanel panel1 = new JPanel();
 		TitledBorder title;
-		title = BorderFactory.createTitledBorder("ABOUT");
+		title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "ABOUT", javax.swing.border.
+			      TitledBorder.CENTER, javax.swing.border.
+			      TitledBorder.CENTER, null, java.awt.Color.black);
+		
 		panel1.setBorder(title);
 		
 		JLabel oApp = new JLabel();
@@ -60,20 +62,18 @@ public class AboutDialog extends JDialog {
 		BoxLayout layout = new BoxLayout(panel2, BoxLayout.Y_AXIS);
 		panel2.setLayout(layout);
 		TitledBorder titleS1;
-		titleS1 = BorderFactory.createTitledBorder("Student 1");
+		titleS1 = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Student 1");
 		TitledBorder titleS2;
-		titleS2 = BorderFactory.createTitledBorder("Student 2");
+		titleS2 = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Student 2");
 		student2.setBorder(titleS2);
 		student1.setBorder(titleS1);
 		
 		JLabel oJeleni = new JLabel();
 		JLabel oAleksandri = new JLabel();
-		oJeleni.setText("<html>Jelena Vlajkov, rodjena 29.09.1998. u Kikindi, zavrsila je srednju skolu Gimnazija Dusan Vasiljev u Kikindi.<br/>"
-				+ "Trenutno je student trece godine smera Racunarstvo i automatika.<br/>U slobodno vreme voli da istrazuje novu muziku, <br/>da se igra sa svojim mackom Shonetom</br> i druzi sa svojim drugarima.</html>");
+		oJeleni.setText("<html>Jelena Vlajkov, rođena 29.09.1998. u Kikindi,<br/> završila je srednju školu Gimnazija Dušan Vasiljev u Kikindi.<br/>"
+				+ "Trenutno je student treće godine smera Računarstvo i automatika.<br/>U slobodno vreme voli da istražuje novu muziku, <br/>da se igra sa svojim mačkom Shonetom</br> i druži sa svojim drugarima.</html>");
 		student1.add(oJeleni);
-		oAleksandri.setText("<html>Jelena Vlajkov, rodjena 29.09.1998. u Kikindi, zavrsila je srednju skolu Gimnazija Dusan Vasiljev u Kikindi.<br/>"
-				+ "Trenutno je student trece godine smera Racunarstvo i automatika.<br/>U slobodno vreme voli da istrazuje novu muziku, da se igra sa svojim mackom Shonetom</br> i druzi sa svojim drugarima.</html>");
-		
+		oAleksandri.setText("");
 		student1.add(oJeleni);
 	
 		student2.add(oAleksandri);

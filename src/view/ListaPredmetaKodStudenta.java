@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -18,7 +20,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import controller.ControllerEntiteta;
-import model.BazaPredmeta;
 import model.BazaStudenata;
 import model.Predmet;
 import model.Student;
@@ -53,7 +54,7 @@ public class ListaPredmetaKodStudenta extends JDialog {
 		lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		
-		JButton obrisiB = new JButton("Obrisi");
+		JButton obrisiB = new JButton("Obriši");
 		JButton odustaniB = new JButton("Odustani");
 		
 		lista.addListSelectionListener(new ListSelectionListener() {
@@ -72,7 +73,6 @@ public class ListaPredmetaKodStudenta extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();	
-				StudentJTable.refresh();
 			}
 		});
 		
@@ -80,13 +80,20 @@ public class ListaPredmetaKodStudenta extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(listaS.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Ne postotji student na datom predmetu!");
+					JOptionPane.showMessageDialog(null, "Ne postotji predmet kod datog studenta.");
 				} else {		
 					ControllerEntiteta.getInstance().brisanjesaPredmetaStudent(BazaStudenata.getInstance().getRow(StudentJTable.curr_row), row);
 					listaS.removeElement(row);
 					lista.updateUI();
 				}
 			}
+		});
+		
+		this.addWindowListener(new WindowAdapter() { 
+		  public void windowClosed(WindowEvent e)
+		  {
+		    StudentJTable.refresh();
+		  }
 		});
 		
 		panelStud.add(new JScrollPane(lista));

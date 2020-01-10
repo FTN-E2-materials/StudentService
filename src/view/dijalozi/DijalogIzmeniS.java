@@ -9,8 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -27,14 +26,13 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentListener;
 
-import controller.DocumentListenerDodajStudenta;
 import controller.DocumentListenerIzmeniStudenta;
 import controller.StudentController;
 import model.BazaStudenata;
 import model.Student;
 import model.Student.Status;
+import view.MainFrame;
 import view.StudentJTable;
-import view.Tabele;
 
 public class DijalogIzmeniS extends JDialog {
 
@@ -50,32 +48,36 @@ public class DijalogIzmeniS extends JDialog {
 	public static JTextField datumU;
 	public static JTextField prosOc;
 	public static JTextField email;
-	public static JButton okBtn = new JButton("Potvrda");
+	public static JButton okBtn;
+	@SuppressWarnings("rawtypes")
 	public static JComboBox godStud;
 	public static JRadioButton budzet;
 	public static JRadioButton samofin;
 	public static int flag = 0;
 	private DocumentListener documentListener = new DocumentListenerIzmeniStudenta();
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DijalogIzmeniS(JFrame parent) {
-		super(parent, "Izmena student", true);
+		super(parent, "Izmena studenta", true);
 		
 		if(BazaStudenata.getInstance().getStudenti().size()==0) {
-			JOptionPane.showMessageDialog(null, "Ne postoji nijedan student", "Error", JOptionPane.ERROR_MESSAGE );
+			JOptionPane.showMessageDialog(null, "Ne postoji nijedan student", "GREŠKA", JOptionPane.ERROR_MESSAGE );
 	        dispose();
 		}
 		else {
 			Student st = new Student();
 			st = BazaStudenata.getInstance().getRow(StudentJTable.curr_row);
 			
-			this.setSize(new Dimension(500, 500));
+			this.pack();
+			this.setSize(MainFrame.width/3, MainFrame.height*3/4);
+			
 			this.setLayout(new BorderLayout());
-			this.setLocationRelativeTo(null);
+			this.setLocationRelativeTo(parent);
 			
 			JLabel labIme = new JLabel("*Ime:");
 			//labIme.setPreferredSize(new Dimension(100, 50));
 			labIme.setToolTipText("Unesite ime");
-			        
+			okBtn  = new JButton("Potvrda");
 
 		    imeS = new JTextField();
 			//imeS.setPreferredSize(new Dimension(300, 25));
@@ -144,9 +146,9 @@ public class DijalogIzmeniS extends JDialog {
 			JLabel labGodinaStud = new JLabel("*Trenutna godina studija:");
 			//labGodinaStud.setPreferredSize(new Dimension(100, 50));
 			        
-			JLabel prosecnaOc = new JLabel("*Prosecna ocena:");
+			JLabel prosecnaOc = new JLabel("*Prosečna ocena:");
 			//prosecnaOc.setPreferredSize(new Dimension(100, 50));
-			prosecnaOc.setToolTipText("Unesite prosecnu ocenu");
+			prosecnaOc.setToolTipText("Unesite prosečnu ocenu");
 			
 			prosOc = new JTextField();
 			//prosOc.setPreferredSize(new Dimension(300, 25));
@@ -161,7 +163,7 @@ public class DijalogIzmeniS extends JDialog {
 			//email.setPreferredSize(new Dimension(300, 25));
 			email.setText(st.getEmail());
 			
-			String[] godine = { "I (prva)", "II (druga)", "III (treca)", "IV (cetvrta)" };
+			String[] godine = { "I (prva)", "II (druga)", "III (treća)", "IV (četvrta)" };
 			godStud = new JComboBox(godine);
 			//godStud.setPreferredSize(new Dimension(250, 25));
 			
@@ -241,7 +243,6 @@ public class DijalogIzmeniS extends JDialog {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
 					dispose();
 					
 				}			

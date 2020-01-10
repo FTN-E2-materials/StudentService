@@ -11,7 +11,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import controller.PredmetController;
-import controller.ProfesorController;
 
 public class BazaPredmeta {
 	private static BazaPredmeta instance = null;
@@ -38,7 +37,7 @@ public class BazaPredmeta {
 		this.filterPredmet = new ArrayList<Predmet>();
 		
 		this.kolone = new ArrayList<String>();
-		this.kolone.add("Sifra predmeta");
+		this.kolone.add("Šifra predmeta");
 		this.kolone.add("Naziv predmeta");
 		this.kolone.add("Semestar");
 		this.kolone.add("Godina studija");
@@ -285,7 +284,7 @@ public class BazaPredmeta {
 		}
 		
 		if(!kriterijumi[0].equals("sifra") && !kriterijumi[0].equals("naziv") && !kriterijumi[0].equals("godina") && !kriterijumi[0].equals("semestar")) {
-			JOptionPane.showMessageDialog(null, "Kriterijum pretrage je: \n[sifra:'Sifra'];[naziv:'Naziv'];[godina:'Godina'];[semestar]:'Semestar']", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Kriterijum pretrage je: \n[sifra:'Sifra'];[naziv:'Naziv'];[godina:'Godina'];[semestar]:'Semestar']", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 		
 		} else {
 			boolean isSubject = false;
@@ -334,7 +333,7 @@ public class BazaPredmeta {
 		}
 
 		if (predmetiNadjeni.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Nije pronadjen nijedan predmet datim kriterijumom.", "Neuspesno trazenje", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Nije pronađen nijedan predmet datim kriterijumom.", "Neuspešno traženje", JOptionPane.ERROR_MESSAGE);
 			PredmetController.flag = 0;
 		} else {
 			this.setFilter_Predmet(predmetiNadjeni);
@@ -351,7 +350,7 @@ public class BazaPredmeta {
 	private void deserialize() {
 
 		try {
-			FileInputStream fis = new FileInputStream("data/dataSubjects");
+			FileInputStream fis = new FileInputStream("data/dataSubjects.txt");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			this.predmeti = (ArrayList<Predmet>) ois.readObject();
 			
@@ -374,7 +373,7 @@ public class BazaPredmeta {
 	public void serialize() {
 		
 		try {
-			FileOutputStream fos = new FileOutputStream("data/dataSubjects");
+			FileOutputStream fos = new FileOutputStream("data/dataSubjects.txt");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(this.predmeti);
 			oos.close();

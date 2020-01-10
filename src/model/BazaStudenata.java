@@ -49,15 +49,7 @@ public class BazaStudenata {
 		this.filter_Student = new ArrayList<Student>();
 		
 		this.deserialize();
-		/*
-		for (Student s : this.studenti) {
-			for (Predmet p : s.getPredmeti()) {
-				System.out.println(s.getBri());
-				System.out.println(p.getSifra());
-			}
-		}*/
-		setTekuca_lista(this.studenti);
-
+		this.setTrenutnoStanje();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -206,8 +198,8 @@ public class BazaStudenata {
 	
 		int i = 0;
 		String[] deli = text.split(";");
-		String[] kriterijumi = new String[3];
-		String[] podaci = new String[3];
+		String[] kriterijumi = new String[5];
+		String[] podaci = new String[5];
 		
 		for (String s : deli) {
 			String[] pom = s.split(":");

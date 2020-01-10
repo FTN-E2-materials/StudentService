@@ -89,7 +89,7 @@ public class StudentController {
 		else if(godStud.equals("II (druga)")) {
 			st.setGodina_stud(2);
 		}
-		else if(godStud.equals("III (treca)")) {
+		else if(godStud.equals("III (treća)")) {
 			st.setGodina_stud(3);
 		}
 		else 
@@ -142,8 +142,9 @@ public class StudentController {
 				|| !proveriEmail(DijalogIzmeniS.email.getText()) || !proveriBrTel(DijalogIzmeniS.brtel.getText()) || !proveriAdresu(DijalogIzmeniS.adresa.getText())) {
 			return false;
 		}
-
+		
 		Student st = BazaStudenata.getInstance().getRow(StudentJTable.curr_row);
+		
 		st.setIme(DijalogIzmeniS.imeS.getText());
 		st.setPrezime(DijalogIzmeniS.przS.getText());			
 		st.setAdresa(DijalogIzmeniS.adresa.getText());
@@ -183,7 +184,7 @@ public class StudentController {
 		else if(godStud.equals("II (druga)")) {
 			st.setGodina_stud(2);
 		}
-		else if(godStud.equals("III (treca)")) {
+		else if(godStud.equals("III (treća)")) {
 			st.setGodina_stud(3);
 		}
 		else 

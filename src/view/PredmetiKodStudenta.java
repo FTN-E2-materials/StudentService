@@ -38,6 +38,7 @@ public class PredmetiKodStudenta extends AbstractCellEditor implements TableCell
 			public void actionPerformed(ActionEvent arg0) {
 				fireEditingStopped();
 				int ind = tabela.convertRowIndexToModel(tabela.getSelectedRow());
+				@SuppressWarnings("unused")
 				ListaPredmetaKodStudenta ls = new ListaPredmetaKodStudenta(new JFrame(), ind);
 			}
 			

@@ -5,7 +5,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -72,7 +73,6 @@ public class ListaStudenata extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();	
-				PredmetiJTable.refresh();
 			}
 		});
 		
@@ -89,7 +89,13 @@ public class ListaStudenata extends JDialog {
 				}
 			}
 		});
-		
+
+		this.addWindowListener(new WindowAdapter() { 
+		  public void windowClosed(WindowEvent e)
+		  {
+			 PredmetiJTable.refresh();
+		  }
+		});
 		panelStud.add(new JScrollPane(lista));
 		panelStud.add(lista);
 		panelDugmici.add(odustaniB);

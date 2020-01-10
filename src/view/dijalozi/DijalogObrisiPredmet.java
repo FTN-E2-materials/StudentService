@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import controller.PredmetController;
 import model.BazaPredmeta;
+import view.MainFrame;
 
 public class DijalogObrisiPredmet extends JDialog {
 
@@ -25,15 +26,16 @@ public class DijalogObrisiPredmet extends JDialog {
 		this.setTitle("Brisanje predmeta");
 		
 		if(BazaPredmeta.getInstance().getPredmeti().size() == 0) {
-			JOptionPane.showMessageDialog(null, "Ne postoji nijedan predmet za brisanje", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Ne postoji nijedan predmet za brisanje", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 		}
 		else {
 			
-			this.setSize(new Dimension(400, 100));
+			this.pack();
+			this.setSize(MainFrame.width/3, MainFrame.height/6);
 			this.setLayout(new BorderLayout());
 			
 			JPanel panel  = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-			JLabel labela = new JLabel("Da li ste sigurni da zelite da obrisete dati predmet?");
+			JLabel labela = new JLabel("Da li ste sigurni da želite da obrišete dati predmet?");
 			
 			add(labela, BorderLayout.CENTER);
 			

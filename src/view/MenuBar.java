@@ -11,7 +11,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+
 import controller.ControllerEntiteta;
+import model.BazaPredmeta;
+import model.BazaProfesora;
+import model.BazaStudenata;
 
 public class MenuBar extends JMenuBar {
 	
@@ -48,11 +53,16 @@ public MenuBar() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
+
+			UIManager.put("OptionPane.yesButtonText", "Da");
+			UIManager.put("OptionPane.noButtonText", "Nе");
 			int code = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da želite da zatvorite?",
 					"Zatvaranje aplikacije?", JOptionPane.YES_NO_OPTION);
 			if (code != JOptionPane.YES_OPTION) {
-				
 			} else {
+				BazaStudenata.getInstance().serialize();
+				BazaPredmeta.getInstance().serialize();
+				BazaProfesora.getInstance().serialize();
 				System.exit(1);
 			}
 		}

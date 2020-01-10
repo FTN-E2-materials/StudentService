@@ -44,8 +44,7 @@ public class PredmetiJTable extends JTable {
 		
 		TableRowSorter<TableModel> sort = new TableRowSorter<>(this.getModel());
 		this.setRowSorter(sort);
-		sort.setSortable(5, false);
-		//sort();	
+		sort.setSortable(5, false);	
 		
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -54,13 +53,6 @@ public class PredmetiJTable extends JTable {
 		
 	}
 	
-	private void sort() {
-		// TODO Auto-generated method stub
-		TableRowSorter<TableModel> sort = new TableRowSorter<>();
-		tabela.setRowSorter(sort);
-		//
-	}
-
 	@Override
 	public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 		Component c = super.prepareRenderer(renderer, row, column);

@@ -29,8 +29,8 @@ public class PredmetiKodProfesora extends AbstractCellEditor implements TableCel
 		
 	
 	
-		this.renderer = new JButton("Prikazi");
-		this.editor = new JButton("Prikazi");
+		this.renderer = new JButton("Prikaži");
+		this.editor = new JButton("Prikaži");
 		
 		this.editor.addActionListener(new ActionListener() {
 
@@ -38,6 +38,7 @@ public class PredmetiKodProfesora extends AbstractCellEditor implements TableCel
 			public void actionPerformed(ActionEvent arg0) {
 				fireEditingStopped();
 				int ind = tabela.convertRowIndexToModel(tabela.getSelectedRow());
+				@SuppressWarnings("unused")
 				ListaPredmetaKodProfesora ls = new ListaPredmetaKodProfesora(new JFrame(), ind);
 			}
 			

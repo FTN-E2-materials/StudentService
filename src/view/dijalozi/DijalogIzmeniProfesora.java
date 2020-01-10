@@ -26,6 +26,7 @@ import model.BazaProfesora;
 import model.Profesor;
 import model.Profesor.Titula;
 import model.Profesor.Zvanje;
+import view.MainFrame;
 import view.ProfesoriJTable;
 
 public class DijalogIzmeniProfesora extends JDialog {
@@ -58,9 +59,11 @@ public class DijalogIzmeniProfesora extends JDialog {
 		}
 		else {
 		
-		this.setSize(new Dimension(500, 500));
+
+		this.pack();
+		this.setSize(MainFrame.width/3, MainFrame.height*3/4);
 		this.setLayout(new BorderLayout());
-		this.setLocationRelativeTo(null);
+		this.setLocationRelativeTo(parent);
 		
 		Profesor prof  = new Profesor();
 		prof = BazaProfesora.getInstance().getRow(ProfesoriJTable.curr_row);
@@ -81,7 +84,7 @@ public class DijalogIzmeniProfesora extends JDialog {
 		gornjiPanel.add(labPrz, constraintLbl(0, 1));
 		gornjiPanel.add(przP, constraintTF(1, 1));
 		
-		JLabel labDat = new JLabel("*Datum rodjenja:");
+		JLabel labDat = new JLabel("*Datum rođenja:");
 		datRP = new JTextField();
 		SimpleDateFormat Dformat = new SimpleDateFormat("dd.MM.yyyy.", Locale.ENGLISH);
 		datRP.setText(Dformat.format(prof.getDatumr()));
@@ -110,7 +113,7 @@ public class DijalogIzmeniProfesora extends JDialog {
 		gornjiPanel.add(labEmail, constraintLbl(0, 5));
 		gornjiPanel.add(email, constraintTF(1, 5));
 		
-		JLabel labBrlk = new JLabel("*Broj licne karte: ");
+		JLabel labBrlk = new JLabel("*Broj lične karte: ");
 		brlk = new JTextField();
 		brlk.setText(prof.getBrlk());
 		

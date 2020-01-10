@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -52,9 +51,6 @@ public class StudentJTable extends JTable {
 	        @Override
 	        public void mouseReleased(MouseEvent e) {
 	        	JTable tabela = (JTable)e.getComponent();
-
-
-	        	
 	        	curr_row = tabela.convertRowIndexToModel(tabela.getSelectedRow());
 	        }
 	    });

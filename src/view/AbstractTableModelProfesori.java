@@ -6,8 +6,6 @@ import javax.swing.table.AbstractTableModel;
 import model.BazaProfesora;
 
 import java.sql.Date;
-import java.util.ArrayList;
-
 
 	public class AbstractTableModelProfesori extends AbstractTableModel {
 

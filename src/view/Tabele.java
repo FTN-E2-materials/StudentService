@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.Dimension;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;

@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import controller.ProfesorController;
 import model.BazaProfesora;
+import view.MainFrame;
 import view.ProfesoriJTable;
 
 public class DijalogObrisiProfesora extends JDialog {
@@ -25,14 +26,15 @@ public class DijalogObrisiProfesora extends JDialog {
 		super(parent, "Brisanje profesora", true);
 		this.setTitle("Brisanje profesora");
 		if(BazaProfesora.getInstance().getProfesori().size() == 0) {
-			JOptionPane.showMessageDialog(null, "Ne postoji nijedan profesor za brisanje", "GRESKA", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Ne postoji nijedan profesor za brisanje", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 		}
 		else {
-			this.setSize(new Dimension(400, 100));
+
+			this.setSize(MainFrame.width/3, MainFrame.height/6);
 			this.setLayout(new BorderLayout());
 			
 			JPanel panel  = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-			JLabel labela = new JLabel("Da li ste sigurni da zelite da obrisete datog profesora?");
+			JLabel labela = new JLabel("Da li ste sigurni da želite da obrišete datog profesora?");
 			
 			add(labela, BorderLayout.CENTER);
 			
@@ -55,8 +57,7 @@ public class DijalogObrisiProfesora extends JDialog {
 			btnNotOk.addActionListener(new ActionListener() {
 
 				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub				
+				public void actionPerformed(ActionEvent arg0) {			
 					dispose();
 				}
 				

@@ -19,6 +19,7 @@ import javax.swing.event.DocumentListener;
 
 import controller.DocumentListenerDodajProfesora;
 import controller.ProfesorController;
+import view.MainFrame;
 
 public class DijalogDodajProfesora extends JDialog {
 
@@ -43,7 +44,8 @@ public class DijalogDodajProfesora extends JDialog {
 	public DijalogDodajProfesora(JFrame parent) {
 
 		super(parent, "Dodavanje profesora", true);
-		this.setSize(new Dimension(500, 500));
+
+		this.setSize(MainFrame.width/3, MainFrame.height*3/4);
 			
 		JPanel gornjiPanel = new JPanel(new GridBagLayout());
 		
@@ -158,7 +160,7 @@ public class DijalogDodajProfesora extends JDialog {
 		this.add(gornjiPanel, BorderLayout.NORTH);
 		this.add(donjiPanel, BorderLayout.SOUTH);
 		
-		this.setLocationRelativeTo(null);
+		this.setLocationRelativeTo(parent);
 		this.setResizable(false);
 		this.setVisible(true);
 		

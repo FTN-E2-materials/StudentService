@@ -2,24 +2,19 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.GregorianCalendar;
 import javax.swing.Timer;
 
-import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class StatusBar extends JPanel {
-	
+
+	private static final long serialVersionUID = -7960319300551657388L;
+
 	public StatusBar() {
 	super();
 	setLayout(new BorderLayout());
@@ -27,7 +22,7 @@ public class StatusBar extends JPanel {
 	this.setBackground(Color.LIGHT_GRAY);
 
 	
-    JLabel labelTitle = new JLabel("Studentska sluzba");
+    JLabel labelTitle = new JLabel("Studentska služba");
     Date datum = new Date();
     
     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd.MM.yyyy");
