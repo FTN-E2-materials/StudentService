@@ -33,13 +33,14 @@ public class BazaProfesora {
 	private List<Profesor> profesori;
 	
 	private BazaProfesora() {
-	
+
 		tekuci_profesori = new ArrayList<Profesor>();
 		filter_Profesor = new ArrayList<Profesor>();
 		profesori = new ArrayList<Profesor>();
 		this.kolone = new ArrayList<String>();
 		this.kolone.add("Ime");
 		this.kolone.add("Prezime");
+		this.kolone.add("Broj lične karte");
 		this.kolone.add("Zvanje");
 		this.kolone.add("Titula");
 		this.kolone.add("Kancelarija");
@@ -64,7 +65,7 @@ public class BazaProfesora {
 	}
 	
 	public int getColumnCount() {
-		return 10;
+		return 11;
 	}
 
 	public String getColumnName(int index) {
@@ -97,13 +98,15 @@ public class BazaProfesora {
 	
 	public Object getValueAt(int row, int column) {
 		Profesor profesor = this.tekuci_profesori.get(row);
-		
+	
 		switch(column) {
 		case 0:
 			return profesor.getIme();
 		case 1:
 			return profesor.getPrezime();
 		case 2: 
+			return profesor.getBrlk();
+		case 3:
 			if (profesor.getZvanje() == Zvanje.Asistent) {
 				return "Asistent";
 			} else if (profesor.getZvanje() == Zvanje.Docent) {
@@ -118,21 +121,23 @@ public class BazaProfesora {
 			else {
 				return "Docent";
 			}
-		case 3:
-			if (profesor.getTitula() == Titula.Dr) {
+		case 4:
+			if (profesor.getTitula() == Titula.ProfDr) { 
+				return "Prof. Dr.";
+			} else if (profesor.getTitula() == Titula.Dr) {
 				return "Doktor";
 			} else {
 				return "Master";
 			}
-		case 4:
-			return profesor.getKancelarija();
 		case 5:
-			return profesor.getAdresa();
+			return profesor.getKancelarija();
 		case 6:
-			return profesor.getDatumr();
+			return profesor.getAdresa();
 		case 7:
-			return profesor.getEmail();
+			return profesor.getDatumr();
 		case 8:
+			return profesor.getEmail();
+		case 9:
 			return profesor.getBr_tel();
 		default:
 			return null;
@@ -356,7 +361,17 @@ public class BazaProfesora {
 		this.setTekuci_profesori(this.profesori);
 		}
 
-		
+
+	public void obrisiPredmetProfesorima(String sifra) {
+		for (Profesor p : this.getProfesori()) {
+			for (Predmet pred : p.getPredmeti()) {
+				if (pred.getSifra().equals(sifra)) {
+					p.getPredmeti().remove(pred);
+					break;
+				}
+			}
+		}
+	}
 	
 	public void serialize() {	
 		try {
@@ -378,6 +393,8 @@ public class BazaProfesora {
 		}
 		
 	}
+
+
 
 
 }

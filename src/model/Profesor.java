@@ -8,7 +8,7 @@ public class Profesor implements Serializable {
 
 	private static final long serialVersionUID = -3177000235646704678L;
 	public enum Zvanje implements Serializable { Asistent, Saradnik, RProfesor, VProfesor, Docent };
-	public enum Titula implements Serializable { Dr, Ms };
+	public enum Titula implements Serializable { ProfDr, Dr, Ms };
 	
 	private String ime;
 	private String prezime;

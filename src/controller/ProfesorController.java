@@ -32,7 +32,7 @@ public class ProfesorController {
 	}
 	
 	public ProfesorController() {}
-	
+
 	public boolean DodajProfesora() {
 		
 		Profesor prof = new Profesor();
@@ -97,7 +97,9 @@ public class ProfesorController {
 			
 		String titula = DijalogDodajProfesora.titula.getSelectedItem().toString();
 			
-		if (titula.equals("Doktor")) {
+		if (titula.equals("Doktor profesor")) {
+			prof.setTitula(Titula.ProfDr);
+		} else if (titula.equals("Doktor")) {
 			prof.setTitula(Titula.Dr);
 		} else {
 			prof.setTitula(Titula.Ms);
@@ -118,6 +120,7 @@ public class ProfesorController {
 
 		Profesor prof = BazaProfesora.getInstance().getRow(rowSelectedIndex);
 		BazaProfesora.getInstance().izbrisiProfesora(prof.getBrlk());
+		BazaPredmeta.getInstance().obrisiProfesoraPosle(prof.getBrlk());
 		ProfesoriJTable.refresh();		
 	}
 	
@@ -188,9 +191,12 @@ public class ProfesorController {
 			
 		String titula = DijalogIzmeniProfesora.titula.getSelectedItem().toString();
 			
-		if (titula.equals("Doktor")) {
+		if (titula.equals("Doktor profesor")) {
+			prof.setTitula(Titula.ProfDr);
+		} else if (titula.equals("Doktor")) {
 			prof.setTitula(Titula.Dr);
-		} else {
+		}
+		else {
 			prof.setTitula(Titula.Ms);
 		}
 		
@@ -337,7 +343,7 @@ public class ProfesorController {
 	}
 	
 	private boolean proveriBrTel(String text) {
-		String patternString = "[+]?[0-9]{8,30}";
+		String patternString = "[0-9][0-9/-]+";
 
         Pattern pattern = Pattern.compile(patternString);
 

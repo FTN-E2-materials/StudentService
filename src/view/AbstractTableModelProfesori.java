@@ -15,7 +15,7 @@ import java.sql.Date;
 		
 		@Override
 		public boolean isCellEditable(int rowIndex, int columnIndex) {
-			return columnIndex == 9;
+			return columnIndex == 10;
 		}
 	
 		@Override
@@ -44,12 +44,14 @@ import java.sql.Date;
 			case 5:
 				return String.class;
 			case 6:
-				return Date.class;
-			case 7:
 				return String.class;
+			case 7:
+				return Date.class;
 			case 8:
 				return String.class;
-			case 9:
+			case 9: 
+				return String.class;
+			case 10:
 				return JButton.class;
 			default:
 				return null;

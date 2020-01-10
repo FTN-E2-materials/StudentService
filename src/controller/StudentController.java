@@ -21,7 +21,7 @@ import view.dijalozi.DijalogStudent;
 public class StudentController {
 
 	
-	
+
 // TODO: Implementirati funkcije za dijaloge
 // za dodavanje, brisanje i izmenu studenta
 	
@@ -38,7 +38,6 @@ public class StudentController {
 	public boolean dodajStudenta() {
 		Student st = new Student();
 		// provera da li je uneo prazan string u neko polje	
-		
 		if (DijalogStudent.imeS.getText().isEmpty() || DijalogStudent.przS.getText().isEmpty() || DijalogStudent.adresa.getText().isEmpty() || DijalogStudent.briS.getText().isEmpty() ||
 				DijalogStudent.brtel.getText().isEmpty() || DijalogStudent.email.getText().isEmpty() || DijalogStudent.datRodj.getText().isEmpty() || DijalogStudent.datumU.getText().isEmpty()) {
 				
@@ -126,6 +125,7 @@ public class StudentController {
 
 		Student student = BazaStudenata.getInstance().getRow(StudentJTable.curr_row);
 		BazaStudenata.getInstance().izbrisiStudenta(student.getBri());
+		BazaPredmeta.getInstance().obrisiStudentaPosle(student.getBri());
 		StudentJTable.refresh();
 	}
 	
@@ -245,7 +245,6 @@ public class StudentController {
 	}
 	
 	// PROVERE
-
 	 public static Date parseDate(String date) {
 	     try {
 	         return new SimpleDateFormat("dd.MM.yyyy.").parse(date);
@@ -345,7 +344,7 @@ public class StudentController {
 	}
 	
 	private boolean proveriBrTel(String text) {
-		String patternString = "[+]?[0-9]{8,30}";
+		String patternString = "[0-9][0-9/-]+";
 
         Pattern pattern = Pattern.compile(patternString);
 

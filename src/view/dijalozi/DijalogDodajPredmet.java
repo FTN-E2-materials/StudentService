@@ -37,7 +37,6 @@ public class DijalogDodajPredmet extends JDialog {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public DijalogDodajPredmet(JFrame parent) {
 		super(parent, "Dodavanje predmeta", true);
-
 		this.setSize(MainFrame.width/3, MainFrame.height/2);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(parent);

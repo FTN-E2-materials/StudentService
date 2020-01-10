@@ -174,7 +174,7 @@ public class BazaPredmeta {
 	
 	public boolean dodajProfesora(String brlk, String sifraP) {
 		boolean retVal = false;
-		
+	
 		Predmet predmet = null;
 		Profesor profesor = null;
 		for (Profesor p : BazaProfesora.getInstance().getProfesori()) {
@@ -345,6 +345,25 @@ public class BazaPredmeta {
 		pp.setPred_prof(null);
 	}
 	
+	public void obrisiStudentaPosle(String bri) {
+		for (Predmet p : this.predmeti) {
+			for (Student s : p.getStudenti()) {
+				if (s.getBri().equals(bri)) {
+					p.getStudenti().remove(s);
+					break;
+				}
+			}
+		}
+		
+	}
+	public void obrisiProfesoraPosle(String brlk) {
+		for (Predmet p : this.predmeti) {
+			if (p.getPred_prof().getBrlk().equals(brlk)) {
+				p.setPred_prof(null);
+			}
+		}
+	}
+
 	
 	@SuppressWarnings("unchecked")
 	private void deserialize() {
@@ -392,6 +411,4 @@ public class BazaPredmeta {
 		}
 	}
 
-
-	
 }

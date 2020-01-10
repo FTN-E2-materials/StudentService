@@ -70,7 +70,7 @@ public class DijalogDodajProfesora extends JDialog {
 		JLabel labAdresa = new JLabel("*Adresa stanovanja: ");
 		adresaP = new JTextField();
 		
-		
+	
 		gornjiPanel.add(labAdresa, constraintLbl(0, 3));
 		gornjiPanel.add(adresaP, constraintTF(1, 3));
 		
@@ -100,7 +100,7 @@ public class DijalogDodajProfesora extends JDialog {
 		gornjiPanel.add(kancelarija, constraintTF(1, 7));
 		
 		
-		String[] titule = { "Doktor", "Master" };
+		String[] titule = { "Doktor profesor", "Doktor", "Master" };
 		JLabel labTitula = new JLabel("*Titula: ");
 		titula = new JComboBox(titule);
 		

@@ -48,7 +48,7 @@ public class DijalogIzmeniProfesora extends JDialog {
 
 	public static JButton btnOk;
 	private DocumentListener documentListener = new DocumentListenerIzmeniProfesora();
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DijalogIzmeniProfesora(JFrame parent) {
 
@@ -59,7 +59,6 @@ public class DijalogIzmeniProfesora extends JDialog {
 		}
 		else {
 		
-
 		this.pack();
 		this.setSize(MainFrame.width/3, MainFrame.height*3/4);
 		this.setLayout(new BorderLayout());
@@ -145,22 +144,24 @@ public class DijalogIzmeniProfesora extends JDialog {
 			zvanje.setSelectedIndex(4);
 		}
 		
-		gornjiPanel.add(labZvanje, constraintLbl(0, 8));
-		gornjiPanel.add(zvanje, constraintTF(1, 8));
+		gornjiPanel.add(labZvanje, constraintLbl(0, 9));
+		gornjiPanel.add(zvanje, constraintTF(1, 9));
 		
-		String[] titule = { "Doktor", "Master" };
+		String[] titule = { "Doktor profesor", "Doktor", "Master" };
 		JLabel labTitula = new JLabel("*Titula: ");
 		titula = new JComboBox(titule);
 		
-		if (prof.getTitula() == Titula.Dr) {
+		if (prof.getTitula() == Titula.ProfDr) {
 			titula.setSelectedIndex(0);
-		} else {
+		} else if (prof.getTitula() == Titula.Dr) {
 			titula.setSelectedIndex(1);
+		} else {
+			titula.setSelectedIndex(2);
 		}
 		
 		
-		gornjiPanel.add(labTitula, constraintLbl(0, 9));
-		gornjiPanel.add(titula, constraintTF(1, 9));
+		gornjiPanel.add(labTitula, constraintLbl(0, 8));
+		gornjiPanel.add(titula, constraintTF(1, 8));
 		
 		JPanel donjiPanel = new JPanel();
 		

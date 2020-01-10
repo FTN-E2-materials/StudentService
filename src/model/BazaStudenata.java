@@ -347,8 +347,20 @@ public class BazaStudenata {
 		}
 		this.setTrenutnoStanje();
 	}
-		 
-	 public void serialize() {
+
+	public void obrisiDatiPredmetSvimStudentima(String sifra) {
+		for (Student s : this.studenti) {
+			for (Predmet p : s.getPredmeti()) {
+				if (p.getSifra().equals(sifra)) {
+					s.getPredmeti().remove(p);
+					break;
+				}
+			}
+		}
+		
+	}
+	
+	public void serialize() {
 		 
 			try {
 				FileOutputStream fos = new FileOutputStream("data/dataStudents.txt");
@@ -371,4 +383,5 @@ public class BazaStudenata {
 
 			
 	}
+
 }

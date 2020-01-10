@@ -30,9 +30,9 @@ public class ProfesoriJTable extends JTable {
 		this.setColumnSelectionAllowed(true);
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.setModel(new AbstractTableModelProfesori());
-		new PredmetiKodProfesora(this, 9);
+		new PredmetiKodProfesora(this, 10);
 		this.getTableHeader().setReorderingAllowed(false);
-		this.getColumnModel().getColumn(6).setCellRenderer(new DateCellRenderer());
+		this.getColumnModel().getColumn(7).setCellRenderer(new DateCellRenderer());
 		
 		table_model = this.getModel();
 		
@@ -40,7 +40,7 @@ public class ProfesoriJTable extends JTable {
 		
 		TableRowSorter<TableModel> sort = new TableRowSorter<>(table_model);
 		this.setRowSorter(sort);
-		sort.setSortable(9, false);
+		sort.setSortable(10, false);
 		
 		tabela = this;
 
@@ -57,7 +57,7 @@ public class ProfesoriJTable extends JTable {
         		curr_row = tabela.convertRowIndexToModel(tabela.getSelectedRow());
 	        }
 	    });
-	
+
 	}
 	
 		public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
