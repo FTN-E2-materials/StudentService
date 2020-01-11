@@ -8,7 +8,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
@@ -27,10 +26,19 @@ public class AbstractButtonDetalji extends AbstractCellEditor implements TableCe
 		this.tabela.getColumnModel().getColumn(column).setCellRenderer(this);
 		this.tabela.addMouseListener(this);
 		
-	
-	
-		this.renderer = new JButton("Detalji");
-		this.editor = new JButton("Detalji");
+		this.renderer = new JButton(". . .");
+		this.editor = new JButton(". . .");
+
+		this.renderer.setOpaque(false);
+		this.renderer.setContentAreaFilled(false);
+		this.renderer.setBorderPainted(false);
+		this.renderer.setBorder(null);
+				
+		
+		this.editor.setOpaque(false);
+		this.editor.setContentAreaFilled(false);
+		this.editor.setBorderPainted(false);
+		this.editor.setBorder(null);
 		
 		this.editor.addActionListener(new ActionListener() {
 			@Override
@@ -39,9 +47,8 @@ public class AbstractButtonDetalji extends AbstractCellEditor implements TableCe
 				int ind = 0;
 				ind = tabela.convertRowIndexToModel(tabela.getSelectedRow());
 				@SuppressWarnings("unused")
-				Detalji det = new Detalji(new JFrame(), ind);
+				Detalji det = new Detalji(MainFrame.getInstance(), ind);
 			}
-			
 		});
 		
 		this.activeEditor = false;
@@ -50,10 +57,9 @@ public class AbstractButtonDetalji extends AbstractCellEditor implements TableCe
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row,
 			int column) {
 		// TODO Auto-generated method stub
-		return new PredmetiTablePanel(this.renderer, 50, 50);
+		return new StudentiTablePanel(this.renderer, 0, 0);
 	}
 	
-
 	@Override
 	public Object getCellEditorValue() {
 		// TODO Auto-generated method stub
@@ -63,7 +69,7 @@ public class AbstractButtonDetalji extends AbstractCellEditor implements TableCe
 	@Override
 	public Component getTableCellEditorComponent(JTable talbe, Object value, boolean isSelected, int row, int column) {
 		// TODO Auto-generated method stub
-		return new PredmetiTablePanel(this.editor, 50, 50);
+		return new StudentiTablePanel(this.editor, 0, 0);
 	}
 	@Override
 	public void mouseClicked(MouseEvent arg0) {

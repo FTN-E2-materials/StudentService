@@ -143,7 +143,7 @@ public class BazaProfesora {
 			return null;
 		}
 	}
-
+	
 	public void dodajProfesora(String ime, String prezime, Date datumr, String adresa, String brtel, String email, 
 			String kancelarija, String brlk,  Zvanje zvanje, Titula titula) {
 		
@@ -315,10 +315,18 @@ public class BazaProfesora {
 	     
 	  }
 	 
-	public void dodajPredmet(Profesor prof, Predmet pred) {
+	public void dodajPredmet(String brlk, Predmet pred) {
+		boolean flag = false;
 		for (Profesor profa : this.profesori) {
-			if (profa.getBrlk().equals(prof.getBrlk())) {
-				profa.getPredmeti().add(pred);
+			if (profa.getBrlk().equals(brlk)) {
+				for (Predmet p : profa.getPredmeti()) {
+					if (p.getSifra().equals(pred.getSifra())) {
+						flag = true;
+						break;
+					}
+				}
+				if (!flag)
+					profa.getPredmeti().add(pred);
 			}
 		}
 	}

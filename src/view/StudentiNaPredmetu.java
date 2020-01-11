@@ -8,7 +8,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
@@ -29,8 +28,18 @@ public class StudentiNaPredmetu extends AbstractCellEditor implements TableCellR
 		
 	
 	
-		this.renderer = new JButton("Prikaži");
-		this.editor = new JButton("Prikaži");
+		this.renderer = new JButton(". . .");
+		this.editor = new JButton(". . .");
+		this.renderer.setOpaque(false);
+		this.renderer.setContentAreaFilled(false);
+		this.renderer.setBorderPainted(false);
+		this.renderer.setBorder(null);
+		
+		this.editor.setOpaque(false);
+		this.editor.setContentAreaFilled(false);
+		this.editor.setBorderPainted(false);
+		this.editor.setBorder(null);
+		
 		
 		this.editor.addActionListener(new ActionListener() {
 			@Override
@@ -39,7 +48,7 @@ public class StudentiNaPredmetu extends AbstractCellEditor implements TableCellR
 				int ind = 0;
 				ind = tabela.convertRowIndexToModel(tabela.getSelectedRow());
 				@SuppressWarnings("unused")
-				ListaStudenata ls = new ListaStudenata(new JFrame(), ind);
+				ListaStudenata ls = new ListaStudenata(MainFrame.getInstance(), ind);
 			}
 			
 		});
@@ -50,7 +59,7 @@ public class StudentiNaPredmetu extends AbstractCellEditor implements TableCellR
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row,
 			int column) {
 		// TODO Auto-generated method stub
-		return new PredmetiTablePanel(this.renderer, 50, 50);
+		return new PredmetiTablePanel(this.renderer, 0, 0);
 	}
 	
 
@@ -63,7 +72,7 @@ public class StudentiNaPredmetu extends AbstractCellEditor implements TableCellR
 	@Override
 	public Component getTableCellEditorComponent(JTable talbe, Object value, boolean isSelected, int row, int column) {
 		// TODO Auto-generated method stub
-		return new PredmetiTablePanel(this.editor, 50, 50);
+		return new PredmetiTablePanel(this.editor, 0, 0);
 	}
 	@Override
 	public void mouseClicked(MouseEvent arg0) {

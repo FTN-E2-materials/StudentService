@@ -47,10 +47,16 @@ public class ProfesoriJTable extends JTable {
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 		this.setDefaultRenderer(String.class, centerRenderer);
+		
 		// trenutni selektovani red (polje je public static
 		// moze mu se pristupiti u bilo kom trenutku
 		
 	    this.addMouseListener(new MouseAdapter() {
+	    	@Override
+	    	public void mousePressed(MouseEvent e) {
+	    		JTable tabela = (JTable)e.getComponent();
+	        	curr_row = tabela.convertRowIndexToModel(tabela.getSelectedRow());
+	    	}
 	        @Override
 	        public void mouseReleased(MouseEvent e) {
 	        	JTable tabela = (JTable)e.getComponent();
@@ -73,6 +79,8 @@ public class ProfesoriJTable extends JTable {
 		
 		public static void refresh() {
 			// azuriranje prikaza
+			// objasnjenje za vracanje na -1 u tabeli StudentJTable
+			
 			curr_row = -1;
 			((AbstractTableModel) table_model).fireTableDataChanged();
 		}

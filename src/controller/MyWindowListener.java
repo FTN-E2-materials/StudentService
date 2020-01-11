@@ -34,6 +34,7 @@ public class MyWindowListener implements WindowListener {
 		if (code != JOptionPane.YES_OPTION) {
 			frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		} else {
+			// Serijalizacija prilikom zatvaranja aplikacije 
 			BazaStudenata.getInstance().serialize();
 			BazaPredmeta.getInstance().serialize();
 			BazaProfesora.getInstance().serialize();

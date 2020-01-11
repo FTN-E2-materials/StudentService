@@ -40,7 +40,7 @@ public class DijalogDodajPredmet extends JDialog {
 		this.setSize(MainFrame.width/3, MainFrame.height/2);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(parent);
-		
+	
 		JPanel up = new JPanel(new GridBagLayout());
 		
 		JLabel labSifra = new JLabel("*Šifra predmeta:");
@@ -132,6 +132,7 @@ public class DijalogDodajPredmet extends JDialog {
 		gbc.insets = new Insets(10, 20, 0, 20);
 		return gbc;
 	}
+	
 	public static void proveriPopunjenost() {
 		if (sifraP.getText().trim().isEmpty() || imeP.getText().trim().isEmpty()) {
 			ok.setEnabled(false);

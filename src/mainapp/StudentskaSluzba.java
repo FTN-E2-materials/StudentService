@@ -8,25 +8,23 @@ import view.MainFrame;
 public class StudentskaSluzba {
 
 	public static void main(String[] args) {
-	/*
+		/*
 	try {
-    	UIManager.setLookAndFeel(
-		UIManager.getSystemLookAndFeelClassName());
+            // Set System L&F
+        UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
     } 
     catch (UnsupportedLookAndFeelException e) {
-    	System.out.println(e.getMessage());
+       // handle exception
     }
     catch (ClassNotFoundException e) {
-    	System.out.println(e.getMessage());
+       // handle exception
     }
     catch (InstantiationException e) {
-    	System.out.println(e.getMessage());
+       // handle exception
     }
     catch (IllegalAccessException e) {
-       System.out.println(e.getMessage());
-    }
-		*/
-	
+       // handle exception
+    }*/
 	MainFrame.getInstance();
 	
 	}

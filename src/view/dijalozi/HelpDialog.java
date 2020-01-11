@@ -9,7 +9,10 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,7 +34,8 @@ public class HelpDialog extends JDialog {
 	private String poruka;
 	
 	public HelpDialog(JFrame parent) {
-		super(parent, "Help", null);
+		// jednostavan help dijalog sa uputstvom za koriscenje aplikacije
+		super(parent, "Help", true);
 		this.setSize(MainFrame.width*3/5, MainFrame.height*3/5);
 		this.setLocationRelativeTo(null);
 		JButton zatvori = new JButton("Zatvori");
@@ -46,7 +50,6 @@ public class HelpDialog extends JDialog {
 				dispose();
 				
 			}
-			
 		});
 		
 		JPanel help = new JPanel();
@@ -97,7 +100,9 @@ public class HelpDialog extends JDialog {
 			      		+ "Broj indeksa je unosi u formatu 'XX-bb-yyyy' gde je XX - smer, bb - broj indeksa i \nyyyy - godina upisa.\n"
 			      		+ "Prosečnu ocenu studenta unosite kao xx.xx gde se tačkom odvajaju brojevi iza decimalnog zareza.\n"
 			      		+ "Ne mozete dodati studenta sa istim brojem indeksa,\nte pogledajte bolje svoj unos ako vam se pojavi to upozorenje.\n"
-			      		+ "U tabeli studenata se nalazi još opcija za brisanje predmeta koje student sluša,\nte se to vrši tako što označite željeni predmet i pritisnite dugme Obriši.";
+			      		+ "U tabeli studenata se nalazi još opcija za brisanje predmeta koje student sluša,\nte se to vrši tako što označite željeni predmet i pritisnite dugme Obriši."
+			      		+ "\n\nNAPOMENA: Studentu prve godine možete staviti da nema prosek \n(ako do tada nije položio nijedan predmet)"
+			      		+ "tako što ćete ukucati '/' ili '0.0'";
 			      
 			            JTextArea jta = new JTextArea(20, 50);
 			            jta.setText(poruka);
@@ -129,7 +134,9 @@ public class HelpDialog extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 			      poruka = "Dugme za izmenu studenta, profesora, predmeta. Prilikom klika na dugme\notvara vam se dijalog u kom se već nalaze trenutni podaci\n"
 			      		+ "entiteta kog želite da obrišete. Popunite željeno polje za izmenu\ni pritisniete Potvrdi. Nije dozvoljeno menjanje\nbroja indeksa, lične karte, kao ni šifre predmeta\n"
-			      		+ "jer se u bazi koriste kao primarni kljuČevi datog entiteta.";
+			      		+ "jer se u bazi koriste kao primarni kljuČevi datog entiteta."
+			      		+ "\n\nNAPOMENA: Studentu prve godine možete staviti da nema prosek \n(ako do tada nije položio nijedan predmet)" + 
+			      		"tako što ćete ukucati '/' ili '0.0'";
 			      
 			            JTextArea jta = new JTextArea(20, 50);
 			            jta.setText(poruka);
@@ -209,7 +216,6 @@ public class HelpDialog extends JDialog {
 		btnSearch.setOpaque(false);
 		btnSearch.setBorder(null);
 		
-
 		komponente.add(btnSearch, tf(1, 3));
 		komponente.add(lblSearch, lbl(0, 3));
 		
@@ -285,8 +291,23 @@ public class HelpDialog extends JDialog {
 		JLabel lblHelp = new JLabel();
 		lblHelp.setText("Help deo: Tekst o upotrebi same aplikacije. Prečica: CTRL + H.");
 		
+		JLabel picAbout = new JLabel();
+		JLabel picHelp = new JLabel();
+		try {
+			BufferedImage imgAb = ImageIO.read(new File("images/about.png"));
+			Image aboutImg = imgAb.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+			BufferedImage imgH = ImageIO.read(new File("images/help.png"));
+			Image helpImg = imgH.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+			picAbout.setIcon(new ImageIcon(aboutImg));
+			picHelp.setIcon(new ImageIcon(helpImg));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
 		komponente.add(lblAbout, lbl(0, 6));
+		komponente.add(picAbout, tf(1, 6));
 		komponente.add(lblHelp, lbl(0, 7));
+		komponente.add(picHelp, tf(1, 7));
 		
 
 		this.add(help, BorderLayout.NORTH);

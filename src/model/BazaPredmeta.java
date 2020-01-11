@@ -23,10 +23,10 @@ public class BazaPredmeta {
 		return instance;
 	}
 
-	private List<Predmet> predmeti;
+	private List<Predmet> predmeti; // lista koja sadrzi sve predmete
 	private List<String> kolone;
-	private List<Predmet> filterPredmet;
-	private List<Predmet> tekuciPredmet;
+	private List<Predmet> filterPredmet; // lista koja sadrzi filtrirane predmete (nadjene pretragom)
+	private List<Predmet> tekuciPredmet; // lista koja se prikazuje u svakom trenutku (smenjuju se u njoj vrednosti)
 	
 
 	
@@ -45,7 +45,6 @@ public class BazaPredmeta {
 		this.kolone.add("Lista studenata");
 		
 		this.deserialize();
-
 		this.setTrentunoStanje();
 	}
 	
@@ -111,13 +110,13 @@ public class BazaPredmeta {
 			if(predmet.getPred_prof() == null)
 				return "";
 			else {
-				return predmet.getPred_prof().getIme() + " " + predmet.getPred_prof().getPrezime();
+				return predmet.getPred_prof().getBrlk() + ", " + predmet.getPred_prof().getIme() + " " + predmet.getPred_prof().getPrezime();
 			}
 		default: 
 			return null;
 		}
 	}
-	
+
 	public void dodajPredmet(String sifra, String ime, int godina, int semestar) {
 		Predmet p = new Predmet(sifra, ime, semestar, godina);
 		p.setPred_prof(null);
@@ -137,6 +136,7 @@ public class BazaPredmeta {
 				break;
 			}
 		}
+		
 		for (Predmet p : filterPredmet ) {
 			if(p.getSifra().equals(sifra)) {
 				for (Student s : p.getStudenti()) {
@@ -160,6 +160,7 @@ public class BazaPredmeta {
 				p.setPred_prof(prof);
 			}
 		}
+		// menjala sam u obe liste da bi se odmah promenili podaci i u filtriranoj listi
 		
 		for (Predmet p : filterPredmet) {
 			if(p.getSifra().equals(sifra)) {
@@ -175,20 +176,17 @@ public class BazaPredmeta {
 	public boolean dodajProfesora(String brlk, String sifraP) {
 		boolean retVal = false;
 	
-		Predmet predmet = null;
-		Profesor profesor = null;
 		for (Profesor p : BazaProfesora.getInstance().getProfesori()) {
 			if (p.getBrlk().equals(brlk)) {
 				for (Predmet pred : predmeti) {
 					if(pred.getSifra().equals(sifraP)) {
 						pred.setPred_prof(p);
-						predmet = pred;
-						profesor = p;
 						retVal = true;
 					}
 				}
 			} 
 		}
+		// menjala sam u obe liste da bi se odmah promenili podaci i u filtriranoj listi
 		
 		for (Profesor p : BazaProfesora.getInstance().getFilter_Profesor()) {
 			if (p.getBrlk().equals(brlk)) {
@@ -200,10 +198,7 @@ public class BazaPredmeta {
 				}
 			} 
 		}
-		
-		BazaProfesora.getInstance().dodajPredmet(profesor, predmet);
 		this.setTrentunoStanje();
-		
 		return retVal;
 	}
 	
@@ -238,6 +233,7 @@ public class BazaPredmeta {
 				pred.setPred_prof(null);
 			}
 		}
+		this.setTrentunoStanje();
 	}
 
 	public void izmeniPredmet(Predmet predmet) {
@@ -245,17 +241,16 @@ public class BazaPredmeta {
 			if (p.getSifra().equals(predmet.getSifra())) {
 				p.setGodina(predmet.getGodina());
 				p.setIme(predmet.getIme());
-				p.setStudenti(predmet.getStudenti());
 				p.setSemestar(predmet.getSemestar());
 				p.setPred_prof(predmet.getPred_prof());
 			}
 		}
+		// menjala sam u obe liste da bi se odmah promenili podaci i u filtriranoj listi
 		
 		for (Predmet p : filterPredmet) {
 			if (p.getSifra().equals(predmet.getSifra())) {
 				p.setGodina(predmet.getGodina());
 				p.setIme(predmet.getIme());
-				p.setStudenti(predmet.getStudenti());
 				p.setSemestar(predmet.getSemestar());
 				p.setPred_prof(predmet.getPred_prof());
 			}
@@ -270,7 +265,7 @@ public class BazaPredmeta {
 			return;
 		}
 		ArrayList<Predmet> predmetiNadjeni = new ArrayList<Predmet>();
-		
+	
 		int i = 0;
 		String[] deli = text.split(";"); 
 		String[] kriterijumi = new String[4];
@@ -290,6 +285,11 @@ public class BazaPredmeta {
 			boolean isSubject = false;
 			
 			for (Predmet p : this.predmeti) {
+				
+				// logika pretrage je da prodje kroz sve kriterijume
+				// i da kako prolazi kroz kriterijume pretrage
+				// da menja indikator za to da li je predmet u pitanju ili nije
+				
 				for (int j = 0; j < i; j++) {
 					if (kriterijumi[j].equals("sifra")) {
 						if(p.getSifra().equals(podaci[j])) {
@@ -317,7 +317,6 @@ public class BazaPredmeta {
 								break;
 							}
 						}
-						
 						if (kriterijumi[j].equals("semestar")) {
 							if (p.getSemestar() == Integer.parseInt(podaci[j])) {
 								isSubject = true;
@@ -333,6 +332,8 @@ public class BazaPredmeta {
 		}
 
 		if (predmetiNadjeni.isEmpty()) {
+			// ako je lista pronadjenih predmeta i dalje prazna
+			// izbacujemo gresku
 			JOptionPane.showMessageDialog(null, "Nije pronađen nijedan predmet datim kriterijumom.", "Neuspešno traženje", JOptionPane.ERROR_MESSAGE);
 			PredmetController.flag = 0;
 		} else {
@@ -342,10 +343,16 @@ public class BazaPredmeta {
 	}
 	
 	public void obrisiProfesoraIzBazeProf(Profesor p, Predmet pp) {
+		// samo poostavi da je profesor null
 		pp.setPred_prof(null);
 	}
 	
 	public void obrisiStudentaPosle(String bri) {
+		// funkcija sluzi za brisanje svih studenata na datim predmetima
+		// prolazimo kroz listu svih predmeta
+		// i gledamo da li dati predmet ima studenta 
+		// koji je trenutno obrisan
+		// ako ima, obrisi
 		for (Predmet p : this.predmeti) {
 			for (Student s : p.getStudenti()) {
 				if (s.getBri().equals(bri)) {
@@ -357,6 +364,11 @@ public class BazaPredmeta {
 		
 	}
 	public void obrisiProfesoraPosle(String brlk) {
+		// funkcija sluzi za brisanje svih profesira na datim predmetima
+		// prolazimo kroz listu svih predmeta
+		// i gledamo da li dati predmet ima profesora 
+		// koji je trenutno obrisan
+		// ako ima, obrisi
 		for (Predmet p : this.predmeti) {
 			if (p.getPred_prof().getBrlk().equals(brlk)) {
 				p.setPred_prof(null);
@@ -364,7 +376,28 @@ public class BazaPredmeta {
 		}
 	}
 
+
+	public void obrisiSveStudente(String sifra) {
+		// brisemo sve studente posle izmene godine predmeta
+		// jer verovatno nisu vise ista godina
+		
+		
+		// kod studenata nisam pravila ovu funkiju (kad se promeni godina studenta da obrise sve predmete)
+		// jer moze da se desi da student prenese predmet ?
+		
+		ArrayList<Student> studenti = new ArrayList<Student>();
+		
+		for (Predmet p : this.predmeti) {
+			if (p.getSifra().equals(sifra)) {
+				p.setStudenti(studenti);
+				break;
+			}
+		}
+		
+	}
 	
+	// serijalizacija i deserijalizacija
+
 	@SuppressWarnings("unchecked")
 	private void deserialize() {
 
@@ -404,6 +437,9 @@ public class BazaPredmeta {
 	}
 	
 	public void setTrentunoStanje() {
+		// funkcija koja sluzi da u svakom trenutku odrzi konzistentno stanje
+		// filtriranih i cele baze studenata
+		
 		if (PredmetController.flag == 0) {
 			this.setTekuciPredmet(this.predmeti);
 		} else {

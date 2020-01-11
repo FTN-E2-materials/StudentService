@@ -1,7 +1,6 @@
 package view.dijalozi;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -44,7 +43,6 @@ public class DijalogDodajProfesora extends JDialog {
 	public DijalogDodajProfesora(JFrame parent) {
 
 		super(parent, "Dodavanje profesora", true);
-
 		this.setSize(MainFrame.width/3, MainFrame.height*3/4);
 			
 		JPanel gornjiPanel = new JPanel(new GridBagLayout());

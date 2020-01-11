@@ -33,9 +33,11 @@ public MenuBar() {
 	
 	JMenuItem newItem = new JMenuItem("New");
 	JMenuItem closeItem = new JMenuItem("Close");
+	
 	newItem.setIcon(setIkonice("images/student_add.png"));
+	closeItem.setIcon(setIkonice("images/close.png"));
+	
 	newItem.addActionListener(new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
@@ -43,7 +45,7 @@ public MenuBar() {
 		}
 		
 	});
-	
+
 	newItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 	closeItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
 	
@@ -108,8 +110,10 @@ public MenuBar() {
 	JMenuItem aboutItem = new JMenuItem("About");
 	helpItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK));
 	aboutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+	helpItem.setIcon(setIkonice("images/help.png"));
+	aboutItem.setIcon(setIkonice("images/about.png"));
+	
 	helpItem.addActionListener(new ActionListener() {
-		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			ControllerEntiteta.getInstance().pokaziHelp();
@@ -122,7 +126,6 @@ public MenuBar() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			ControllerEntiteta.getInstance().pokaziAbout();
-			
 		}
 		
 	});

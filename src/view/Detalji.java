@@ -24,15 +24,16 @@ public class Detalji extends JDialog {
 	private static final long serialVersionUID = 5097941680854157407L;
 
 	public Detalji(JFrame parent, int ind) {
-		super(parent, "Detalji", null);
-		this.setSize(500, 500);
-		this.setVisible(true);
+		super(parent, "Detalji", true);
+		// kod mene se nije iscrtavalo dugme za 
+		// listu predmeta kad sam stavila sva obelezja
+		// pa sam dodala jos jedno polje da bi moglo da se prikaze
+		
+		this.setSize(MainFrame.width/3, MainFrame.height/2);
 		this.setLocationRelativeTo(null);
-		//JButton okBtn = new JButton("Ok");
 		this.setLayout(new BorderLayout());
 		JPanel panelStud = new JPanel(new GridBagLayout());
 		JPanel panelDugmici = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		
 		
 		Student st = BazaStudenata.getInstance().getRow(ind);
 		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy.");
@@ -51,7 +52,7 @@ public class Detalji extends JDialog {
 		JLabel godina = new JLabel("Godina studija: ");
 		JLabel godinaSt = new JLabel(Integer.toString(st.getGodina_stud()));
 		JLabel status = new JLabel("Status: ");
-		
+
 		String statusSt;
 		if(st.getStatus() == Status.B) {
 			statusSt = "Budžet";
@@ -60,12 +61,10 @@ public class Detalji extends JDialog {
 		}
 		
 		JLabel statusStud = new JLabel(statusSt);
-		
 		JLabel datumUpisa = new JLabel("Datum upisa:");
 		JLabel datumUpStud = new JLabel(format.format(st.getDatum_upisa()));
 		JLabel prosek = new JLabel("Prosek: ");
 		JLabel prosekStud = new JLabel(Double.toString(st.getProsek()));
-		
 		
 		panelStud.add(bri, lbl(0,0));
 		panelStud.add(briStud, lbl(1,0));
@@ -87,7 +86,6 @@ public class Detalji extends JDialog {
 		panelStud.add(datumUpStud, lbl(1, 8));
 		panelStud.add(prosek, lbl(0, 9));
 		panelStud.add(prosekStud, lbl(1, 9));
-	
 		
 		
 		JButton okBtn = new JButton("Zatvori");

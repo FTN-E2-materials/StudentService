@@ -35,8 +35,14 @@ public class StudentJTable extends JTable {
 		this.getTableHeader().setReorderingAllowed(false);
 		table_model = this.getModel();
 		tabela = this;
+		
+		// kako bi tabela znala da je datum u pitanju
+		// zbog sortiranja, da bi sortiralo kako treba
+		
 		this.getColumnModel().getColumn(6).setCellRenderer(new DateCellRenderer());
 		this.getColumnModel().getColumn(7).setCellRenderer(new DateCellRenderer());
+		
+		// htela sam da bu bude centriran tekst 
 		
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -48,22 +54,28 @@ public class StudentJTable extends JTable {
 		// moze mu se pristupiti u bilo kom trenutku
 		
 	    this.addMouseListener(new MouseAdapter() {
+	    	// na svaki klik dugmeta se menja trenutni red
+	    	@Override
+	    	public void mousePressed(MouseEvent e) {
+	    		JTable tabela = (JTable)e.getComponent();
+	        	curr_row = tabela.convertRowIndexToModel(tabela.getSelectedRow());
+	    	}
 	        @Override
 	        public void mouseReleased(MouseEvent e) {
 	        	JTable tabela = (JTable)e.getComponent();
 	        	curr_row = tabela.convertRowIndexToModel(tabela.getSelectedRow());
 	        }
 	    });
-	    
+	   
 	    TableRowSorter<TableModel> sort = new TableRowSorter<>(this.getModel());
 		this.setRowSorter(sort);
+		
+		// da bi apstraktni dugmici ostali zakucani za dati red
 		sort.setSortable(8, false);
 		sort.setSortable(9, false);
-		
-	    //sort();
 	
 	}
-	
+
 		public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 			Component c = super.prepareRenderer(renderer, row, column);
 			if (isRowSelected(row)) {
@@ -78,6 +90,12 @@ public class StudentJTable extends JTable {
 		
 		public static void refresh() {
 			// azuriranje prikaza
+			
+			// vracanje na -1 jer kad se npr. desi da smo izvrsili pretragu
+			// a pre toga smo imali selektovan red, kad se pritisne CTRL + E za izmenu
+			// otvara prethodno selektovanog studenta
+			// ovim time izbegavamo (uz mnogo exceptiona) 
+			
 			curr_row = -1;
 			((AbstractTableModel) table_model).fireTableDataChanged();
 		}

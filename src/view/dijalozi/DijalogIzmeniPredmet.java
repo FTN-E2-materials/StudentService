@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentListener;
 
-import controller.DocumentListenerDodajPredmet;
+import controller.DocumentListenerIzmeniPredmet;
 import controller.PredmetController;
 import model.BazaPredmeta;
 import model.Predmet;
@@ -35,12 +35,11 @@ public class DijalogIzmeniPredmet extends JDialog {
 	public static JComboBox semestar;
 	public static JTextField profesor;
 	public static JButton ok;
-	private DocumentListener documentListener = new DocumentListenerDodajPredmet();
+	private DocumentListener documentListener = new DocumentListenerIzmeniPredmet();
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DijalogIzmeniPredmet (JFrame parent) {
 		super(parent, "Izmena predmeta", true);
-
 		this.pack();
 		this.setSize(MainFrame.width/3, MainFrame.height/2);
 		this.setLayout(new BorderLayout());
@@ -117,7 +116,6 @@ public class DijalogIzmeniPredmet extends JDialog {
 		
 		dugmici.add(notOk);
 		dugmici.add(ok);
-		
 		this.add(up, BorderLayout.NORTH);
 		this.add(dugmici, BorderLayout.SOUTH);
 		this.setVisible(true);

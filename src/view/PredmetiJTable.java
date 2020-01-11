@@ -23,7 +23,7 @@ public class PredmetiJTable extends JTable {
 	public static JTable tabela = null;
 	
 	public PredmetiJTable() {
-
+		this.getTableHeader().setReorderingAllowed(false);
 		this.setRowSelectionAllowed(true);
 		this.setColumnSelectionAllowed(true);
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -32,8 +32,14 @@ public class PredmetiJTable extends JTable {
 		
 		tabela = this;
 		table_model = tabela.getModel();
-		
+	
 		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				JTable table = (JTable)e.getComponent();
+
+				curr_row = table.convertRowIndexToModel(table.getSelectedRow());
+			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				JTable table = (JTable)e.getComponent();
@@ -65,6 +71,8 @@ public class PredmetiJTable extends JTable {
 	}
 	
 	public static void refresh() {
+		// objasnjenje za vracanje na -1 u tabeli StudentJTable
+		
 		curr_row = -1;
 		((AbstractTableModel) table_model).fireTableDataChanged();
 	}

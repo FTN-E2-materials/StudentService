@@ -4,6 +4,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import view.dijalozi.DijalogDodajPredmet;
+// DocumentListeneri za enablovanje dugmeta Potvrdi
 
 public class DocumentListenerDodajPredmet implements DocumentListener {
     public void changedUpdate(DocumentEvent e)

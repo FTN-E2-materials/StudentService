@@ -26,6 +26,7 @@ import view.dijalozi.DodajStudentaNaPredmet;
 import view.dijalozi.HelpDialog;
 
 public class ControllerEntiteta {
+	// Ova klasa samo otvara potrebne dijaloge 
 	
 	private static ControllerEntiteta instance = null;
 	@SuppressWarnings("unused")

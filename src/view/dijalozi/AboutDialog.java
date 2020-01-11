@@ -24,7 +24,7 @@ public class AboutDialog extends JDialog {
 	private static final long serialVersionUID = -7094331571093004098L;
 
 	public AboutDialog(JFrame parent) {
-		super(parent, "About", null);
+		super(parent, "About", true);
 		this.setSize(MainFrame.width*3/4, MainFrame.height*3/4);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(null);
@@ -36,7 +36,7 @@ public class AboutDialog extends JDialog {
 			      TitledBorder.CENTER, null, java.awt.Color.black);
 		
 		panel1.setBorder(title);
-		
+
 		JLabel oApp = new JLabel();
 		oApp.setText("<html>Aplikacija služi za čuvanje podataka  o studentima, profesoriama i predmetima na fakultetu.<br/>O tome kako se aplikacija koristi, pogledajte detaljnije u odeljku Help (prečica: CTRL + H).</html>");
 		panel1.add(oApp);
@@ -70,10 +70,14 @@ public class AboutDialog extends JDialog {
 		
 		JLabel oJeleni = new JLabel();
 		JLabel oAleksandri = new JLabel();
-		oJeleni.setText("<html>Jelena Vlajkov, rođena 29.09.1998. u Kikindi,<br/> završila je srednju školu Gimnazija Dušan Vasiljev u Kikindi.<br/>"
-				+ "Trenutno je student treće godine smera Računarstvo i automatika.<br/>U slobodno vreme voli da istražuje novu muziku, <br/>da se igra sa svojim mačkom Shonetom</br> i druži sa svojim drugarima.</html>");
+		oJeleni.setText("<html>Jelena Vlajkov, rođena 29.09.1998. u Kikindi,<br/> završila je srednju školu Gimnazija Dušan Vasiljev u Kikindi, priordno-matematički smer.<br/>"
+				+ "Trenutno je student treće godine smera Računarstvo i automatika sa prosekom 9.94.<br/>U slobodno vreme voli da istražuje novu muziku,"
+				+ " <br/>da se igra sa svojim mačkom Shonetom</br> i druži sa svojim drugarima.</html>");
 		student1.add(oJeleni);
-		oAleksandri.setText("");
+		oAleksandri.setText("<html>Aleksandra Stamenković, rođena 06.12.1998. u Inđiji,<br/> završila je srednju školu Gimnazija u Inđiji, prirodno matematički smer.<br/>"
+				+ "Trenutno je student treće godine smera Računarstvo i automatika sa prosekom 9.44.<br/>Slobodno vreme posvećuje držanju privatnih časova<br/>"
+				+ "mlađim generacijama.</html>");
+		
 		student1.add(oJeleni);
 	
 		student2.add(oAleksandri);

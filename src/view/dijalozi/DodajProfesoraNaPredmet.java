@@ -31,7 +31,7 @@ public class DodajProfesoraNaPredmet extends JDialog {
 	private DocumentListener documentListener = new DocumentListenerDodajProfesoraNaPredmet();
 	
 	public DodajProfesoraNaPredmet(JFrame parent) {
-		super(parent, "Dodaj profesora", null);
+		super(parent, "Dodaj profesora", true);
 		this.pack();
 		this.setSize(MainFrame.width/3, MainFrame.height/5);
 		this.setLayout(new BorderLayout());

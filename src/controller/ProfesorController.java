@@ -32,24 +32,16 @@ public class ProfesorController {
 	}
 	
 	public ProfesorController() {}
-
+	
 	public boolean DodajProfesora() {
 		
 		Profesor prof = new Profesor();
-		
-		if(DijalogDodajProfesora.imeP.getText().isEmpty() || DijalogDodajProfesora.przP.getText().isEmpty() || DijalogDodajProfesora.adresaP.getText().isEmpty() 
-				|| DijalogDodajProfesora.brlk.getText().isEmpty() || DijalogDodajProfesora.brTel.getText().isEmpty() || DijalogDodajProfesora.datRP.getText().isEmpty() ||
-				DijalogDodajProfesora.email.getText().isEmpty() || DijalogDodajProfesora.kancelarija.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Niste popunili sva obazvezna polja."
-					+ "\nPolja sa * su obavezna.", "GRŠSKA", JOptionPane.ERROR_MESSAGE);
-			return false;
-		}
 		
 		if (!proveriBrlk(DijalogDodajProfesora.brlk.getText()) || !proveriImePrz(DijalogDodajProfesora.imeP.getText()) || !proveriImePrz(DijalogDodajProfesora.przP.getText()) 
 				|| !proveriAdresu(DijalogDodajProfesora.adresaP.getText()) || !proveriBrTel(DijalogDodajProfesora.brTel.getText()) || !proveriEmail(DijalogDodajProfesora.email.getText())) {
 			return false;
 		}
-		
+	
 		String ime = DijalogDodajProfesora.imeP.getText();
 		prof.setIme(ime);
 	
@@ -60,6 +52,10 @@ public class ProfesorController {
 		prof.setAdresa(adresa);
 		
 		String brlk = DijalogDodajProfesora.brlk.getText();
+		
+		
+		
+		
 		prof.setBrlk(brlk);
 		String brt = DijalogDodajProfesora.brTel.getText();
 		prof.setBr_tel(brt);
@@ -128,14 +124,6 @@ public class ProfesorController {
 		
 		Profesor prof = BazaProfesora.getInstance().getRow(ProfesoriJTable.curr_row);
 		
-		if(DijalogIzmeniProfesora.imeP.getText().isEmpty() || DijalogIzmeniProfesora.przP.getText().isEmpty() || DijalogIzmeniProfesora.adresaP.getText().isEmpty() 
-				|| DijalogIzmeniProfesora.brlk.getText().isEmpty() || DijalogIzmeniProfesora.brTel.getText().isEmpty() || DijalogIzmeniProfesora.datRP.getText().isEmpty() ||
-				DijalogIzmeniProfesora.email.getText().isEmpty() || DijalogIzmeniProfesora.kancelarija.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Niste popunili sva obazvezna polja."
-					+ "\nPolja sa * su obavezna.", "GRESKA", JOptionPane.ERROR_MESSAGE);
-			return false;
-		}
-		
 		if (!proveriBrlk(DijalogIzmeniProfesora.brlk.getText()) || !proveriImePrz(DijalogIzmeniProfesora.imeP.getText()) || !proveriImePrz(DijalogIzmeniProfesora.przP.getText()) 
 				|| !proveriAdresu(DijalogIzmeniProfesora.adresaP.getText()) || !proveriBrTel(DijalogIzmeniProfesora.brTel.getText()) || !proveriEmail(DijalogIzmeniProfesora.email.getText())) {
 			return false;
@@ -201,20 +189,18 @@ public class ProfesorController {
 		}
 		
 		BazaProfesora.getInstance().izmeniProfesora(prof.getIme(), prof.getPrezime(), prof.getDatumr(), prof.getAdresa(), prof.getBr_tel(), prof.getEmail(), prof.getKancelarija(), prof.getBrlk(), prof.getZvanje(), prof.getTitula());
-		
 		ProfesoriJTable.refresh();
-		
 		return true;
 	}
 	
 	public void pretragaProfesora() {
-		if(Toolbar.pretraga.getText().isEmpty()) {
+		if(Toolbar.pretraga.getText().trim().isEmpty()) {
 			flag = 0;
 			BazaProfesora.getInstance().pretraziProfesora("");
 		}
 		else {
 			flag = 1;
-			BazaProfesora.getInstance().pretraziProfesora(Toolbar.pretraga.getText());
+			BazaProfesora.getInstance().pretraziProfesora(Toolbar.pretraga.getText().trim());
 		}
 		ProfesoriJTable.refresh();
 	}
@@ -227,7 +213,6 @@ public class ProfesorController {
 		for (Predmet pred : p.getPredmeti()) {
 			if (pred.getSifra().equals(sif[0]))
 				pp = pred;
-			System.out.println(sif[0]);
 		}
 		
 		BazaPredmeta.getInstance().obrisiProfesora(p, pp);
@@ -236,6 +221,7 @@ public class ProfesorController {
 		
 	}
 	
+	// ------------------------------------
 	// PROVERE
 
 	private boolean proveriImePrz(String text) {
@@ -267,8 +253,6 @@ public class ProfesorController {
 		}	
 	}
 
-
-	
 	 public static Date parseDate(String date) {
 	     try {
 	         return new SimpleDateFormat("dd.MM.yyyy.").parse(date);

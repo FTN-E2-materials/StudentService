@@ -18,6 +18,7 @@ import view.dijalozi.DodajProfesoraNaPredmet;
 import view.dijalozi.DodajStudentaNaPredmet;
 
 public class PredmetController {
+	
 	public static PredmetController instance = null;
 	public static int flag; 
 	
@@ -30,16 +31,29 @@ public class PredmetController {
 	private PredmetController() {}
 
 	public boolean dodajPredmet() {
-		if(DijalogDodajPredmet.sifraP.getText().isEmpty() || DijalogDodajPredmet.imeP.getText().isEmpty()) {
+		
+		// provera popunjenosti obaveznih polja
+		
+		if(DijalogDodajPredmet.sifraP.getText().trim().isEmpty() || DijalogDodajPredmet.imeP.getText().trim().isEmpty()) {
 			
 			JOptionPane.showMessageDialog(null, "Niste popunili sva obavezna polja.\nPolja sa * su obavezna.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
+	
+		String sifra = DijalogDodajPredmet.sifraP.getText().trim();
 		
-		String sifra = DijalogDodajPredmet.sifraP.getText();
-		String ime = DijalogDodajPredmet.imeP.getText();
+		for (Predmet p : BazaPredmeta.getInstance().getPredmeti()) {
+			if (p.getSifra().equals(sifra)) {
+				JOptionPane.showMessageDialog(null, "Već postoji predmet sa datom šifrom!", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		}
+		
+		String ime = DijalogDodajPredmet.imeP.getText().trim();
 		int godina = DijalogDodajPredmet.godina.getSelectedIndex() + 1;
 		int semestar = DijalogDodajPredmet.semestar.getSelectedIndex() + 1;
+		
+		// semestar mora biti odgovarajuci sa godinom 
 		
 		if (godina == 1) {
 			if (semestar != 1 && semestar != 2) {
@@ -65,9 +79,17 @@ public class PredmetController {
 		
 		
 		boolean flag = false;
-		if(!DijalogDodajPredmet.profesor.getText().isEmpty()) {
+		// ako je polje za dodavanje profesora popunjeno
+		// proveri da li profesor postoji
+		// i proveri da li je asistent
+		if(!DijalogDodajPredmet.profesor.getText().trim().isEmpty()) {
 			for (Profesor p : BazaProfesora.getInstance().getProfesori()) {
 				if (p.getBrlk().equals(DijalogDodajPredmet.profesor.getText())) {
+					if (p.getZvanje() == Zvanje.Asistent) {
+						// ne moze biti asistent
+						JOptionPane.showMessageDialog(null, "Izabrali ste asistenta. Asistent ne može biti predmetni profesor.\nProverite da li ste uneli dobro broj lične karte.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+						return false;
+					}
 					flag = true;
 					break;
 				}
@@ -88,15 +110,16 @@ public class PredmetController {
 			return true;
 		}
 		
-		
+	
 	}
 	
 	public boolean dodajStudentaNaPredmet() {
-		if(DodajStudentaNaPredmet.bri.getText().isEmpty()) {
+		if(DodajStudentaNaPredmet.bri.getText().trim().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Niste popunili sva obavezna polja.\nPolja sa * su obavezna.", "GRESKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
-		String bri = DodajStudentaNaPredmet.bri.getText();
+		String bri = DodajStudentaNaPredmet.bri.getText().trim();
+		
 		Predmet p = BazaPredmeta.getInstance().getRow(PredmetiJTable.curr_row);
 		Student s = null;
 		
@@ -125,9 +148,7 @@ public class PredmetController {
 		
 		BazaPredmeta.getInstance().dodajStudenta(p.getSifra(), s);
 		BazaStudenata.getInstance().dodajPredmet(s, p);
-		PredmetiJTable.refresh();
-		StudentJTable.refresh();
-		
+		PredmetiJTable.refresh();		
 		return true;
 	}
 	
@@ -135,18 +156,18 @@ public class PredmetController {
 
 		BazaPredmeta.getInstance().obrisiStudenta(p, bri);
 		BazaStudenata.getInstance().obrisiPredmet(p, bri);
-
-		StudentJTable.refresh();
 		
 	}
 	
 	public boolean dodajProfesoraNaPredmet() {
-		if (DodajProfesoraNaPredmet.brlk.getText().isEmpty()) {
+		// provera da li je popunjeno polje 
+		
+		if (DodajProfesoraNaPredmet.brlk.getText().trim().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Niste uneli broj lične karte.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		Predmet p = BazaPredmeta.getInstance().getRow(PredmetiJTable.curr_row);
-		String brlk = DodajProfesoraNaPredmet.brlk.getText();
+		String brlk = DodajProfesoraNaPredmet.brlk.getText().trim();
 		
 		Profesor pr = null;
 		for (Profesor prof : BazaProfesora.getInstance().getProfesori()) {
@@ -154,30 +175,41 @@ public class PredmetController {
 				pr = prof;
 			}
 		}
-				
+		// provera da li dati profesor postoji u bazi
+		
 		if (pr == null) {
 			JOptionPane.showMessageDialog(null, "Profesor sa datim brojem lične karte ne postoji u bazi.\nProverite da li ste uneli dobro broj lične karte.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
+		// ako je asistent, ne moze biti profesor
 		
 		if (pr.getZvanje() == Zvanje.Asistent) {
 			JOptionPane.showMessageDialog(null, "Izabrali ste asistenta. Asistent ne može biti predmetni profesor.\nProverite da li ste uneli dobro broj lične karte.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 				
-		BazaPredmeta.getInstance().dodajProfesora(brlk, p.getSifra());		
+		BazaPredmeta.getInstance().dodajProfesora(brlk, p.getSifra());	
+		BazaProfesora.getInstance().dodajPredmet(brlk, p);
 		PredmetiJTable.refresh();
 		return true;
 	}
 	
 	public boolean izmeniPredmet() {
-		if(DijalogIzmeniPredmet.sifraP.getText().isEmpty() || DijalogIzmeniPredmet.imeP.getText().isEmpty()) {
+		if(DijalogIzmeniPredmet.sifraP.getText().trim().isEmpty() || DijalogIzmeniPredmet.imeP.getText().trim().isEmpty()) {
 			
 			JOptionPane.showMessageDialog(null, "Niste popunili sva obavezna polja.\nPolja sa * su obavezna.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
+		Predmet pred = BazaPredmeta.getInstance().getRow(PredmetiJTable.curr_row);
+		int prvobitnaGodina = pred.getGodina();
 		
-		String sifra = DijalogIzmeniPredmet.sifraP.getText();
+		String sifra = DijalogIzmeniPredmet.sifraP.getText().trim();
+		
+		if (!sifra.equals(pred.getSifra())) {
+			JOptionPane.showMessageDialog(null, "Ne možete menjati šifru predmeta!", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
 		String ime = DijalogIzmeniPredmet.imeP.getText();
 		int godina = DijalogIzmeniPredmet.godina.getSelectedIndex() + 1;
 		int semestar = DijalogIzmeniPredmet.semestar.getSelectedIndex() + 1;
@@ -204,19 +236,30 @@ public class PredmetController {
 			}
 		}
 		
-		
 		Predmet predmet = new Predmet(sifra, ime, semestar, godina);
 		boolean flag = false;
-		if(!DijalogIzmeniPredmet.profesor.getText().isEmpty()) {
+		// ako je polje popunjeno za dodavanje profesora (jer nije obavezno)
+		if(!DijalogIzmeniPredmet.profesor.getText().trim().isEmpty()) {
+			// proveri da li postoji
 			for (Profesor p : BazaProfesora.getInstance().getProfesori()) {
-				if (p.getBrlk().equals(DijalogDodajPredmet.profesor.getText())) {
+				if (p.getBrlk().equals(DijalogIzmeniPredmet.profesor.getText().trim())) {
+					if (p.getZvanje() == Zvanje.Asistent) {
+						// ne moze biti asistent
+						JOptionPane.showMessageDialog(null, "Izabrali ste asistenta. Asistent ne može biti predmetni profesor.\nProverite da li ste uneli dobro broj lične karte.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+						return false;
+					}
 					flag = true;
 					break;
 				}
 			}
+			// ako polje nije popunjeno, samo dodaj predmet sa null vrednoscu za profesora
 		} else {
 			predmet.setPred_prof(null);
 			BazaPredmeta.getInstance().izmeniPredmet(predmet);
+			if (pred.getGodina() != prvobitnaGodina) {
+				BazaStudenata.getInstance().obrisiSvePosleIzmene(pred.getSifra());
+				BazaPredmeta.getInstance().obrisiSveStudente(pred.getSifra());
+			}
 			PredmetiJTable.refresh();
 			return true;
 		}
@@ -227,6 +270,10 @@ public class PredmetController {
 		} else {
 			BazaPredmeta.getInstance().izmeniPredmet(predmet);
 			BazaPredmeta.getInstance().dodajProfesora(DijalogIzmeniPredmet.profesor.getText(), sifra);
+			if (pred.getGodina() != prvobitnaGodina) {
+				BazaStudenata.getInstance().obrisiSvePosleIzmene(pred.getSifra());
+				BazaPredmeta.getInstance().obrisiSveStudente(pred.getSifra());
+			}
 			PredmetiJTable.refresh();
 			return true;
 		}
@@ -243,17 +290,19 @@ public class PredmetController {
 	}
 	
 	public void pretraziPredmet() {
-		if (Toolbar.pretraga.getText().isEmpty()) {
+		if (Toolbar.pretraga.getText().trim().isEmpty()) {
+			// flagovi sluze za prikazivanje odgovarajuce tabele
+			// filtrirane studente ili celu listu studenata
+			
 			flag = 0;
 			BazaPredmeta.getInstance().pretraziPredmet("");
 		} else {
 			flag = 1;
-			BazaPredmeta.getInstance().pretraziPredmet(Toolbar.pretraga.getText());
+			BazaPredmeta.getInstance().pretraziPredmet(Toolbar.pretraga.getText().trim());
 		}
-		
 		PredmetiJTable.refresh();
-		
 	}
+	
 	public boolean obrisiProfesora() {
 		Predmet p = BazaPredmeta.getInstance().getRow(PredmetiJTable.curr_row);
 		
@@ -265,6 +314,7 @@ public class PredmetController {
 		PredmetiJTable.refresh();
 		return true;
 	}
+	
 }
 	
 

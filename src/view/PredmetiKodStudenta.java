@@ -8,7 +8,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
@@ -27,10 +26,22 @@ public class PredmetiKodStudenta extends AbstractCellEditor implements TableCell
 		this.tabela.getColumnModel().getColumn(column).setCellRenderer(this);
 		this.tabela.addMouseListener(this);
 		
+	// Svi AbstractButton imaju naziv . . . za slucaj da se na nekim ekranim 
+		// ne pojavljuje u potpunosti rec
+		// da bih bila sigurna da se ovo nece desiti 
+		// stavila sam da preko celog polja stavlja . . .
 	
-	
-		this.renderer = new JButton("Prikaži");
-		this.editor = new JButton("Prikaži");
+		this.renderer = new JButton(". . .");
+		this.editor = new JButton(". . .");
+		this.renderer.setOpaque(false);
+		this.renderer.setContentAreaFilled(false);
+		this.renderer.setBorderPainted(false);
+		this.renderer.setBorder(null);
+		
+		this.editor.setOpaque(false);
+		this.editor.setContentAreaFilled(false);
+		this.editor.setBorderPainted(false);
+		this.editor.setBorder(null);
 		
 		this.editor.addActionListener(new ActionListener() {
 
@@ -39,7 +50,7 @@ public class PredmetiKodStudenta extends AbstractCellEditor implements TableCell
 				fireEditingStopped();
 				int ind = tabela.convertRowIndexToModel(tabela.getSelectedRow());
 				@SuppressWarnings("unused")
-				ListaPredmetaKodStudenta ls = new ListaPredmetaKodStudenta(new JFrame(), ind);
+				ListaPredmetaKodStudenta ls = new ListaPredmetaKodStudenta(MainFrame.getInstance(), ind);
 			}
 			
 		});
@@ -50,7 +61,7 @@ public class PredmetiKodStudenta extends AbstractCellEditor implements TableCell
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row,
 			int column) {
 		// TODO Auto-generated method stub
-		return new StudentiTablePanel(this.renderer, 50, 50);
+		return new StudentiTablePanel(this.renderer, 0, 0);
 	}
 	
 
@@ -63,7 +74,7 @@ public class PredmetiKodStudenta extends AbstractCellEditor implements TableCell
 	@Override
 	public Component getTableCellEditorComponent(JTable talbe, Object value, boolean isSelected, int row, int column) {
 		// TODO Auto-generated method stub
-		return new StudentiTablePanel(this.editor, 50, 50);
+		return new StudentiTablePanel(this.editor, 0, 0);
 	}
 	@Override
 	public void mouseClicked(MouseEvent arg0) {

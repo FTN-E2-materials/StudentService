@@ -27,7 +27,7 @@ import java.sql.Date;
 		public int getRowCount() {
 			return BazaProfesora.getInstance().getTekuci_profesori().size();
 		}
-		
+	
 		@Override
 		public Class<?> getColumnClass(int columnIndex) {
 			switch (columnIndex) {

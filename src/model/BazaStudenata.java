@@ -24,11 +24,11 @@ public class BazaStudenata {
 		}
 		return instance;
 	}
-	
-	public List<Student> studenti;
+
+	public List<Student> studenti; // lista koja sadrzi trenutne studente
 	private List<String> kolone;
-	public List<Student> filter_Student;
-	public List<Student> tekuca_lista;
+	public List<Student> filter_Student; // lista koja sadrzi filtrirane studente
+	public List<Student> tekuca_lista; // lista koja se uvek prikazuje u tabeli
 	
 	private BazaStudenata() {
 
@@ -194,6 +194,15 @@ public class BazaStudenata {
 			return;
 		}
 		
+		
+		// funkcija za pretragu
+		// logika pretrage je 
+		// da prolazi kroz sve kriterijume pretrage
+		// i da redom menja indikator da li je odgovarajuci
+		// svaki put kad se desi da ne odgovara datom kriterijumu
+		// stavlja indikator na false
+		// izlazi iz petlje i nastavlja pretragu
+		
 		ArrayList<Student> studentiNadjeni = new ArrayList<>();
 	
 		int i = 0;
@@ -207,7 +216,10 @@ public class BazaStudenata {
 			podaci[i] = pom[1];
 			i++;
 		}
+		
 		if(!kriterijumi[0].equals("ime") && !kriterijumi[0].equals("prezime") && !kriterijumi[0].equals("indeks") && !kriterijumi[0].equals("status") && !kriterijumi[0].equals("godina")) {
+			// barem jedan kriterijum treba da odgovara ovim kriterijumima 
+			// ako ostali ne odgovaraju, trazice samo po tom prvom
 			JOptionPane.showMessageDialog(null, "Kriterijum pretrage je: \n[ime:'Ime'];[prezime'Prezime'];[indeks:'Indeks'];[status:'Status'].", "GRESKA", JOptionPane.ERROR_MESSAGE);
 		
 		} else {
@@ -271,15 +283,16 @@ public class BazaStudenata {
 							isStudent = false;
 						}
 					}
-					
-					
 				}
 				if (isStudent) 
 					studentiNadjeni.add(s);		 
+				// dodajemo nadjene studente u lstu
 			}
 		}
 		
 		if (studentiNadjeni.isEmpty()) {
+			// ako ne postoji, vracamo flag na nulu 
+			// i prikazujemo tabelu svih studenata
 			JOptionPane.showMessageDialog(null, "Nije pronađen nijedan student datim kriterijumom.", "Neuspešno traženje", JOptionPane.ERROR_MESSAGE);
 			StudentController.flag = 0;
 		} else {
@@ -306,6 +319,8 @@ public class BazaStudenata {
 		this.filter_Student = filter_Student;
 	}
 
+	// pomocna funkcija za parsiranje datuma u odgovarajuci format
+	
 	public static Date parseDate(String date) {
 	     try {
 	         return new SimpleDateFormat("dd.MM.yyyy.").parse(date);
@@ -315,6 +330,7 @@ public class BazaStudenata {
 	     }	     
 	  }
 	 
+	
 	 public void obrisiPredmet(Predmet p, String bri) {
 		 for (Student st : this.studenti) {
 			 if (st.getBri().equals(bri)) {
@@ -340,15 +356,27 @@ public class BazaStudenata {
 	}
 
 	public void dodajPredmet(Student s, Predmet p) {
+		boolean flag = false;
+		// funkcija za dodavnje studenta
+		// flag je postavljen da se dva puta ne bi dodao student (za svaki slucaj)
 		for (Student st : this.studenti) {
 			if (st.getBri().equals(s.getBri())) {
-				st.getPredmeti().add(p);
+				for (Predmet pred : st.getPredmeti()) {
+					if (pred.getSifra().equals(p.getSifra())) {
+						flag = true;
+						break;
+					}
+				}
+				if (!flag)
+					st.getPredmeti().add(p);
 			}
 		}
 		this.setTrenutnoStanje();
 	}
 
 	public void obrisiDatiPredmetSvimStudentima(String sifra) {
+		// kad se obrise predmet da se obrise svim studentima
+		
 		for (Student s : this.studenti) {
 			for (Predmet p : s.getPredmeti()) {
 				if (p.getSifra().equals(sifra)) {
@@ -359,7 +387,20 @@ public class BazaStudenata {
 		}
 		
 	}
-	
+
+	public void obrisiSvePosleIzmene(String sifra) {
+		// kad se izmeni predmet da se obrisu studenti
+		
+		for (Student s : this.studenti) {
+			for (Predmet p : s.getPredmeti()) {
+				if (p.getSifra().equals(sifra)) {
+					s.getPredmeti().remove(p);
+					break;
+				}
+			}
+		}
+		
+	}
 	public void serialize() {
 		 
 			try {
@@ -374,6 +415,7 @@ public class BazaStudenata {
 	 }
 	 
 	public void setTrenutnoStanje() {
+		// funkcija koja uvek drzi tabelu u konzistentnom stanju
 		if(StudentController.flag == 0) {
 			this.tekuca_lista = this.studenti;
 		}
@@ -383,5 +425,6 @@ public class BazaStudenata {
 
 			
 	}
+
 
 }

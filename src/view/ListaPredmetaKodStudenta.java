@@ -30,68 +30,68 @@ public class ListaPredmetaKodStudenta extends JDialog {
 	public static String row = "";
 	
 	public ListaPredmetaKodStudenta(JFrame parent, int ind) {
-		super(parent, "Lista predmeta", null);
-		this.setSize(250, 250);
+		
+		// dijalog za prikazivanje liste predmeta kod studenta
+		// koristila sam JList za prikazivanje listi
+	
+		super(parent, "Lista predmeta", true);
+		this.setSize(MainFrame.width/4, MainFrame.height/3);
 		this.setLayout(new BorderLayout());
-		this.setTitle("Lista predmeta");
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		
+	
 		JPanel panelStud = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel panelDugmici = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		
-		DefaultListModel<String> listaS = new DefaultListModel<>();
+		DefaultListModel<String> listaStudenata = new DefaultListModel<>();
 		
 		Student s = BazaStudenata.getInstance().getRow(ind);
-		
 		for (Predmet p : s.getPredmeti()) {
-			listaS.addElement(p.getSifra() + " " + p.getIme());
-			System.out.println(p.getSifra());
+			listaStudenata.addElement(p.getSifra() + " " + p.getIme());
 		}
 		
-		JList<String> lista = new JList<>(listaS);
-		lista.setFixedCellWidth(200);
+		JList<String> lista = new JList<>(listaStudenata);
+		lista.setFixedCellWidth(this.getWidth()*3/4);
 		lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		
+	
 		JButton obrisiB = new JButton("Obriši");
-		JButton odustaniB = new JButton("Odustani");
+		JButton odustaniB = new JButton("Zatvori");
 		
 		lista.addListSelectionListener(new ListSelectionListener() {
-
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if(!e.getValueIsAdjusting()) {
 					row = lista.getSelectedValue();
 				}
-				
-			}
-		});
-		
-		
-		odustaniB.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				dispose();	
 			}
 		});
 		
 		obrisiB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(listaS.isEmpty()) {
+				if(listaStudenata.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Ne postotji predmet kod datog studenta.");
 				} else {		
 					ControllerEntiteta.getInstance().brisanjesaPredmetaStudent(BazaStudenata.getInstance().getRow(StudentJTable.curr_row), row);
-					listaS.removeElement(row);
+					listaStudenata.removeElement(row);
 					lista.updateUI();
 				}
 			}
 		});
-		
+	
+		odustaniB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();	
+			}
+		});
+			
 		this.addWindowListener(new WindowAdapter() { 
 		  public void windowClosed(WindowEvent e)
 		  {
+			  // da bih opet postavila trenutni red na -1
+			  // zbog otvaranja izmene i obrisi
 		    StudentJTable.refresh();
 		  }
 		});
@@ -102,10 +102,7 @@ public class ListaPredmetaKodStudenta extends JDialog {
 		panelDugmici.add(obrisiB);
 		this.add(panelStud, BorderLayout.CENTER);
 		this.add(panelDugmici, BorderLayout.SOUTH);
-
 		this.setVisible(true);
-		
-		
 		
 	}
 }

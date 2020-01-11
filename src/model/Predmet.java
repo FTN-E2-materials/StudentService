@@ -42,7 +42,7 @@ public class Predmet implements Serializable {
 		pred_prof = p.pred_prof;
 		studenti = p.studenti;
 	}
-
+	
 	public String getSifra() {
 		return sifra;
 	}

@@ -30,8 +30,8 @@ public class ListaPredmetaKodProfesora extends JDialog {
 	public static String row = "";
 
 	public ListaPredmetaKodProfesora(JFrame parent, int ind) {
-		super(parent, "Lista predmeta", null);
-		this.setSize(250, 250);
+		super(parent, "Lista predmeta", true);
+		this.setSize(MainFrame.width/4, MainFrame.height/3);
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
@@ -41,18 +41,15 @@ public class ListaPredmetaKodProfesora extends JDialog {
 		
 		DefaultListModel<String> listaS = new DefaultListModel<>();
 		Profesor prof = BazaProfesora.getInstance().getRow(ind);
-		
 		for (Predmet p : prof.getPredmeti()) {
 			listaS.addElement(p.getSifra() + " " + p.getIme());
 		}
-		
 		JList<String> lista = new JList<>(listaS);
-		lista.setFixedCellWidth(200);
+		lista.setFixedCellWidth(this.getWidth()*3/4);
 		lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		
 		JButton obrisiB = new JButton("Obriši");
-		JButton odustaniB = new JButton("Odustani");
+		JButton odustaniB = new JButton("Zatvori");
 		
 		lista.addListSelectionListener(new ListSelectionListener() {
 
@@ -61,13 +58,15 @@ public class ListaPredmetaKodProfesora extends JDialog {
 				if(!e.getValueIsAdjusting()) {
 					row = lista.getSelectedValue();
 				}
-				
+			
 			}
 		});
 		
 		this.addWindowListener(new WindowAdapter() { 
 			  public void windowClosed(WindowEvent e)
 			  {
+				// kad se zatvori dijalog potrebno je da se refreshuje zbog podataka
+				// moj refresh radi tako sto postavi red na -1
 				  ProfesoriJTable.refresh();
 			  }
 			});
