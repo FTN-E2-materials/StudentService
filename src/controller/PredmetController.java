@@ -84,7 +84,7 @@ public class PredmetController {
 		// i proveri da li je asistent
 		if(!DijalogDodajPredmet.profesor.getText().trim().isEmpty()) {
 			for (Profesor p : BazaProfesora.getInstance().getProfesori()) {
-				if (p.getBrlk().equals(DijalogDodajPredmet.profesor.getText())) {
+				if (p.getBrlk().equals(DijalogDodajPredmet.profesor.getText().trim())) {
 					if (p.getZvanje() == Zvanje.Asistent) {
 						// ne moze biti asistent
 						JOptionPane.showMessageDialog(null, "Izabrali ste asistenta. Asistent ne može biti predmetni profesor.\nProverite da li ste uneli dobro broj lične karte.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
@@ -105,7 +105,8 @@ public class PredmetController {
 			return false;
 		} else {
 			BazaPredmeta.getInstance().dodajPredmet(sifra, ime, godina, semestar);
-			BazaPredmeta.getInstance().dodajProfesora(DijalogDodajPredmet.profesor.getText(), sifra);
+			BazaPredmeta.getInstance().dodajProfesora(DijalogDodajPredmet.profesor.getText().trim(), sifra);
+			BazaProfesora.getInstance().dodajPredmet(DijalogDodajPredmet.profesor.getText().trim(), sifra);
 			PredmetiJTable.refresh();
 			return true;
 		}
@@ -189,7 +190,7 @@ public class PredmetController {
 		}
 				
 		BazaPredmeta.getInstance().dodajProfesora(brlk, p.getSifra());	
-		BazaProfesora.getInstance().dodajPredmet(brlk, p);
+		BazaProfesora.getInstance().dodajPredmet(brlk, p.getSifra());
 		PredmetiJTable.refresh();
 		return true;
 	}
@@ -210,7 +211,7 @@ public class PredmetController {
 			return false;
 		}
 		
-		String ime = DijalogIzmeniPredmet.imeP.getText();
+		String ime = DijalogIzmeniPredmet.imeP.getText().trim();
 		int godina = DijalogIzmeniPredmet.godina.getSelectedIndex() + 1;
 		int semestar = DijalogIzmeniPredmet.semestar.getSelectedIndex() + 1;
 		
@@ -269,7 +270,9 @@ public class PredmetController {
 			return false;
 		} else {
 			BazaPredmeta.getInstance().izmeniPredmet(predmet);
-			BazaPredmeta.getInstance().dodajProfesora(DijalogIzmeniPredmet.profesor.getText(), sifra);
+			BazaPredmeta.getInstance().dodajProfesora(DijalogIzmeniPredmet.profesor.getText().trim(), sifra);
+			BazaProfesora.getInstance().dodajPredmet(DijalogIzmeniPredmet.profesor.getText().trim(), sifra);
+			BazaStudenata.getInstance().izmeniPredmetPosleIzmene(predmet);
 			if (pred.getGodina() != prvobitnaGodina) {
 				BazaStudenata.getInstance().obrisiSvePosleIzmene(pred.getSifra());
 				BazaPredmeta.getInstance().obrisiSveStudente(pred.getSifra());

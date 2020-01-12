@@ -51,7 +51,7 @@ public class DodajProfesoraNaPredmet extends JDialog {
 		
 		brlk.getDocument().addDocumentListener(documentListener);
 		JButton notOk = new JButton("Odustanak");
-		JButton delete = new JButton("Obrisi");
+		JButton delete = new JButton("Obriši");
 		Predmet p = BazaPredmeta.getInstance().getRow(PredmetiJTable.curr_row);
 		
 		if (p.getPred_prof() != null) {

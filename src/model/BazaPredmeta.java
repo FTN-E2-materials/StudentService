@@ -370,8 +370,10 @@ public class BazaPredmeta {
 		// koji je trenutno obrisan
 		// ako ima, obrisi
 		for (Predmet p : this.predmeti) {
-			if (p.getPred_prof().getBrlk().equals(brlk)) {
-				p.setPred_prof(null);
+			if (p.getPred_prof() != null) {
+				if (p.getPred_prof().getBrlk().equals(brlk)) {
+					p.setPred_prof(null);
+				}
 			}
 		}
 	}
@@ -450,11 +452,13 @@ public class BazaPredmeta {
 	public void izmeniProfesoraPosleIzmene(String brlk) {
 		// ako profesor promeni ime, mora da se promeni i kod predmeta
 		for (Predmet pred : this.predmeti) {
-			if (pred.getPred_prof().getBrlk().equals(brlk)) {
-				for (Profesor p : BazaProfesora.getInstance().getProfesori()) {
-					if (p.getBrlk().equals(brlk)) {
-						pred.setPred_prof(p);
-						break;
+			if(pred.getPred_prof() != null) {
+				if (pred.getPred_prof().getBrlk().equals(brlk)) {
+					for (Profesor p : BazaProfesora.getInstance().getProfesori()) {
+						if (p.getBrlk().equals(brlk)) {
+							pred.setPred_prof(p);
+							break;
+						}
 					}
 				}
 			}

@@ -16,7 +16,6 @@ import javax.swing.SwingConstants;
 import controller.ProfesorController;
 import model.BazaProfesora;
 import view.MainFrame;
-import view.ProfesoriJTable;
 
 public class DijalogObrisiProfesora extends JDialog {
 

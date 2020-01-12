@@ -426,5 +426,18 @@ public class BazaStudenata {
 			
 	}
 
+	public void izmeniPredmetPosleIzmene(Predmet pred) {
+		// ako se promeni ime predmeta da se promeni i kod studenta jer ispisuje ime u listi
+		for (Student s : this.studenti) {
+			for (Predmet p : s.getPredmeti()) {
+				if (p.getSifra().equals(pred.getSifra())) {
+					p.setIme(pred.getIme());
+					break;
+				}
+			}
+		}
+		
+	}
+
 
 }

@@ -314,20 +314,27 @@ public class BazaProfesora {
 	     
 	  }
 	 
-	public void dodajPredmet(String brlk, Predmet pred) {
+	public void dodajPredmet(String brlk, String sifra) {
 		boolean flag = false;
 		for (Profesor profa : this.profesori) {
 			if (profa.getBrlk().equals(brlk)) {
 				for (Predmet p : profa.getPredmeti()) {
-					if (p.getSifra().equals(pred.getSifra())) {
+					if (p.getSifra().equals(sifra)) {
 						flag = true;
 						break;
 					}
 				}
-				if (!flag)
-					profa.getPredmeti().add(pred);
+				if (!flag) {
+					for (Predmet p : BazaPredmeta.getInstance().getPredmeti()) {
+						if (p.getSifra().equals(sifra)) {
+							profa.getPredmeti().add(p);
+						}
+					}
+					
+				}
 			}
 		}
+	
 	}
 
 
