@@ -16,7 +16,7 @@ public class DateCellRenderer extends DefaultTableCellRenderer {
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 		this.setHorizontalAlignment(SwingConstants.CENTER);
-		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
 		String strDate = df.format((Date) value);
 		this.setText(strDate);
 		return this;

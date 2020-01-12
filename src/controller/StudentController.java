@@ -159,13 +159,14 @@ public class StudentController {
 		}
 		
 		Student st = BazaStudenata.getInstance().getRow(StudentJTable.curr_row);
+		Student noviSt = new Student();
 		
-		st.setIme(DijalogIzmeniS.imeS.getText().trim());
-		st.setPrezime(DijalogIzmeniS.przS.getText().trim());			
-		st.setAdresa(DijalogIzmeniS.adresa.getText().trim());
+		noviSt.setIme(DijalogIzmeniS.imeS.getText().trim());
+		noviSt.setPrezime(DijalogIzmeniS.przS.getText().trim());			
+		noviSt.setAdresa(DijalogIzmeniS.adresa.getText().trim());
 		
-		st.setBr_tel(DijalogIzmeniS.brtel.getText().trim());
-		st.setEmail(DijalogIzmeniS.email.getText().trim());
+		noviSt.setBr_tel(DijalogIzmeniS.brtel.getText().trim());
+		noviSt.setEmail(DijalogIzmeniS.email.getText().trim());
 		
 		
 		if (!st.getBri().equals(DijalogIzmeniS.briS.getText().trim())) {
@@ -175,7 +176,7 @@ public class StudentController {
 		
 		Date datumR = new Date();
 		
-		
+		noviSt.setBri(st.getBri());
 		datumR = parseDate(DijalogIzmeniS.datRodj.getText().trim());
 		
 		if (datumR == null) {
@@ -193,21 +194,21 @@ public class StudentController {
 				JOptionPane.showMessageDialog(null, "Datum upisa mora biti posle datuma rođenja.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 				return false;
 			} else
-				st.setDatumr(datumR);
-				st.setDatum_upisa(datumU);
+				noviSt.setDatumr(datumR);
+				noviSt.setDatum_upisa(datumU);
 		}
 				
 		int ind = DijalogIzmeniS.godStud.getSelectedIndex();
-		st.setGodina_stud(ind + 1);
+		noviSt.setGodina_stud(ind + 1);
 
 		if (st.getGodina_stud() == 1) {
 			if(DijalogIzmeniS.prosOc.getText().trim().equals("/") || DijalogIzmeniS.prosOc.getText().trim().equals("0.0")) {
-				st.setProsek(0.0);
+				noviSt.setProsek(0.0);
 			} else {
 				if(proveriProsek(DijalogIzmeniS.prosOc.getText().trim())) {
 					try {
 						double pros = Double.parseDouble(DijalogIzmeniS.prosOc.getText().trim());
-						st.setProsek(pros);
+						noviSt.setProsek(pros);
 					}
 					catch (Exception e) {
 						System.out.println(e.getMessage());
@@ -223,7 +224,7 @@ public class StudentController {
 			if(proveriProsek(DijalogIzmeniS.prosOc.getText().trim())) {
 				try {
 					double pros = Double.parseDouble(DijalogIzmeniS.prosOc.getText().trim());
-					st.setProsek(pros);
+					noviSt.setProsek(pros);
 				}
 				catch (Exception e) {
 					System.out.println(e.getMessage());
@@ -236,16 +237,16 @@ public class StudentController {
 		}
 		
 		if(DijalogIzmeniS.budzet.isSelected()) {
-			st.setStatus(Status.B);
+			noviSt.setStatus(Status.B);
 		}
 		else if (DijalogIzmeniS.samofin.isSelected()) {
-			st.setStatus(Status.S);
+			noviSt.setStatus(Status.S);
 		} else {
 			JOptionPane.showMessageDialog(null, "Morate označiti status studenta!", "GREŠKA", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		
-		BazaStudenata.getInstance().izmeniStudenta(st.getBri(), st.getIme(), st.getPrezime(), st.getDatumr(), st.getAdresa(), st.getBr_tel(), st.getDatum_upisa(), st.getGodina_stud(),  st.getEmail(), st.getStatus(), st.getProsek());
+		BazaStudenata.getInstance().izmeniStudenta(st.getBri(), noviSt.getIme(), noviSt.getPrezime(), noviSt.getDatumr(), noviSt.getAdresa(), noviSt.getBr_tel(), noviSt.getDatum_upisa(), noviSt.getGodina_stud(),  noviSt.getEmail(), noviSt.getStatus(), noviSt.getProsek());
 		StudentJTable.refresh();
 		return true;
 		

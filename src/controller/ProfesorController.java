@@ -79,6 +79,15 @@ public class ProfesorController {
 		prof.setKancelarija(kancelarija);
 	
 		String zvanje = DijalogDodajProfesora.zvanje.getSelectedItem().toString();
+		String titula = DijalogDodajProfesora.titula.getSelectedItem().toString();
+		
+		if (titula.equals("Master")) {
+			if (!zvanje.equals("Asistent")) {
+				JOptionPane.showMessageDialog(null, "Predavač sa titulom mastera može biti samo asistent!", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		}
+		
 		if(zvanje.equals("Asistent")) {
 			prof.setZvanje(Zvanje.Asistent);
 		} else if (zvanje.equals("Saradnik u nastavi")) {
@@ -90,9 +99,8 @@ public class ProfesorController {
 		} else {
 			prof.setZvanje(Zvanje.Docent);
 		}
-			
-		String titula = DijalogDodajProfesora.titula.getSelectedItem().toString();
-			
+		
+		
 		if (titula.equals("Doktor profesor")) {
 			prof.setTitula(Titula.ProfDr);
 		} else if (titula.equals("Doktor")) {
@@ -123,6 +131,7 @@ public class ProfesorController {
 	public boolean izmeniProfesora() {
 		
 		Profesor prof = BazaProfesora.getInstance().getRow(ProfesoriJTable.curr_row);
+		Profesor noviProf = new Profesor();
 		
 		if (!proveriBrlk(DijalogIzmeniProfesora.brlk.getText()) || !proveriImePrz(DijalogIzmeniProfesora.imeP.getText()) || !proveriImePrz(DijalogIzmeniProfesora.przP.getText()) 
 				|| !proveriAdresu(DijalogIzmeniProfesora.adresaP.getText()) || !proveriBrTel(DijalogIzmeniProfesora.brTel.getText()) || !proveriEmail(DijalogIzmeniProfesora.email.getText())) {
@@ -135,19 +144,19 @@ public class ProfesorController {
 		}
 		
 		String ime = DijalogIzmeniProfesora.imeP.getText();
-		prof.setIme(ime);
+		noviProf.setIme(ime);
 		
 		String prz = DijalogIzmeniProfesora.przP.getText();
-		prof.setPrezime(prz);
+		noviProf.setPrezime(prz);
 		
 		String adresa = DijalogIzmeniProfesora.adresaP.getText();
-		prof.setAdresa(adresa);
+		noviProf.setAdresa(adresa);
 		
 		String brlk = DijalogIzmeniProfesora.brlk.getText();
-		prof.setBrlk(brlk);
+		noviProf.setBrlk(brlk);
 		
 		String brt = DijalogIzmeniProfesora.brTel.getText();	
-		prof.setBr_tel(brt);
+		noviProf.setBr_tel(brt);
 		
 		Date datum = new Date();
 		datum = parseDate(DijalogIzmeniProfesora.datRP.getText());
@@ -155,40 +164,49 @@ public class ProfesorController {
 		if (datum == null) {
 			return false;
 		} else  {
-			prof.setDatumr(datum);
+			noviProf.setDatumr(datum);
 		}
 		
 		String email = DijalogIzmeniProfesora.email.getText();
-		prof.setEmail(email);
+		noviProf.setEmail(email);
 		String kancelarija = DijalogIzmeniProfesora.kancelarija.getText();
-		prof.setKancelarija(kancelarija);
+		noviProf.setKancelarija(kancelarija);
 			
 
 		String zvanje = DijalogIzmeniProfesora.zvanje.getSelectedItem().toString();
-		if(zvanje.equals("Asistent")) {
-			prof.setZvanje(Zvanje.Asistent);
-		} else if (zvanje.equals("Saradnik u nastavi")) {
-			prof.setZvanje(Zvanje.Saradnik);
-		} else if (zvanje.equals("Vanredni profesor")) {
-			prof.setZvanje(Zvanje.VProfesor);
-		} else if (zvanje.equals("Redovni profesor")) {
-			prof.setZvanje(Zvanje.RProfesor);
-		} else {
-			prof.setZvanje(Zvanje.Docent);
-		}
-			
 		String titula = DijalogIzmeniProfesora.titula.getSelectedItem().toString();
-			
-		if (titula.equals("Doktor profesor")) {
-			prof.setTitula(Titula.ProfDr);
-		} else if (titula.equals("Doktor")) {
-			prof.setTitula(Titula.Dr);
-		}
-		else {
-			prof.setTitula(Titula.Ms);
+		
+		if (titula.equals("Master")) {
+			if (!zvanje.equals("Asistent")) {
+				JOptionPane.showMessageDialog(null, "Predavač sa titulom mastera može biti samo asistent!", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
 		}
 		
-		BazaProfesora.getInstance().izmeniProfesora(prof.getIme(), prof.getPrezime(), prof.getDatumr(), prof.getAdresa(), prof.getBr_tel(), prof.getEmail(), prof.getKancelarija(), prof.getBrlk(), prof.getZvanje(), prof.getTitula());
+		if(zvanje.equals("Asistent")) {
+			noviProf.setZvanje(Zvanje.Asistent);
+		} else if (zvanje.equals("Saradnik u nastavi")) {
+			noviProf.setZvanje(Zvanje.Saradnik);
+		} else if (zvanje.equals("Vanredni profesor")) {
+			noviProf.setZvanje(Zvanje.VProfesor);
+		} else if (zvanje.equals("Redovni profesor")) {
+			noviProf.setZvanje(Zvanje.RProfesor);
+		} else {
+			noviProf.setZvanje(Zvanje.Docent);
+		}
+			
+
+			
+		if (titula.equals("Doktor profesor")) {
+			noviProf.setTitula(Titula.ProfDr);
+		} else if (titula.equals("Doktor")) {
+			noviProf.setTitula(Titula.Dr);
+		}
+		else {
+			noviProf.setTitula(Titula.Ms);
+		}
+		
+		BazaProfesora.getInstance().izmeniProfesora(noviProf.getIme(), noviProf.getPrezime(), noviProf.getDatumr(), noviProf.getAdresa(), noviProf.getBr_tel(), noviProf.getEmail(), noviProf.getKancelarija(), prof.getBrlk(), noviProf.getZvanje(), noviProf.getTitula());
 		BazaPredmeta.getInstance().izmeniProfesoraPosleIzmene(prof.getBrlk());
 		ProfesoriJTable.refresh();
 		return true;
