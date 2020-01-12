@@ -12,7 +12,6 @@ import model.BazaStudenata;
 import model.Predmet;
 import model.Student;
 import model.Student.Status;
-import view.PredmetiJTable;
 import view.StudentJTable;
 import view.Toolbar;
 import view.dijalozi.DijalogIzmeniS;
@@ -203,7 +202,6 @@ public class StudentController {
 
 		if (st.getGodina_stud() == 1) {
 			if(DijalogIzmeniS.prosOc.getText().trim().equals("/") || DijalogIzmeniS.prosOc.getText().trim().equals("0.0")) {
-				System.out.println("waat");
 				st.setProsek(0.0);
 			} else {
 				if(proveriProsek(DijalogIzmeniS.prosOc.getText().trim())) {
@@ -409,7 +407,6 @@ public class StudentController {
 		
 		if(matches) {
 			if (Double.parseDouble(text) <= 10.00 && Double.parseDouble(text) >= 6.00) {
-				System.out.println("waaat");
 				return true;
 			}
 			else {

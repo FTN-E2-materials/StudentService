@@ -62,6 +62,7 @@ public class DijalogIzmeniProfesora extends JDialog {
 		this.setSize(MainFrame.width/3, MainFrame.height*3/4);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(parent);
+		this.setResizable(false);
 		
 		Profesor prof  = new Profesor();
 		prof = BazaProfesora.getInstance().getRow(ProfesoriJTable.curr_row);

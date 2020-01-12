@@ -59,7 +59,7 @@ public class DijalogIzmeniPredmet extends JDialog {
 		imeP = new JTextField();
 		imeP.setText(p.getIme());
 		
-		String[] godine = { "I (prva)", "II (druga)", "III (treca)" , "IV (cetvrta)" };
+		String[] godine = { "I (prva)", "II (druga)", "III (treća)" , "IV (četvrta)" };
 		JLabel labGodina = new JLabel("*Godina:");
 		labGodina.setToolTipText("Unesite godinu na kojoj se sluša predmet");
 		godina = new JComboBox(godine);
@@ -72,7 +72,7 @@ public class DijalogIzmeniPredmet extends JDialog {
 		semestar = new JComboBox(semestri);
 		semestar.setSelectedIndex(p.getSemestar() - 1);
 		
-		JLabel labProfesor = new JLabel("<html> Predmetni profesor: <br/> (broj lične karte) </html> ");
+		JLabel labProfesor = new JLabel("<html><div style='text-align: center;'> Predmetni profesor: <br/> (broj lične karte) </div></html>");
 		labProfesor.setToolTipText("Unesite broj lične karte predmetnog profesora");
 		profesor = new JTextField();
 		if (p.getPred_prof() != null) {
@@ -118,6 +118,7 @@ public class DijalogIzmeniPredmet extends JDialog {
 		dugmici.add(ok);
 		this.add(up, BorderLayout.NORTH);
 		this.add(dugmici, BorderLayout.SOUTH);
+		this.setResizable(false);
 		this.setVisible(true);
 		
 	}

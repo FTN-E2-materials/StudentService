@@ -447,4 +447,18 @@ public class BazaPredmeta {
 		}
 	}
 
+	public void izmeniProfesoraPosleIzmene(String brlk) {
+		// ako profesor promeni ime, mora da se promeni i kod predmeta
+		for (Predmet pred : this.predmeti) {
+			if (pred.getPred_prof().getBrlk().equals(brlk)) {
+				for (Profesor p : BazaProfesora.getInstance().getProfesori()) {
+					if (p.getBrlk().equals(brlk)) {
+						pred.setPred_prof(p);
+						break;
+					}
+				}
+			}
+		}
+	}
+
 }

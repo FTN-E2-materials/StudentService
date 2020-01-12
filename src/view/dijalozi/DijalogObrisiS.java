@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import controller.StudentController;
 import model.BazaStudenata;
@@ -34,7 +35,7 @@ public class DijalogObrisiS extends JDialog {
 			JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 			JPanel text = new JPanel(new FlowLayout(FlowLayout.CENTER));
 			
-			JLabel labela = new JLabel("Da li ste sigurni da želite da obrišete datog studenta?");
+			JLabel labela = new JLabel("Da li ste sigurni da želite da obrišete datog studenta?", SwingConstants.CENTER);
 			
 			text.add(labela);
 			

@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import controller.ProfesorController;
 import model.BazaProfesora;
@@ -33,7 +34,7 @@ public class DijalogObrisiProfesora extends JDialog {
 			this.setLayout(new BorderLayout());
 			
 			JPanel panel  = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-			JLabel labela = new JLabel("Da li ste sigurni da želite da obrišete datog profesora?");
+			JLabel labela = new JLabel("Da li ste sigurni da želite da obrišete datog profesora?", SwingConstants.CENTER);
 			
 			add(labela, BorderLayout.CENTER);
 			
@@ -45,9 +46,8 @@ public class DijalogObrisiProfesora extends JDialog {
 			btnOk.addActionListener(new ActionListener() {
 
 				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub				
-					ProfesorController.getInstance().izbrisiProfesora(ProfesoriJTable.curr_row);
+				public void actionPerformed(ActionEvent arg0) {	
+					ProfesorController.getInstance().izbrisiProfesora();
 					dispose();
 				}
 				

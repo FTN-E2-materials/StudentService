@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import controller.PredmetController;
 import model.BazaPredmeta;
@@ -34,7 +35,7 @@ public class DijalogObrisiPredmet extends JDialog {
 			this.setLayout(new BorderLayout());
 			
 			JPanel panel  = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-			JLabel labela = new JLabel("Da li ste sigurni da želite da obrišete dati predmet?");
+			JLabel labela = new JLabel("Da li ste sigurni da želite da obrišete dati predmet?", SwingConstants.CENTER);
 			
 			add(labela, BorderLayout.CENTER);
 			

@@ -191,6 +191,7 @@ public class DijalogStudent extends JDialog {
 		down.add(notokBtn);
 		down.add(okBtn);
 		
+		this.setResizable(false);
 		this.add(up, BorderLayout.NORTH);
 		this.add(down, BorderLayout.SOUTH);
 		this.setVisible(true);

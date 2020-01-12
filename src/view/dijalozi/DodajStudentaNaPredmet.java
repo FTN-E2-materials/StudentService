@@ -26,7 +26,7 @@ public class DodajStudentaNaPredmet extends JDialog {
 	public static JTextField bri;
 	public static JButton ok;
 	private DocumentListener documentListener = new DocumentListenerDodajStudentaNaPredmet();
-	
+
 	public DodajStudentaNaPredmet(JFrame parent) {
 		super(parent, "Dodaj studenta", true);
 		this.pack();
@@ -69,6 +69,7 @@ public class DodajStudentaNaPredmet extends JDialog {
 		dugmici.add(notOk);
 		dugmici.add(ok);
 		
+		this.setResizable(false);
 		this.add(up, BorderLayout.CENTER);
 		this.add(dugmici, BorderLayout.SOUTH);
 		this.setVisible(true);

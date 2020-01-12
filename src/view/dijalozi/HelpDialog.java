@@ -36,10 +36,9 @@ public class HelpDialog extends JDialog {
 	public HelpDialog(JFrame parent) {
 		// jednostavan help dijalog sa uputstvom za koriscenje aplikacije
 		super(parent, "Help", true);
-		this.setSize(MainFrame.width*3/5, MainFrame.height*3/5);
+		this.setSize(MainFrame.width*6/10, MainFrame.height*8/10);
 		this.setLocationRelativeTo(null);
 		JButton zatvori = new JButton("Zatvori");
-		this.setModal(true);
 		JPanel komponente = new JPanel();
 		JPanel dugmici = new JPanel();
 	
@@ -146,7 +145,7 @@ public class HelpDialog extends JDialog {
 			         }
 			      });
 		JLabel lblIzmeni = new JLabel();
-		lblIzmeni.setText("Dugme za izmenu entiteta. Prečica: CTRL + E. Pritisnuti.");
+		lblIzmeni.setText("Dugme za izmenu entiteta. Prečica: CTRL + E.");
 
 		btnEdit.setOpaque(false);
 		btnEdit.setBorder(null);
@@ -211,7 +210,7 @@ public class HelpDialog extends JDialog {
 			         }
 			      });
 		JLabel lblSearch = new JLabel();
-		lblSearch.setText("Dugme za brisanje entiteta. Prečica: CTRL + D.");
+		lblSearch.setText("Dugme za pretragu entiteta.");
 
 		btnSearch.setOpaque(false);
 		btnSearch.setBorder(null);
@@ -243,7 +242,7 @@ public class HelpDialog extends JDialog {
 			         }
 			      });
 		JLabel lblDodajSt = new JLabel();
-		lblDodajSt.setText("Dugme za dodavanje studenta na predmet. Prečica: CTRL + D.");
+		lblDodajSt.setText("Dugme za dodavanje studenta na predmet.");
 
 		btnDodaj.setOpaque(false);
 		btnDodaj.setBorder(null);
@@ -275,8 +274,9 @@ public class HelpDialog extends JDialog {
 			            JOptionPane.showMessageDialog(null, jsp);
 			         }
 			      });
+		
 		JLabel lblDodajProf = new JLabel();
-		lblDodajProf.setText("Dugme za dodavanje studenta na predmet. Prečica: CTRL + D.");
+		lblDodajProf.setText("Dugme za dodavanje profesroa na predmet.");
 
 		btnDodProf.setOpaque(false);
 		btnDodProf.setBorder(null);
@@ -309,7 +309,7 @@ public class HelpDialog extends JDialog {
 		komponente.add(lblHelp, lbl(0, 7));
 		komponente.add(picHelp, tf(1, 7));
 		
-
+		this.setResizable(false);
 		this.add(help, BorderLayout.NORTH);
 		this.add(komponente, BorderLayout.CENTER);
 		this.add(dugmici, BorderLayout.SOUTH);

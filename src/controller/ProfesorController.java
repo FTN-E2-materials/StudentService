@@ -112,9 +112,9 @@ public class ProfesorController {
 		return true;
 	}
 	
-	public void izbrisiProfesora(int rowSelectedIndex) {
+	public void izbrisiProfesora() {
 
-		Profesor prof = BazaProfesora.getInstance().getRow(rowSelectedIndex);
+		Profesor prof = BazaProfesora.getInstance().getRow(ProfesoriJTable.curr_row);
 		BazaProfesora.getInstance().izbrisiProfesora(prof.getBrlk());
 		BazaPredmeta.getInstance().obrisiProfesoraPosle(prof.getBrlk());
 		ProfesoriJTable.refresh();		
@@ -189,6 +189,7 @@ public class ProfesorController {
 		}
 		
 		BazaProfesora.getInstance().izmeniProfesora(prof.getIme(), prof.getPrezime(), prof.getDatumr(), prof.getAdresa(), prof.getBr_tel(), prof.getEmail(), prof.getKancelarija(), prof.getBrlk(), prof.getZvanje(), prof.getTitula());
+		BazaPredmeta.getInstance().izmeniProfesoraPosleIzmene(prof.getBrlk());
 		ProfesoriJTable.refresh();
 		return true;
 	}

@@ -1,6 +1,7 @@
 package controller;
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import model.Predmet;
 import model.Profesor;
@@ -55,29 +56,48 @@ public class ControllerEntiteta {
 	
 	public void izmeniEntitet() {	
 		if(Tabele.tab_curr == 0) {
-			if (StudentJTable.curr_row != -1)
+			if (StudentJTable.curr_row != -1) {
 				dijalog = new DijalogIzmeniS(MainFrame.getInstance());
+			} else {
+				JOptionPane.showMessageDialog(null, "Morate označiti studenta za izmenu.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		else if (Tabele.tab_curr == 1) {
-			if (ProfesoriJTable.curr_row != -1)
+			if (ProfesoriJTable.curr_row != -1) {
 				dijalog = new DijalogIzmeniProfesora(MainFrame.getInstance());
+			} else {
+				JOptionPane.showMessageDialog(null, "Morate označiti profesora za izmenu.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+				
+			}
 		} else if (Tabele.tab_curr == 2) {
-			if (PredmetiJTable.curr_row != -1)
+			if (PredmetiJTable.curr_row != -1) {
 				dijalog = new DijalogIzmeniPredmet(MainFrame.getInstance());
+			} else {
+				JOptionPane.showMessageDialog(null, "Morate označiti predmet za izmenu.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
 	public void obrisiEntitet() {
 		if(Tabele.tab_curr == 0) {
-			if (StudentJTable.curr_row != -1)
+			if (StudentJTable.curr_row != -1) {
 				dijalog = new DijalogObrisiS(MainFrame.getInstance());
+			} else {
+				JOptionPane.showMessageDialog(null, "Morate označiti studenta za brisanje.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		else if(Tabele.tab_curr == 1) {
-			if (ProfesoriJTable.curr_row != -1)
+			if (ProfesoriJTable.curr_row != -1) {
 				dijalog = new DijalogObrisiProfesora(MainFrame.getInstance());
+			} else {
+				JOptionPane.showMessageDialog(null, "Morate označiti profesora za brisanje.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+			}
 		} else if (Tabele.tab_curr == 2) {
-			if (PredmetiJTable.curr_row != -1)
-				dijalog = new DijalogObrisiPredmet(MainFrame.getInstance());
+			if (PredmetiJTable.curr_row != -1) {
+				dijalog = new DijalogObrisiPredmet(MainFrame.getInstance()); 
+			} else {
+				JOptionPane.showMessageDialog(null, "Morate označiti predmet za brisanje.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 	
@@ -97,8 +117,11 @@ public class ControllerEntiteta {
 	}
 	
 	public void dodajEntitetNaPredmet() {
-		if (PredmetiJTable.curr_row != -1)
+		if (PredmetiJTable.curr_row != -1) {
 			dijalog = new DodajStudentaNaPredmet(MainFrame.getInstance());
+		} else {
+			JOptionPane.showMessageDialog(null, "Morate označiti predmet za dodavanje studenta.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	public void brisanjesaPredmetaStudent(Student s, String sifra) {
@@ -112,8 +135,11 @@ public class ControllerEntiteta {
 	}
 
 	public void dodajProfesoraNaPredmetu() {
-		if (PredmetiJTable.curr_row != -1)
+		if (PredmetiJTable.curr_row != -1) {
 			dijalog = new DodajProfesoraNaPredmet(MainFrame.getInstance());
+		} else {
+			JOptionPane.showMessageDialog(null, "Morate označiti predmet za dodavanje profesora.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
+		}
 		
 	}
 

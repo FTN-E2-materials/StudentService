@@ -65,8 +65,8 @@ public class StudentJTable extends JTable {
 	        	JTable tabela = (JTable)e.getComponent();
 	        	curr_row = tabela.convertRowIndexToModel(tabela.getSelectedRow());
 	        }
+	        
 	    });
-	   
 	    TableRowSorter<TableModel> sort = new TableRowSorter<>(this.getModel());
 		this.setRowSorter(sort);
 		

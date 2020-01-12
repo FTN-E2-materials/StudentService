@@ -211,9 +211,7 @@ public class BazaProfesora {
 			return;
 		}
 		ArrayList<Profesor> profesoriNadjeni = new ArrayList<Profesor>();
-		System.out.println(BazaProfesora.getInstance().getProfesori().size());
 		int i = 0;
-		System.out.println(text);
 		String[] deli = text.split(";"); 
 		String[] kriterijumi = new String[3];
 		String[] podaci = new String[3];
@@ -279,8 +277,9 @@ public class BazaProfesora {
 								titula2 = "Dr";
 							} else if (titula2.equals("Master")) {
 								titula2 = "Ms";
+							} else if (titula2.equals("Profesor doktor") || titula2.equals("Prof. Dr.")) {
+								titula2 = "ProfDr";
 							}
-							System.out.println(titula1);
 							if (titula1.equals(titula2)) {
 								isProfesor = true;
 							} else {

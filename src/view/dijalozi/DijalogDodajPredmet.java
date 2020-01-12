@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.event.DocumentListener;
 
 import controller.DocumentListenerDodajPredmet;
@@ -40,7 +41,7 @@ public class DijalogDodajPredmet extends JDialog {
 		this.setSize(MainFrame.width/3, MainFrame.height/2);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(parent);
-	
+		this.setResizable(false);
 		JPanel up = new JPanel(new GridBagLayout());
 		
 		JLabel labSifra = new JLabel("*Šifra predmeta:");
@@ -51,7 +52,7 @@ public class DijalogDodajPredmet extends JDialog {
 		labIme.setToolTipText("Unesite naziv predmeta");
 		imeP = new JTextField();
 		
-		String[] godine = { "I (prva)", "II (druga)", "III (treca)" , "IV (cetvrta)" };
+		String[] godine = { "I (prva)", "II (druga)", "III (treća)" , "IV (četvrta)" };
 		JLabel labGodina = new JLabel("*Godina:");
 		labGodina.setToolTipText("Unesite godina na kojoj se slusa predmet");
 		godina = new JComboBox(godine);
@@ -62,7 +63,7 @@ public class DijalogDodajPredmet extends JDialog {
 		labSemestar.setToolTipText("Unesite semestar na kom se slusa predmet");
 		semestar = new JComboBox(semestri);
 		
-		JLabel labProfesor = new JLabel("<html> Predmetni profesor: <br/> (broj lične karte) </html>");
+		JLabel labProfesor = new JLabel("<html><div style='text-align: center;'> Predmetni profesor: <br/> (broj lične karte) </div></html>", SwingConstants.CENTER);
 		labProfesor.setToolTipText("Unesite broj lične karte predmetnog profesora");
 		profesor = new JTextField();
 		

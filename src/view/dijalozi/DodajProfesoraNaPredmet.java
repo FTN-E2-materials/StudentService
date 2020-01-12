@@ -99,6 +99,7 @@ public class DodajProfesoraNaPredmet extends JDialog {
 		dugmici.add(delete);
 		dugmici.add(ok);
 		
+		this.setResizable(false);
 		this.add(up, BorderLayout.CENTER);
 		this.add(dugmici, BorderLayout.SOUTH);
 		this.setVisible(true);

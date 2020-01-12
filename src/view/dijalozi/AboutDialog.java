@@ -3,6 +3,8 @@ package view.dijalozi;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -11,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,10 +28,10 @@ public class AboutDialog extends JDialog {
 
 	public AboutDialog(JFrame parent) {
 		super(parent, "About", true);
-		this.setSize(MainFrame.width*3/4, MainFrame.height*3/4);
+		this.setSize(MainFrame.width*7/10, MainFrame.height*9/10);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(null);
-		this.setModal(true);
+		this.setResizable(false);
 		JPanel panel1 = new JPanel();
 		TitledBorder title;
 		title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "ABOUT", javax.swing.border.
@@ -74,8 +77,8 @@ public class AboutDialog extends JDialog {
 				+ "Trenutno je student treće godine smera Računarstvo i automatika sa prosekom 9.94.<br/>U slobodno vreme voli da istražuje novu muziku,"
 				+ " <br/>da se igra sa svojim mačkom Shonetom</br> i druži sa svojim drugarima.</html>");
 		student1.add(oJeleni);
-		oAleksandri.setText("<html>Aleksandra Stamenković, rođena 06.12.1998. u Inđiji,<br/> završila je srednju školu Gimnazija u Inđiji, prirodno matematički smer.<br/>"
-				+ "Trenutno je student treće godine smera Računarstvo i automatika sa prosekom 9.44.<br/>Slobodno vreme posvećuje držanju privatnih časova<br/>"
+		oAleksandri.setText("<html>Aleksandra Stamenković, rođena 06.12.1998. u Novom Sadu,<br/> završila je srednju školu Gimnazija u Inđiji, prirodno-matematički smer.<br/>"
+				+ "Trenutno je student treće godine smera Računarstvo i automatika sa prosekom 9.44<br/> i stipendista firme Schneider Electric DMS NS.<br/>Slobodno vreme posvećuje držanju privatnih časova "
 				+ "mlađim generacijama.</html>");
 		
 		student1.add(oJeleni);
@@ -89,6 +92,18 @@ public class AboutDialog extends JDialog {
 		this.add(panel2, BorderLayout.CENTER);
 		this.add(panel1, BorderLayout.NORTH);
 		
+		JButton zatvori = new JButton("Zatvori");
+		JPanel panelDugmici = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		panelDugmici.add(zatvori);
+		
+		zatvori.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		
+		this.add(panelDugmici, BorderLayout.SOUTH);
 		
 		this.setVisible(true);
 	}
