@@ -32,10 +32,9 @@ public class DodajProfesoraNaPredmet extends JDialog {
 	
 	public DodajProfesoraNaPredmet(JFrame parent) {
 		super(parent, "Dodaj profesora", true);
-		this.pack();
-		this.setSize(MainFrame.width/3, MainFrame.height/5);
+		this.setSize(MainFrame.width/3, MainFrame.height/4);
 		this.setLayout(new BorderLayout());
-		this.setLocationRelativeTo(null);
+		this.setLocationRelativeTo(parent);
 		
 		JLabel labBrlk = new JLabel("*Broj licne karte profesora:");
 		labBrlk.setToolTipText("Unesite broj licne karte");

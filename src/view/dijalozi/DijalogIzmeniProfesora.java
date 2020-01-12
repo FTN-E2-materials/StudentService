@@ -52,14 +52,14 @@ public class DijalogIzmeniProfesora extends JDialog {
 	public DijalogIzmeniProfesora(JFrame parent) {
 
 		super(parent, "Izmena profesora", true);
+		
 		if(BazaProfesora.getInstance().getProfesori().size() == 0) {
 			JOptionPane.showMessageDialog(null, "Ne postoji nijedan profesor", "Greska", JOptionPane.ERROR_MESSAGE);
 	
 		}
 		else {
 		
-		this.pack();
-		this.setSize(MainFrame.width/3, MainFrame.height*3/4);
+		this.setSize(MainFrame.width/3, MainFrame.height*8/10);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(parent);
 		this.setResizable(false);

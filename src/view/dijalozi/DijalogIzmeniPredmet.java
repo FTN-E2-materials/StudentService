@@ -40,7 +40,6 @@ public class DijalogIzmeniPredmet extends JDialog {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DijalogIzmeniPredmet (JFrame parent) {
 		super(parent, "Izmena predmeta", true);
-		this.pack();
 		this.setSize(MainFrame.width/3, MainFrame.height/2);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(parent);

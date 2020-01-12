@@ -43,7 +43,7 @@ public class DijalogDodajProfesora extends JDialog {
 	public DijalogDodajProfesora(JFrame parent) {
 
 		super(parent, "Dodavanje profesora", true);
-		this.setSize(MainFrame.width/3, MainFrame.height*3/4);
+		this.setSize(MainFrame.width/3, MainFrame.height*8/10);
 			
 		JPanel gornjiPanel = new JPanel(new GridBagLayout());
 		

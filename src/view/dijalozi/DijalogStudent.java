@@ -48,8 +48,7 @@ public class DijalogStudent extends JDialog {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DijalogStudent(JFrame parent) {
 		super(parent, "Dodavanje studenta", true);
-		this.pack();
-		this.setSize(MainFrame.width/3, MainFrame.height*3/4);
+		this.setSize(MainFrame.width/3, MainFrame.height*8/10);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(parent);
 		

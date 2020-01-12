@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -29,7 +30,8 @@ public class Detalji extends JDialog {
 		// listu predmeta kad sam stavila sva obelezja
 		// pa sam dodala jos jedno polje da bi moglo da se prikaze
 		
-		this.setSize(MainFrame.width/3, MainFrame.height/2);
+		this.setSize(MainFrame.width/3, MainFrame.height*8/10);
+		this.setPreferredSize(new Dimension(MainFrame.width/3, MainFrame.height*8/10));
 		this.setLocationRelativeTo(null);
 		this.setLayout(new BorderLayout());
 		JPanel panelStud = new JPanel(new GridBagLayout());

@@ -67,8 +67,7 @@ public class DijalogIzmeniS extends JDialog {
 			Student st = new Student();
 			st = BazaStudenata.getInstance().getRow(StudentJTable.curr_row);
 			
-			this.pack();
-			this.setSize(MainFrame.width/3, MainFrame.height*3/4);
+			this.setSize(MainFrame.width/3, MainFrame.height*8/10);
 			
 			this.setLayout(new BorderLayout());
 			this.setLocationRelativeTo(parent);

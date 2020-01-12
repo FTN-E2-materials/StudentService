@@ -29,10 +29,9 @@ public class DodajStudentaNaPredmet extends JDialog {
 
 	public DodajStudentaNaPredmet(JFrame parent) {
 		super(parent, "Dodaj studenta", true);
-		this.pack();
-		this.setSize(MainFrame.width/3, MainFrame.height/5);
+		this.setSize(MainFrame.width/3, MainFrame.height/4);
 		this.setLayout(new BorderLayout());
-		this.setLocationRelativeTo(null);
+		this.setLocationRelativeTo(parent);
 		
 		JLabel labBri = new JLabel("*Broj indeksa studenta:");
 		labBri.setToolTipText("Unesite broj indeksa");

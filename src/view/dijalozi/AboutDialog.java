@@ -28,7 +28,7 @@ public class AboutDialog extends JDialog {
 
 	public AboutDialog(JFrame parent) {
 		super(parent, "About", true);
-		this.setSize(MainFrame.width*7/10, MainFrame.height*9/10);
+		this.setSize(MainFrame.width*8/10, MainFrame.height*9/10);
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);

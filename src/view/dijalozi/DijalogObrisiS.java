@@ -68,7 +68,7 @@ public class DijalogObrisiS extends JDialog {
 			this.add(text, BorderLayout.CENTER);
 			this.add(panel, BorderLayout.SOUTH);
 			this.setResizable(false);
-			this.setLocationRelativeTo(null);
+			this.setLocationRelativeTo(parent);
 			this.setVisible(true);
 		}
 	}

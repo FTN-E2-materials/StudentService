@@ -66,7 +66,7 @@ public class DijalogObrisiProfesora extends JDialog {
 			
 			this.add(panel, BorderLayout.SOUTH);
 			this.setResizable(false);
-			this.setLocationRelativeTo(null);
+			this.setLocationRelativeTo(parent);
 			this.setVisible(true);
 		
 		}
